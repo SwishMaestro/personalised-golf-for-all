@@ -1,0 +1,30 @@
+/*
+  style.css = the LOOK of the website (colours, fonts, spacing, animation).
+  Created as a skeleton by Claude (AI), 8 Nov 2026.
+
+  All colours are stored once here as "variables", so changing one line
+  changes it everywhere on the site. These are only starting values from
+  the "Clubhouse" direction (green and cream). Leon decides the final ones.
+*/
+:root {
+  --paper: #F2EEE3;   /* background (cream) */
+  --ink: #242D23;     /* main text (dark green-black) */
+  --green: #2F4A35;   /* buttons and highlights */
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: system-ui, sans-serif;
+}
+
+button {
+  background: var(--green);
+  color: var(--paper);
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
