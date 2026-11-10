@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<!--
+  DESIGN TEST PAGE: Direction C, "Morning Round"
+  Made by Claude (AI) on 10 Nov 2026 for Leon to compare. This is NOT the real site.
+
+  Borrows mainly from tengilemalamala.com: calm, luxurious, large photography.
+  Idea: an early-morning round. Big full-width photos, lots of empty space,
+  an elegant light serif, soft stone and sage colours, slow gentle fades.
+
+  The "photos" are drawn placeholders (a simple landscape made in code).
+  Leon's own photos replace them later. No manufacturer images.
+
+  Everything (HTML + CSS + a tiny bit of JavaScript) is in this one file.
+  All text is PLACEHOLDER. Golf facts come from Leon's research notes, with sources.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C · Morning Round (design test)</title>
+
+  <script>document.documentElement.classList.add("js");</script>
+
+  <!-- Fonts: Cormorant Garamond (elegant serif headlines) + Jost (clean, readable body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       1. VARIABLES
+       ========================================================= */
+    :root {
+      --stone: #F5F1E9;        /* page background (warm stone) */
+      --sand: #ECE5D7;         /* soft panels */
+      --ink: #262A24;          /* main text */
+      --deep: #2D4233;         /* deep green: buttons, selected answers */
+      --sage: #6E7F68;         /* decorative only (lines, dots) */
+      --muted: #5F5C52;        /* secondary text (5.9:1 on stone) */
+      --line: rgba(38, 42, 36, 0.14);
+      --on-photo: #FBF7EE;     /* text on top of photos */
+
+      --serif: "Cormorant Garamond", "Cormorant", Garamond, Georgia, serif;
+      --sans: "Jost", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+
+      --slow: cubic-bezier(0.25, 0.6, 0.2, 1);
+      --gutter: clamp(20px, 5vw, 64px);
+      --max: 1240px;
+    }
+
+    /* =========================================================
+       2. BASICS
+       ========================================================= */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--stone); color: var(--ink);
+      font-family: var(--sans); font-size: 18px; line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--deep); outline-offset: 3px; }
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+    .wrap { max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+    cite { font-style: italic; font-family: var(--serif); font-size: 1rem; color: var(--muted); white-space: nowrap; }
+
+    /* Small spaced-out capitals, used for labels */
+    .caps { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; }
+
+    /* =========================================================
+       3. TEST-PAGE BAR (only for comparing designs)
+       ========================================================= */
+    .testbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+      gap: 6px 16px; padding: 8px 16px;
+      background: #1C1C1C; color: #F2F2F2; font: 500 13px/1.3 system-ui, sans-serif;
+    }
+    .testbar nav { display: flex; gap: 6px; flex-wrap: wrap; }
+    .testbar a { color: #F2F2F2; padding: 3px 8px; border-radius: 4px; text-underline-offset: 3px; }
+    .testbar a[aria-current="page"] { background: #F2F2F2; color: #1C1C1C; text-decoration: none; font-weight: 700; }
+    .screen-tag {
+      max-width: var(--max); margin: 0 auto; padding: 16px var(--gutter) 0;
+      display: flex; align-items: center; gap: 12px;
+      font: 600 11px/1.2 system-ui, sans-serif; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #6A6A6A;
+    }
+    .screen-tag::after { content: ""; flex: 1; border-top: 1px dashed currentColor; opacity: 0.5; }
+    section[id] { scroll-margin-top: 56px; }
+
+    /* =========================================================
+       4. PHOTO PLACEHOLDER
+       The landscape is drawn once (see the hidden <svg> at the top of the page)
+       and reused. It fills its box like a real photo would.
+       ========================================================= */
+    .photo { position: relative; overflow: hidden; background: #DCD8C8; }
+    .photo svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    .photo-label {
+      position: absolute; right: 14px; bottom: 12px; z-index: 2;
+      padding: 4px 10px; border-radius: 999px;
+      background: rgba(20, 26, 21, 0.55); color: var(--on-photo);
+      font-size: 0.7rem; letter-spacing: 0.08em;
+    }
+
+    /* =========================================================
+       5. BUTTONS
+       ========================================================= */
+    .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+      min-height: 54px; padding: 14px 34px;
+      border-radius: 999px; border: 1px solid var(--deep);
+      background: var(--deep); color: var(--on-photo);
+      font: 500 0.82rem/1 var(--sans); letter-spacing: 0.2em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer;
+      transition: background-color 0.5s var(--slow), color 0.5s var(--slow), border-color 0.5s var(--slow);
+    }
+    .button:hover { background: transparent; color: var(--deep); }
+    .button.on-photo { background: transparent; border-color: rgba(251, 247, 238, 0.7); color: var(--on-photo); }
+    .button.on-photo:hover { background: var(--on-photo); color: var(--deep); border-color: var(--on-photo); }
+    .text-button { font-size: 0.82rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; font-weight: 500; }
+    .text-button:hover { text-decoration: underline; text-underline-offset: 6px; }
+
+    /* =========================================================
+       6. SCREEN 1: HOME
+       ========================================================= */
+    /* Full-width photo with the headline on top */
+    .hero {
+      position: relative; display: grid; align-items: end;
+      min-height: min(88vh, 860px); min-height: min(88svh, 860px);
+      color: var(--on-photo);
+    }
+    .hero .photo { position: absolute; inset: 0; }
+    /* A soft dark gradient at the bottom keeps the text readable on any photo */
+    .hero::after {
+      content: ""; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(180deg, rgba(16, 24, 18, 0.4) 0%, rgba(16, 24, 18, 0.05) 22%, rgba(16, 24, 18, 0.5) 52%, rgba(16, 24, 18, 0.82) 100%);
+    }
+    .hero-header, .hero-text { position: relative; z-index: 2; }
+    .hero-header {
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      padding-block: 22px;
+    }
+    .wordmark { font-family: var(--serif); font-size: clamp(1.05rem, 3.6vw, 1.3rem); font-weight: 500; text-decoration: none; white-space: nowrap; }
+    .hero-header a.caps { text-decoration: none; white-space: nowrap; letter-spacing: 0.16em; }
+    .hero-header a.caps:hover { text-decoration: underline; text-underline-offset: 6px; }
+
+    .hero-text { padding-block: 120px 56px; text-align: center; }
+    .hero-text .caps { margin: 0 0 18px; }
+    h1 {
+      margin: 0 auto 22px; max-width: 13em;
+      font-family: var(--serif); font-weight: 400;
+      font-size: clamp(2.8rem, 8.6vw, 6.4rem); line-height: 1; letter-spacing: -0.01em;
+      text-wrap: balance;
+    }
+    h1 em { font-weight: 400; }
+    .hero-lede { margin: 0 auto 32px; max-width: 32em; font-size: 1.05rem; color: rgba(251, 247, 238, 0.92); }
+    .hero .photo-label { right: var(--gutter); bottom: 16px; }
+
+    /* Calm intro below the photo */
+    .intro { padding-block: 88px 40px; text-align: center; }
+    .intro .caps { margin: 0 0 24px; color: var(--muted); }
+    .intro-statement {
+      margin: 0 auto; max-width: 22em;
+      font-family: var(--serif); font-weight: 400; font-size: clamp(1.75rem, 4.2vw, 2.7rem); line-height: 1.25;
+      text-wrap: balance;
+    }
+    .pillars { list-style: none; margin: 72px auto 0; padding: 0; display: grid; gap: 36px; max-width: 1000px; text-align: left; }
+    .pillars li { padding-top: 18px; border-top: 1px solid var(--line); }
+    .pillars h2 { margin: 0 0 6px; font-family: var(--serif); font-weight: 500; font-size: 1.5rem; line-height: 1.2; }
+    .pillars p { margin: 0; color: var(--muted); font-size: 1rem; }
+
+    /* Photo + text side by side */
+    .split { display: grid; gap: 36px; padding-block: 64px 96px; align-items: center; }
+    .split .photo { aspect-ratio: 4 / 5; border-radius: 4px; }
+    .split .caps { margin: 0 0 18px; color: var(--muted); }
+    .split h2 { margin: 0 0 18px; font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 4.6vw, 3.2rem); line-height: 1.1; }
+    .split p { margin: 0 0 16px; max-width: 30em; color: var(--muted); }
+
+    @media (min-width: 860px) {
+      .pillars { grid-template-columns: repeat(3, 1fr); gap: 48px; }
+      .split { grid-template-columns: 1fr 1fr; gap: 88px; }
+      .split .photo { aspect-ratio: 4 / 5; }
+    }
+
+    /* =========================================================
+       7. SCREEN 2: ONE QUESTION
+       ========================================================= */
+    .question { padding-block: 64px 112px; background: var(--sand); }
+    .q-inner { max-width: 680px; margin-inline: auto; text-align: center; }
+    .progress { margin-bottom: 56px; }
+    .progress .caps { margin: 0 0 14px; color: var(--muted); }
+    .progress-line { position: relative; height: 1px; max-width: 240px; margin-inline: auto; background: rgba(38, 42, 36, 0.2); }
+    .progress-line span { position: absolute; left: 0; top: -1px; height: 3px; width: var(--p); border-radius: 2px; background: var(--deep); }
+
+    fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+    legend { width: 100%; padding: 0; margin-bottom: 12px; }
+    .q-title {
+      display: block;
+      font-family: var(--serif); font-weight: 500;
+      font-size: clamp(2.1rem, 6vw, 3.3rem); line-height: 1.08;
+      text-wrap: balance;
+    }
+    .hint { margin: 0 0 40px; color: var(--muted); }
+
+    .options { display: grid; gap: 12px; text-align: left; }
+    .option {
+      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px;
+      padding: 20px 24px;
+      border: 1px solid var(--line); border-radius: 16px;
+      background: var(--stone); cursor: pointer;
+      transition: border-color 0.5s var(--slow), background-color 0.5s var(--slow), box-shadow 0.5s var(--slow);
+    }
+    .option:hover { border-color: rgba(45, 66, 51, 0.5); }
+    .option strong { display: block; font-family: var(--serif); font-weight: 600; font-size: 1.4rem; line-height: 1.2; }
+    .option span span { display: block; color: var(--muted); font-size: 0.98rem; }
+    .option input {
+      appearance: none; -webkit-appearance: none; margin: 0;
+      width: 22px; height: 22px; border-radius: 50%;
+      border: 1px solid rgba(38, 42, 36, 0.4);
+      background: radial-gradient(circle, var(--deep) 0 42%, transparent 45%) center / 0 0 no-repeat;
+      transition: background-size 0.4s var(--slow), border-color 0.4s;
+      cursor: pointer;
+    }
+    .option:has(input:checked) { border-color: var(--deep); background: #FBF9F4; box-shadow: 0 12px 30px -18px rgba(45, 66, 51, 0.45); }
+    .option input:checked { border-color: var(--deep); background-size: 100% 100%; }
+    @supports selector(:has(*)) {
+      .option input:focus-visible { outline: none; }
+      .option:has(input:focus-visible) { outline: 3px solid var(--deep); outline-offset: 3px; }
+    }
+
+    .why { margin: 40px auto 0; max-width: 34em; font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 1.2rem; line-height: 1.5; color: var(--ink); }
+    .why cite { display: block; margin-top: 6px; font-family: var(--sans); font-style: normal; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; }
+    .q-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 40px; }
+
+    /* =========================================================
+       8. SCREEN 3: ONE RESULT CARD
+       ========================================================= */
+    .result { padding-block: 88px 120px; }
+    .result-head { text-align: center; margin-bottom: 56px; }
+    .result-head .caps { margin: 0 0 16px; color: var(--muted); }
+    .result-head h2 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(2.2rem, 5.4vw, 3.6rem); line-height: 1.05; }
+
+    .card { display: grid; max-width: 1040px; margin-inline: auto; background: #FBF9F4; border-radius: 6px; overflow: hidden; box-shadow: 0 30px 60px -40px rgba(38, 42, 36, 0.4); }
+    .card .photo { aspect-ratio: 4 / 3; }
+    .card-text { padding: clamp(26px, 5vw, 56px); }
+    .card-meta { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0 0 12px; color: var(--muted); }
+    .card-meta span + span::before { content: "·"; margin-right: 16px; }
+    .card h3 { margin: 0 0 6px; font-family: var(--serif); font-weight: 400; font-size: clamp(2.2rem, 5vw, 3rem); line-height: 1; }
+    .price { margin: 0 0 32px; color: var(--muted); font-size: 0.98rem; }
+
+    .card h4 { margin: 0 0 10px; color: var(--muted); }
+    .card-section { padding-block: 22px; border-top: 1px solid var(--line); }
+    .card-section p { margin: 0; }
+    .reasons { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+    .reasons li { display: grid; grid-template-columns: 14px 1fr; gap: 14px; }
+    .reasons li::before { content: ""; width: 7px; height: 7px; margin-top: 11px; border-radius: 50%; background: var(--sage); }
+    .from-answer { display: block; font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--deep); }
+    .card-section.next-step { padding: 22px 24px; margin-top: 4px; border-top: 0; border-radius: 12px; background: var(--sand); }
+
+    @media (min-width: 860px) {
+      .card { grid-template-columns: 0.85fr 1.15fr; }
+      .card .photo { aspect-ratio: auto; min-height: 100%; }
+    }
+
+    .test-footer { padding-block: 28px 48px; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); }
+
+    /* =========================================================
+       9. MOTION: slow, gentle fades (only when allowed)
+       The headline fades up first, then the button: it shows the
+       visitor where to look and what to do next.
+       ========================================================= */
+    @media (prefers-reduced-motion: no-preference) {
+      .js .hero-text > * { opacity: 0; transform: translateY(14px); animation: settle 1.4s var(--slow) forwards; }
+      .js .hero-text > :nth-child(2) { animation-delay: 0.15s; }
+      .js .hero-text > :nth-child(3) { animation-delay: 0.35s; }
+      .js .hero-text > :nth-child(4) { animation-delay: 0.6s; }
+      @keyframes settle { to { opacity: 1; transform: none; } }
+
+      .js [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 1.2s var(--slow), transform 1.2s var(--slow); }
+      .js [data-reveal].is-visible { opacity: 1; transform: none; }
+
+      .js .progress-line[data-reveal] { opacity: 1; transform: none; }
+      .js .progress-line[data-reveal] span { width: calc(var(--p) - 12.5%); transition: width 1.4s var(--slow) 0.3s; }
+      .js .progress-line[data-reveal].is-visible span { width: var(--p); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- The drawn landscape used as a photo placeholder. Defined once, reused with <use>. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#C9D1C6"/>
+        <stop offset="0.5" stop-color="#E8E1CF"/>
+        <stop offset="1" stop-color="#EAD7B8"/>
+      </linearGradient>
+      <radialGradient id="glow" cx="0.68" cy="0.46" r="0.35">
+        <stop offset="0" stop-color="#FAF0D8" stop-opacity="0.95"/>
+        <stop offset="1" stop-color="#FAF0D8" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="mist" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#EDE6D6" stop-opacity="0"/>
+        <stop offset="1" stop-color="#EDE6D6" stop-opacity="0.7"/>
+      </linearGradient>
+      <filter id="grain">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+        <feColorMatrix type="saturate" values="0"/>
+      </filter>
+      <symbol id="landscape" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+        <rect width="1600" height="1000" fill="url(#sky)"/>
+        <rect width="1600" height="1000" fill="url(#glow)"/>
+        <path d="M0 540 C220 500 380 520 560 492 C760 460 920 512 1120 480 C1320 450 1460 486 1600 470 V1000 H0Z" fill="#A9B29C"/>
+        <rect y="440" width="1600" height="140" fill="url(#mist)"/>
+        <path d="M0 610 C300 570 600 630 900 590 C1150 556 1400 600 1600 580 V1000 H0Z" fill="#879777"/>
+        <path d="M0 705 C350 645 700 725 1050 675 C1300 640 1480 665 1600 655 V1000 H0Z" fill="#647A57"/>
+        <path d="M-40 830 C380 760 820 850 1220 795 C1420 768 1530 784 1640 778 V1000 H-40Z" fill="#455C3E"/>
+        <line x1="1004" y1="676" x2="1004" y2="606" stroke="#2A2E28" stroke-width="3"/>
+        <path d="M1004 606 L1034 615 L1004 624Z" fill="#B5543A"/>
+        <rect width="1600" height="1000" filter="url(#grain)" opacity="0.07"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="testbar">
+    <span>Design test · placeholder content</span>
+    <nav aria-label="Design directions">
+      <a href="index.html">All</a>
+      <a href="a-yardage-book.html">A · Yardage Book</a>
+      <a href="b-members-card.html">B · Members' Card</a>
+      <a href="c-morning-round.html" aria-current="page">C · Morning Round</a>
+    </nav>
+  </div>
+
+  <main>
+    <!-- ================= SCREEN 1: HOME ================= -->
+    <p class="screen-tag">Screen 1 · Home</p>
+    <section id="home" aria-labelledby="home-title">
+      <div class="hero">
+        <div class="photo" role="img" aria-label="Placeholder for Leon's own photo of a golf course in the morning">
+          <svg aria-hidden="true" focusable="false"><use href="#landscape"/></svg>
+        </div>
+        <div class="hero-header wrap">
+          <a class="wordmark" href="#home">Personalised Golf for All</a>
+          <a class="caps" href="#">How it works</a>
+        </div>
+        <div class="hero-text wrap">
+          <p class="caps">An iron finder for recreational golfers</p>
+          <h1 id="home-title">A calmer way to choose your <em>irons</em></h1>
+          <p class="hero-lede">Answer a few questions about how you play. We suggest up to three irons and explain each one: why it suits you, what you give up, and what to do next.</p>
+          <a class="button on-photo" href="#question">Begin</a>
+        </div>
+        <span class="photo-label">Placeholder · Leon's photo</span>
+      </div>
+
+      <div class="intro wrap" data-reveal>
+        <p class="caps">How it works</p>
+        <p class="intro-statement">Not a list of the “best” irons. A short list of the ones that fit how <em>you</em> play, with the reasons written down.</p>
+        <ul class="pillars">
+          <li><h2>Your answers</h2><p>One question at a time, about your game and what matters to you.</p></li>
+          <li><h2>Clear reasons</h2><p>Each suggestion shows why it fits, and a trade-off.</p></li>
+          <li><h2>An honest next step</h2><p>Where a demo or fitting can check what a questionnaire can't.</p></li>
+        </ul>
+      </div>
+
+      <div class="split wrap" data-reveal>
+        <div class="photo" role="img" aria-label="Placeholder for Leon's own photo">
+          <svg aria-hidden="true" focusable="false"><use href="#landscape"/></svg>
+          <span class="photo-label">Placeholder · Leon's photo</span>
+        </div>
+        <div>
+          <p class="caps">A starting point</p>
+          <h2>Not a replacement for a fitting</h2>
+          <p>This tool helps you narrow down where you sit among iron types and models. When nothing fits, it says so and explains why.</p>
+          <a class="text-button" href="#">Read about the method →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SCREEN 2: ONE QUESTION ================= -->
+    <p class="screen-tag">Screen 2 · Question</p>
+    <section id="question" class="question" aria-labelledby="q-title">
+      <div class="wrap">
+        <div class="q-inner">
+          <div class="progress">
+            <p class="caps">Question three of eight</p>
+            <div class="progress-line" data-reveal role="progressbar" aria-label="Questionnaire progress"
+                 aria-valuemin="0" aria-valuemax="8" aria-valuenow="3" style="--p: 37.5%"><span></span></div>
+          </div>
+
+          <form>
+            <fieldset>
+              <legend><span class="q-title" id="q-title">When an iron shot goes wrong, what usually happens?</span></legend>
+              <p class="hint">Choose the one you see most often.</p>
+              <div class="options">
+                <label class="option">
+                  <span><strong>Low shots</strong><span>The ball doesn't get up into the air.</span></span>
+                  <input type="radio" name="miss-c" value="low">
+                </label>
+                <label class="option">
+                  <span><strong>Slices</strong><span>The ball curves away to the right (for a right-handed golfer).</span></span>
+                  <input type="radio" name="miss-c" value="slice">
+                </label>
+                <label class="option">
+                  <span><strong>Chunks</strong><span>The club hits the ground before the ball.</span></span>
+                  <input type="radio" name="miss-c" value="chunk" checked>
+                </label>
+              </div>
+            </fieldset>
+
+            <p class="why">
+              Why we ask: your usual miss helps choose between game-improvement irons, which help on mishits, and super game-improvement irons, which mainly help launch.
+              <cite>Johnson, Golf Digest, 2026</cite>
+            </p>
+
+            <div class="q-nav">
+              <a class="text-button" href="#home">← Back</a>
+              <a class="button" href="#result">Continue</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SCREEN 3: ONE RESULT CARD ================= -->
+    <p class="screen-tag">Screen 3 · Result card</p>
+    <section id="result" class="result wrap" aria-labelledby="result-title">
+      <div class="result-head">
+        <p class="caps">Your shortlist</p>
+        <h2 id="result-title">Three irons to consider</h2>
+      </div>
+
+      <article class="card" data-reveal aria-labelledby="r-title">
+        <div class="photo" role="img" aria-label="Placeholder for Leon's own photo">
+          <svg aria-hidden="true" focusable="false"><use href="#landscape"/></svg>
+          <span class="photo-label">Placeholder · Leon's photo</span>
+        </div>
+        <div class="card-text">
+          <p class="card-meta caps"><span>First of three</span><span>Game-improvement</span></p>
+          <h3 id="r-title">Example Iron A</h3>
+          <p class="price">Typical set price in this category: $799–1,299 · <cite>Covey, 2025</cite></p>
+
+          <div class="card-section">
+            <h4 class="caps">Why it suits you</h4>
+            <ul class="reasons">
+              <li><p><span class="from-answer">You said your usual miss is a chunk.</span>Game-improvement irons are designed to help on mishits. <cite>Johnson, 2026</cite></p></li>
+              <li><p><span class="from-answer">You said forgiveness matters most.</span>When forgiveness is the priority, game-improvement is usually the category to look at. <cite>Covey, 2025</cite></p></li>
+            </ul>
+          </div>
+          <div class="card-section">
+            <h4 class="caps">What you give up</h4>
+            <p>A bigger head and more offset than players distance irons. <cite>Covey, 2025</cite></p>
+          </div>
+          <div class="card-section next-step">
+            <h4 class="caps">Before you buy</h4>
+            <p>This is a starting point, not a fitting. If you can, try it at a demo or fitting first.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="test-footer wrap">
+    Design test page made by Claude (AI) for Leon. All content is placeholder. "Example Iron A" is not a real model. The landscape is drawn in code as a stand-in for Leon's photos.
+  </footer>
+
+  <script>
+    // Adds "is-visible" to elements marked data-reveal when they scroll into view.
+    // The CSS uses it for the slow fade-ins and the progress line.
+    var revealItems = document.querySelectorAll("[data-reveal]");
+    if ("IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      revealItems.forEach(function (item) { observer.observe(item); });
+    } else {
+      revealItems.forEach(function (item) { item.classList.add("is-visible"); });
+    }
+  </script>
+</body>
+</html>

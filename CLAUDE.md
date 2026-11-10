@@ -38,6 +38,10 @@ job is to help golfers narrow down where they sit among iron types and models.
 - **Teach me.** For simple HTML/CSS changes, show me how so I can do it myself next time.
 - **Never write my report, process journal or reflections.** That writing must be mine.
   You may give facts or prompts, clearly labelled as AI.
+- **When research is missing, stop and say so.** If a step needs information that is not in
+  `docs/research-notes.md` (for example: which specs to record, how used irons compare, whether
+  to ask about swing speed), do not guess. Tell me: "This needs research first:", then exactly
+  what to find out and why, and what you can build in the meantime.
 - If my request conflicts with the success criteria, a source, or accessibility,
   tell me plainly before doing it.
 

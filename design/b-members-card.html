@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<!--
+  DESIGN TEST PAGE: Direction B, "Members' Card"
+  Made by Claude (AI) on 10 Nov 2026 for Leon to compare. This is NOT the real site.
+
+  Borrows mainly from moto-card.com: premium, bold type, smooth motion.
+  Idea: a dark clubhouse at night. Very large condensed headlines, a brass accent,
+  and results shown as cream "cards" like a club membership card.
+  Motion is used to explain things: the shortlist fans out like a deck of 3 cards,
+  and a result's parts appear in reading order (reasons, then trade-off, then next step).
+
+  Everything (HTML + CSS + a tiny bit of JavaScript) is in this one file.
+  All text is PLACEHOLDER. Golf facts come from Leon's research notes, with sources.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B · Members' Card (design test)</title>
+
+  <script>document.documentElement.classList.add("js");</script>
+
+  <!-- Fonts: Archivo (bold, can be condensed) + Instrument Serif (the clubhouse serif accent) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       1. VARIABLES
+       ========================================================= */
+    :root {
+      --night: #0E2219;        /* page background: very deep green */
+      --raise: #1A3829;        /* slightly lighter green for panels */
+      --cream: #F2EBDA;        /* main text on dark, and the card colour */
+      --cream-dim: rgba(242, 235, 218, 0.74);  /* secondary text on dark (7:1+) */
+      --brass: #D2AE66;        /* accent, like a brass plaque (7.8:1 on night) */
+      --line: rgba(242, 235, 218, 0.16);
+      --ink: #13241A;          /* text on cream cards */
+      --ink-dim: #4A5A4E;      /* secondary text on cream (6:1) */
+
+      --sans: "Archivo", "Arial Narrow", system-ui, sans-serif;
+      --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+
+      --ease: cubic-bezier(0.2, 0.75, 0.15, 1);   /* fast start, soft landing */
+      --gutter: clamp(20px, 5vw, 64px);
+      --max: 1280px;
+    }
+
+    /* =========================================================
+       2. BASICS
+       ========================================================= */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--night); color: var(--cream);
+      font-family: var(--sans); font-size: 17px; line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--brass); outline-offset: 3px; }
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+    .wrap { max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+    cite { font-style: normal; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; opacity: 0.85; }
+
+    /* =========================================================
+       3. TEST-PAGE BAR (only for comparing designs)
+       ========================================================= */
+    .testbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+      gap: 6px 16px; padding: 8px 16px;
+      background: #1C1C1C; color: #F2F2F2; font: 500 13px/1.3 system-ui, sans-serif;
+    }
+    .testbar nav { display: flex; gap: 6px; flex-wrap: wrap; }
+    .testbar a { color: #F2F2F2; padding: 3px 8px; border-radius: 4px; text-underline-offset: 3px; }
+    .testbar a[aria-current="page"] { background: #F2F2F2; color: #1C1C1C; text-decoration: none; font-weight: 700; }
+    .screen-tag {
+      max-width: var(--max); margin: 0 auto; padding: 16px var(--gutter) 0;
+      display: flex; align-items: center; gap: 12px;
+      font: 600 11px/1.2 system-ui, sans-serif; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #9AA89E;
+    }
+    .screen-tag::after { content: ""; flex: 1; border-top: 1px dashed currentColor; opacity: 0.5; }
+    section[id] { scroll-margin-top: 56px; }
+
+    /* =========================================================
+       4. SHARED PIECES
+       ========================================================= */
+    .site-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 20px; }
+    .wordmark {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-weight: 700; font-stretch: 80%; font-size: 0.95rem;
+      letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+    }
+    .wordmark::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--brass); }
+    .pill-link {
+      padding: 9px 18px; border: 1px solid var(--line); border-radius: 999px;
+      font-size: 0.9rem; font-weight: 500; text-decoration: none; white-space: nowrap;
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+    .pill-link:hover { background: var(--raise); border-color: var(--cream-dim); }
+
+    .kicker {
+      margin: 0 0 16px;
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--brass);
+    }
+
+    .button {
+      display: inline-flex; align-items: center; gap: 14px;
+      min-height: 56px; padding: 8px 8px 8px 28px;
+      background: var(--cream); color: var(--ink);
+      border: 0; border-radius: 999px;
+      font: 700 1.05rem/1 var(--sans); text-decoration: none; cursor: pointer;
+    }
+    /* The arrow sits in a dark circle and slides on hover */
+    .button .arrow {
+      display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+      background: var(--ink); color: var(--cream);
+      transition: transform 0.35s var(--ease);
+    }
+    .button:hover .arrow { transform: translateX(4px) rotate(-45deg); }
+
+    /* =========================================================
+       5. SCREEN 1: HOME
+       ========================================================= */
+    .hero { padding-block: 24px 64px; }
+
+    .mega {
+      margin: 0 0 40px;
+      font-weight: 800; font-stretch: 72%;
+      font-size: clamp(3.6rem, 15.5vw, 12.5rem);
+      line-height: 0.86; letter-spacing: -0.01em; text-transform: uppercase;
+    }
+    .mega .line { display: block; overflow: hidden; padding-bottom: 0.05em; }
+    .mega .line > span { display: block; }
+    .mega .serif {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      text-transform: none; letter-spacing: -0.01em; line-height: 0.95;
+      color: var(--brass); padding-left: 0.04em;
+    }
+
+    .hero-bottom { display: grid; gap: 48px; align-items: end; }
+    .lede { margin: 0 0 28px; max-width: 30em; font-size: 1.15rem; color: var(--cream-dim); }
+    .lede strong { color: var(--cream); font-weight: 600; }
+    .note { margin: 24px 0 0; font-size: 0.9rem; color: var(--cream-dim); }
+
+    /* A small preview of a result card: shows the visitor what they will get */
+    .preview { margin: 0; justify-self: center; width: min(100%, 360px); }
+    .deck { position: relative; }
+    .deck .ghost {
+      position: absolute; inset: 0; border-radius: 22px;
+      transform-origin: 50% 100%;
+    }
+    .deck .ghost-2 { background: #3C5A47; transform: rotate(6deg); }
+    .deck .ghost-1 { background: #8C9A86; transform: rotate(3deg); }
+    .mini-card {
+      position: relative; padding: 24px; border-radius: 22px;
+      background: var(--cream); color: var(--ink);
+      box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.55);
+    }
+    .mini-top { display: flex; justify-content: space-between; align-items: baseline; margin: 0 0 4px; }
+    .mini-rank { font-weight: 900; font-stretch: 65%; font-size: 3rem; line-height: 1; }
+    .mini-cat { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-dim); }
+    .mini-name { margin: 0 0 16px; font-weight: 800; font-stretch: 75%; font-size: 1.6rem; text-transform: uppercase; line-height: 1; }
+    .mini-card ul { list-style: none; margin: 0; padding: 14px 0 0; border-top: 1px solid rgba(19, 36, 26, 0.15); display: grid; gap: 8px; font-size: 0.92rem; }
+    .mini-card li { display: flex; align-items: center; gap: 10px; }
+    .mini-card li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--ink); flex-shrink: 0; }
+    .mini-card li.mini-trade::before { background: transparent; border: 1.5px solid var(--ink); }
+    .mini-card li.mini-next::before { border-radius: 1px; transform: rotate(45deg); }
+    .preview figcaption { margin-top: 22px; text-align: center; font-size: 0.85rem; color: var(--cream-dim); }
+
+    /* Three promises, numbers in brass (from success criterion R-iii) */
+    .promises {
+      list-style: none; margin: 64px 0 0; padding: 0;
+      display: grid; border-top: 1px solid var(--line);
+    }
+    .promises li {
+      display: grid; grid-template-columns: 4.5rem 1fr; align-items: center; gap: 16px;
+      padding-block: 18px; border-bottom: 1px solid var(--line);
+    }
+    .promises strong { font-weight: 800; font-stretch: 70%; font-size: 3rem; line-height: 1; color: var(--brass); }
+    .promises span { font-size: 1.05rem; }
+
+    @media (min-width: 860px) {
+      .hero { padding-block: 40px 96px; }
+      .hero-bottom { grid-template-columns: 1.1fr 0.9fr; }
+      .promises { grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line); }
+      .promises li { grid-template-columns: auto 1fr; border-bottom: 0; padding: 24px 24px 24px 0; }
+      .promises li + li { border-left: 1px solid var(--line); padding-left: 24px; }
+    }
+
+    /* =========================================================
+       6. SCREEN 2: ONE QUESTION
+       ========================================================= */
+    .question { padding-block: 40px 96px; }
+    .q-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .back { font-size: 0.95rem; font-weight: 500; text-decoration: none; color: var(--cream-dim); }
+    .back:hover { color: var(--cream); }
+    .q-count { margin: 0; font-size: 0.95rem; color: var(--cream-dim); }
+    .q-count strong { color: var(--cream); }
+
+    /* Progress made of 8 segments: done = cream, current = fills with brass */
+    .segments { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin-bottom: 48px; }
+    .segments span { position: relative; height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+    .segments .done { background: var(--cream); }
+    .segments .current::after { content: ""; position: absolute; inset: 0; background: var(--brass); }
+
+    fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+    legend { padding: 0; margin-bottom: 32px; }
+    .q-title {
+      display: block; max-width: 16em;
+      font-weight: 700; font-stretch: 88%;
+      font-size: clamp(2rem, 5.6vw, 3.6rem); line-height: 1.02; letter-spacing: -0.015em;
+      text-wrap: balance;
+    }
+
+    /* Answer cards: real radio buttons inside labels */
+    .options { display: grid; gap: 12px; }
+    .option {
+      position: relative;
+      display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; align-content: start;
+      padding: 22px;
+      border: 1px solid var(--line); border-radius: 22px;
+      background: var(--raise); cursor: pointer;
+      transition: background-color 0.35s var(--ease), color 0.35s var(--ease), border-color 0.35s var(--ease), transform 0.35s var(--ease);
+    }
+    .option:hover { border-color: var(--cream-dim); }
+    .opt-letter { font-family: var(--serif); font-style: italic; font-size: 2.4rem; line-height: 0.9; color: var(--brass); transition: color 0.35s var(--ease); }
+    .opt-title { grid-column: 1 / -1; margin-top: 10px; font-weight: 700; font-size: 1.35rem; line-height: 1.15; }
+    .opt-desc { grid-column: 1 / -1; font-size: 0.98rem; color: var(--cream-dim); transition: color 0.35s var(--ease); }
+    .option input {
+      grid-column: 2; grid-row: 1;
+      appearance: none; -webkit-appearance: none; margin: 0;
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 1.5px solid var(--cream-dim);
+      background: radial-gradient(circle, var(--ink) 0 42%, transparent 45%) center / 0 0 no-repeat;
+      transition: background-size 0.3s var(--ease), border-color 0.3s;
+      cursor: pointer;
+    }
+    /* Picked card turns cream, like the result card it leads to */
+    .option:has(input:checked) { background: var(--cream); color: var(--ink); border-color: var(--cream); }
+    .option:has(input:checked) .opt-letter { color: var(--ink); }
+    .option:has(input:checked) .opt-desc { color: var(--ink-dim); }
+    .option input:checked { border-color: var(--ink); background-size: 100% 100%; }
+    @supports selector(:has(*)) {
+      .option input:focus-visible { outline: none; }
+      .option:has(input:focus-visible) { outline: 3px solid var(--brass); outline-offset: 3px; }
+    }
+
+    .q-footer { display: flex; flex-direction: column; gap: 28px; margin-top: 40px; }
+    .why { margin: 0; max-width: 36em; padding-left: 16px; border-left: 2px solid var(--brass); font-size: 0.95rem; color: var(--cream-dim); }
+    .why b { display: block; margin-bottom: 4px; color: var(--cream); }
+    .why cite { display: block; margin-top: 6px; color: var(--brass); opacity: 1; }
+
+    @media (min-width: 760px) {
+      .options { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .option { min-height: 210px; padding: 26px; }
+      .option:hover { transform: translateY(-3px); }
+      .q-footer { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+      .q-footer .button { flex-shrink: 0; }
+    }
+
+    /* =========================================================
+       7. SCREEN 3: ONE RESULT CARD
+       ========================================================= */
+    .result { padding-block: 40px 120px; }
+    .section-title {
+      margin: 0 0 40px;
+      font-weight: 800; font-stretch: 72%; text-transform: uppercase;
+      font-size: clamp(2.8rem, 9vw, 6.5rem); line-height: 0.9;
+    }
+    .section-title .serif { font-family: var(--serif); font-style: italic; font-weight: 400; text-transform: none; color: var(--brass); }
+
+    /* The two cards peeking out underneath show "there are 3 results" */
+    .card-stack { position: relative; max-width: 920px; padding-bottom: 28px; }
+    .card-stack .under {
+      position: absolute; left: 0; right: 0; height: 60px; border-radius: 0 0 28px 28px;
+    }
+    .card-stack .under-1 { bottom: 14px; margin-inline: 14px; background: #8C9A86; }
+    .card-stack .under-2 { bottom: 0; margin-inline: 28px; background: #3C5A47; }
+
+    .card {
+      position: relative; z-index: 1;
+      padding: clamp(22px, 4vw, 44px);
+      background: var(--cream); color: var(--ink); border-radius: 28px;
+    }
+    .card-top { display: grid; grid-template-columns: auto 1fr; gap: 18px 24px; align-items: start; padding-bottom: 24px; border-bottom: 1px solid rgba(19, 36, 26, 0.15); }
+    .rank { margin: 0; font-weight: 900; font-stretch: 62%; font-size: clamp(4.5rem, 16vw, 8rem); line-height: 0.78; color: var(--ink); }
+    .pill { display: inline-block; margin: 0 0 10px; padding: 5px 12px; border-radius: 999px; background: var(--ink); color: var(--cream); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .card h3 { margin: 0 0 8px; font-weight: 800; font-stretch: 75%; text-transform: uppercase; font-size: clamp(1.9rem, 5.4vw, 3rem); line-height: 0.95; }
+    .price { margin: 0; font-size: 0.95rem; color: var(--ink-dim); }
+
+    .card h4 { margin: 0 0 14px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-dim); }
+    .card-body { padding-top: 24px; }
+    .reasons { list-style: none; margin: 0 0 28px; padding: 0; display: grid; gap: 18px; }
+    .reasons li { display: grid; grid-template-columns: 28px 1fr; gap: 14px; }
+    .reasons svg { width: 28px; height: 28px; }
+    .reasons p { margin: 6px 0 0; font-size: 1.05rem; }
+    .because { display: inline-block; padding: 3px 10px; border-radius: 999px; border: 1px solid rgba(19, 36, 26, 0.3); font-size: 0.8rem; font-weight: 600; }
+
+    .split { display: grid; gap: 12px; }
+    .trade, .next { padding: 20px 22px; border-radius: 18px; }
+    .trade { border: 1px solid rgba(19, 36, 26, 0.2); }
+    .trade p, .next p { margin: 0; }
+    .next { background: var(--ink); color: var(--cream); }
+    .next h4 { color: var(--brass); }
+    @media (min-width: 760px) { .split { grid-template-columns: 1fr 1fr; } }
+
+    .test-footer { padding-block: 28px 48px; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--cream-dim); }
+
+    /* =========================================================
+       8. MOTION (only when the visitor allows it)
+       ========================================================= */
+    @media (prefers-reduced-motion: no-preference) {
+      /* Headline lines rise into place one after another on load */
+      .js .mega .line > span { transform: translateY(105%); animation: rise 1s var(--ease) forwards; }
+      .js .mega .line:nth-child(2) > span { animation-delay: 0.12s; }
+      .js .mega .line:nth-child(3) > span { animation-delay: 0.24s; }
+      @keyframes rise { to { transform: translateY(0); } }
+
+      /* Preview deck: starts stacked, then fans out to show "up to 3 results" */
+      .js .preview[data-reveal] .ghost { transform: rotate(0deg); transition: transform 0.9s var(--ease) 0.3s; }
+      .js .preview[data-reveal].is-visible .ghost-1 { transform: rotate(3deg); }
+      .js .preview[data-reveal].is-visible .ghost-2 { transform: rotate(6deg); }
+      .js .preview[data-reveal] .mini-card { transform: translateY(30px); opacity: 0; transition: transform 0.9s var(--ease), opacity 0.6s ease; }
+      .js .preview[data-reveal].is-visible .mini-card { transform: none; opacity: 1; }
+
+      /* Progress: the current segment fills from left to right */
+      .js .segments[data-reveal] .current::after { transform: scaleX(0); transform-origin: left; transition: transform 1s var(--ease) 0.2s; }
+      .js .segments[data-reveal].is-visible .current::after { transform: scaleX(1); }
+
+      /* Result: parts appear in reading order (reasons, then trade-off, then next step) */
+      .js .card-stack[data-reveal] .step { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.7s var(--ease); transition-delay: calc(var(--i) * 140ms + 150ms); }
+      .js .card-stack[data-reveal].is-visible .step { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="testbar">
+    <span>Design test · placeholder content</span>
+    <nav aria-label="Design directions">
+      <a href="index.html">All</a>
+      <a href="a-yardage-book.html">A · Yardage Book</a>
+      <a href="b-members-card.html" aria-current="page">B · Members' Card</a>
+      <a href="c-morning-round.html">C · Morning Round</a>
+    </nav>
+  </div>
+
+  <header class="wrap site-header">
+    <a class="wordmark" href="#home">Personalised Golf for All</a>
+    <a class="pill-link" href="#">How it works</a>
+  </header>
+
+  <main>
+    <!-- ================= SCREEN 1: HOME ================= -->
+    <p class="screen-tag">Screen 1 · Home</p>
+    <section id="home" class="hero wrap" aria-labelledby="home-title">
+      <h1 class="mega" id="home-title">
+        <span class="line"><span>Irons</span></span>
+        <span class="line serif"><span>chosen for</span></span>
+        <span class="line"><span>your game</span></span>
+      </h1>
+
+      <div class="hero-bottom">
+        <div>
+          <p class="lede">Answer a few questions about how you play. Get <strong>a shortlist of irons</strong>, each explained with reasons from your answers, a trade-off and an honest next step.</p>
+          <a class="button" href="#question">Start <span class="arrow" aria-hidden="true">→</span></a>
+          <p class="note">A starting point, not a replacement for a fitting.</p>
+        </div>
+
+        <figure class="preview" data-reveal>
+          <div class="deck">
+            <div class="ghost ghost-2" aria-hidden="true"></div>
+            <div class="ghost ghost-1" aria-hidden="true"></div>
+            <div class="mini-card">
+              <p class="mini-top"><span class="mini-rank">01</span><span class="mini-cat">Game-improvement</span></p>
+              <p class="mini-name">Example Iron A</p>
+              <ul>
+                <li>Reason from your answers</li>
+                <li>Second reason</li>
+                <li class="mini-trade">Trade-off</li>
+                <li class="mini-next">Next step: demo or fitting</li>
+              </ul>
+            </div>
+          </div>
+          <figcaption>What every result includes</figcaption>
+        </figure>
+      </div>
+
+      <ul class="promises">
+        <li><strong>2+</strong><span>reasons linked to your answers</span></li>
+        <li><strong>1</strong><span>honest trade-off</span></li>
+        <li><strong>1</strong><span>next step, like a demo or fitting</span></li>
+      </ul>
+    </section>
+
+    <!-- ================= SCREEN 2: ONE QUESTION ================= -->
+    <p class="screen-tag">Screen 2 · Question</p>
+    <section id="question" class="question wrap" aria-labelledby="q-title">
+      <div class="q-top">
+        <a class="back" href="#home">← Back</a>
+        <p class="q-count">Question <strong>3</strong> of 8</p>
+      </div>
+      <div class="segments" data-reveal role="progressbar" aria-label="Questionnaire progress"
+           aria-valuemin="0" aria-valuemax="8" aria-valuenow="3">
+        <span class="done"></span><span class="done"></span><span class="current"></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <form>
+        <fieldset>
+          <legend>
+            <span class="kicker">About your game</span>
+            <span class="q-title" id="q-title">When an iron shot goes wrong, what usually happens?</span>
+          </legend>
+          <div class="options">
+            <label class="option">
+              <span class="opt-letter" aria-hidden="true">a</span>
+              <input type="radio" name="miss-b" value="low">
+              <span class="opt-title">Low shots</span>
+              <span class="opt-desc">The ball doesn't get up into the air.</span>
+            </label>
+            <label class="option">
+              <span class="opt-letter" aria-hidden="true">b</span>
+              <input type="radio" name="miss-b" value="slice">
+              <span class="opt-title">Slices</span>
+              <span class="opt-desc">The ball curves away to the right (for a right-handed golfer).</span>
+            </label>
+            <label class="option">
+              <span class="opt-letter" aria-hidden="true">c</span>
+              <input type="radio" name="miss-b" value="chunk" checked>
+              <span class="opt-title">Chunks</span>
+              <span class="opt-desc">The club hits the ground before the ball.</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="q-footer">
+          <p class="why">
+            <b>Why we ask</b>
+            Your usual miss helps choose between game-improvement irons, which help on mishits, and super game-improvement irons, which mainly help launch.
+            <cite>Johnson, Golf Digest, 2026</cite>
+          </p>
+          <a class="button" href="#result">Next <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </form>
+    </section>
+
+    <!-- ================= SCREEN 3: ONE RESULT CARD ================= -->
+    <p class="screen-tag">Screen 3 · Result card</p>
+    <section id="result" class="result wrap" aria-labelledby="result-title">
+      <p class="kicker">Your shortlist</p>
+      <h2 class="section-title" id="result-title">Three irons <span class="serif">for</span> your game</h2>
+
+      <div class="card-stack" data-reveal>
+        <div class="under under-2" aria-hidden="true"></div>
+        <div class="under under-1" aria-hidden="true"></div>
+
+        <article class="card" aria-labelledby="r-title">
+          <div class="card-top">
+            <p class="rank"><span class="sr-only">Match </span>01<span class="sr-only"> of 3</span></p>
+            <div>
+              <p class="pill">Game-improvement</p>
+              <h3 id="r-title">Example Iron A</h3>
+              <p class="price">Typical set price in this category: $799–1,299 · <cite>Covey, 2025</cite></p>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <h4 class="step" style="--i: 0">Why it suits you</h4>
+            <ul class="reasons">
+              <li class="step" style="--i: 1">
+                <svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="13" fill="#13241A"/><path d="M8.5 14.5l3.5 3.5 7.5-8" fill="none" stroke="#F2EBDA" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div>
+                  <span class="because">Because you said: Chunks</span>
+                  <p>Game-improvement irons are designed to help on mishits. <cite>Johnson, 2026</cite></p>
+                </div>
+              </li>
+              <li class="step" style="--i: 2">
+                <svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="13" fill="#13241A"/><path d="M8.5 14.5l3.5 3.5 7.5-8" fill="none" stroke="#F2EBDA" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div>
+                  <span class="because">Because you said: Forgiveness matters most</span>
+                  <p>When forgiveness is the priority, game-improvement is usually the category to look at. <cite>Covey, 2025</cite></p>
+                </div>
+              </li>
+            </ul>
+
+            <div class="split">
+              <div class="trade step" style="--i: 3">
+                <h4>Trade-off</h4>
+                <p>A bigger head and more offset than players distance irons. <cite>Covey, 2025</cite></p>
+              </div>
+              <div class="next step" style="--i: 4">
+                <h4>Before you buy</h4>
+                <p>This is a starting point, not a fitting. If you can, try it at a demo or fitting first.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="test-footer wrap">
+    Design test page made by Claude (AI) for Leon. All content is placeholder. "Example Iron A" is not a real model.
+  </footer>
+
+  <script>
+    // Adds "is-visible" to elements marked data-reveal when they scroll into view.
+    // The CSS uses it to start the deck fan-out, the progress fill and the result order.
+    var revealItems = document.querySelectorAll("[data-reveal]");
+    if ("IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.25 });
+      revealItems.forEach(function (item) { observer.observe(item); });
+    } else {
+      revealItems.forEach(function (item) { item.classList.add("is-visible"); });
+    }
+  </script>
+</body>
+</html>
