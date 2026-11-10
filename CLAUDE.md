@@ -127,7 +127,9 @@ Recommender Systems" (2015); ASQ, "What Is a Decision Matrix?"; Google for Devel
 
 ## 7. Findings from my research so far
 
-Full notes: Google Doc "Research notes - PP - Leon". Summaries below are from my notes.
+Full notes: `docs/research-notes.md` (a copy of my Google Doc "Research notes - PP - Leon";
+the Google Doc is the live version). Use it to check and cite sources. Summaries below are
+from my notes.
 
 - **Johnson, E. Michael. "'Easy-To-Hit' Clubs Might Not Be the Fix for Your Iron Game."
   Golf Digest, 2026.** Ask about the golfer's usual miss (low shots, slices, chunks) to choose
@@ -163,6 +165,9 @@ fitting, used and older models, and the algorithm questions above.
   - `script.js`: logic and algorithm
   - `data/irons.json`: club database (fields to be decided by me)
   - `docs/build-log.md`: build log
+  - `docs/roadmap.md`: the build plan, phase by phase
+  - `docs/research-notes.md`: copy of my research notes
+  - `design/`: test pages for comparing design directions (Phase 1)
 - **Mobile first.** Test at phone width (about 375px) and laptop width.
 - **Accessibility:** real `<button>` and `<label>` elements, visible keyboard focus,
   good colour contrast, readable font sizes.
@@ -179,3 +184,4 @@ fitting, used and older models, and the algorithm questions above.
 - **Testing:** 5 testers in the last week, then fix and retest.
 
 Plan: look → questionnaire → algorithm → iron database → testing.
+Full plan with dates: `docs/roadmap.md`. Current phase: **Phase 1, the look.**
