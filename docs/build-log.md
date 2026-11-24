@@ -2,6 +2,24 @@
 
 Newest entries at the top. Format and rules: see CLAUDE.md, section 3.
 
+## 2026-11-24 — Questionnaire works: playing the hole shot by shot (Part 1)
+- What changed:
+  - script.js (rewritten): the 10 questions with Leon's exact wording, help text and options (product-plan.md section 3); all answers saved in one `answers` object (no scoring yet); Next (disabled until an answer is chosen), Back (ball returns to its previous spot without replaying the shot), Skip on question 10. Each Next plays one shot (all under 1.5 s): 1 drive with a brass tracer, 2 fairway wood that rolls into a fairway bunker, 3 bunker escape with a little sand spray, 4 layup, 5 approach into a greenside bunker, 6 splash shot with a bigger spray onto the fringe, 7 chip, 8 curving long putt, 9 lip-out round the rim, 10 tap-in, then the flag sways and the results placeholder appears. A shot can be skipped by clicking/tapping the hole or pressing Enter/Space. Camera: on phones it follows the ball (closer on the green); on laptops it shows the whole hole and eases in to the green from shot 6. Label "Shot X · ..." on the hole; no score anywhere.
+  - index.html: the hole now only appears on question screens; temporary simple home page (until Leon chooses a home design); question screen, results placeholder (lists the saved answers for testing). Drawing: soft rounded trees, green about 20% bigger, new layers for the tracer and sand spray.
+  - style.css: question screen (options, 2 compact columns for 5+ options on phones under 420px, number fields), shot label, results placeholder, reduced motion.
+- Accessibility (U3): "Question X of 10" always shown as text; real radio buttons and labels; focus moves to each new question; aria-live announces "Question X of 10"; the drawing is hidden from screen readers; with reduced motion the ball simply appears at its new spot. Tested at 375 × 667 and 1440 × 900: no sideways scrolling, no console errors.
+- Why: "The site doesn't feel like a real website yet, and there are no questions." The hole should be only for the questionnaire and feel like playing it shot by shot (Leon). Skip a shot: Leon to add.
+- Decided by: Leon (shot list, labels incl. "Lip-out", skipping, hole only on question screens); animation details suggested by Claude, approved by Leon
+- Source: questions from docs/product-plan.md section 3 (Leon's sources listed there); hole inspired by the 15th at Crans-sur-Sierre (PGA Tour/AP, 3 Sept 2023)
+- Criterion: U1, U3, design
+
+## 2026-11-24 — Questionnaire step 1: hole illustration, layout and home screen
+- What changed: index.html (replaced skeleton: header, original SVG drawing of a par-5 hole inspired by the 15th at Crans-sur-Sierre, home screen with Leon's headline and line, inspiration credit linked to PGA Tour), style.css (design D colours and fonts as variables; phone and laptop layout). Shapes drawn with a helper script kept outside the project.
+- Why: a Swiss course near where Leon lives, a Swedish player like his family's roots, and a par 5 gives enough "shots" for 10 questions (Leon, product-plan.md section 2)
+- Decided by: Leon (hole idea, caption, headline); drawing and layout suggested by Claude, approved by Leon
+- Source: PGA Tour/AP, 3 Sept 2023 (Åberg's shot); PGA.com (Alps view); no distances stated
+- Criterion: design, U3
+
 ## 2026-11-11 — Design direction chosen: C (Morning Round), mixed with parts of A and B
 - What changed: Leon chose Direction C as the base for the look. Added design/d-chosen.html, a test page of the mix (home, one question screen, one result card), and added it to design/index.html. index.html not changed yet.
   - Kept from C: full-width photo opening, light serif (Cormorant Garamond), stone/sage colours, gentle fades.

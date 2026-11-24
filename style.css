@@ -4,10 +4,11 @@
   which Leon chose on 11 Nov 2026.
 
   Sections:
-    1. Variables (colours, fonts, sizes)    5. The hole panel
-    2. Basics                               6. Home screen
-    3. Shared pieces (labels, buttons)      7. Laptop layout (1024px and wider)
-    4. Page layout (phone first)
+    1. Variables (colours, fonts, sizes)     6. Home screen (temporary)
+    2. Basics                                7. Question screen
+    3. Shared pieces (labels, buttons)       8. Results screen (placeholder)
+    4. Page layout (phone first)             9. Laptop layout (1024px and wider)
+    5. The hole panel                       10. Reduced motion
 */
 
 /* =========================================================
@@ -17,14 +18,13 @@
   /* Colours from design D (stone and sage, with a small brass accent) */
   --stone: #F5F1E9;        /* page background */
   --panel: #EBE4D4;        /* background behind the hole drawing ("paper") */
-  --sand: #ECE5D7;         /* soft panels */
-  --paper: #FBF9F4;        /* cards */
+  --paper: #FBF9F4;        /* cards and answer options */
   --ink: #262A24;          /* main text */
-  --deep: #2D4233;         /* deep green: buttons, links, highlights */
+  --deep: #2D4233;         /* deep green: buttons, selected answers */
   --deep-hover: #22342A;
   --muted: #5F5C52;        /* secondary text (5:1 contrast on --panel, 5.9:1 on --stone) */
   --line: rgba(38, 42, 36, 0.14);
-  --brass: #CDAA66;        /* on dark backgrounds only */
+  --line-strong: rgba(38, 42, 36, 0.4);
   --brass-ink: #7A5C26;    /* brass-coloured small text on light backgrounds */
 
   /* Fonts (each has a fallback in case Google Fonts doesn't load) */
@@ -34,15 +34,14 @@
 
   /* Sizes */
   --gutter: clamp(20px, 5vw, 64px);   /* side space, grows with the screen */
-  --band-home: 46svh;               /* phone: height of the hole band on the home screen */
-  --band-questions: 40svh;            /* phone: height of the hole band during the questions */
+  --band: 40svh;                      /* phone: height of the hole band during the questions */
 
-  --slow: cubic-bezier(0.25, 0.6, 0.2, 1);   /* calm easing used for movement */
+  --slow: cubic-bezier(0.25, 0.6, 0.2, 1);   /* calm easing */
 }
 
 /* Short phones (e.g. iPhone SE): the band shrinks to 30% so the question fits (Leon, 24 Nov) */
 @media (max-height: 700px) {
-  :root { --band-questions: 30svh; }
+  :root { --band: 30svh; }
 }
 
 /* =========================================================
@@ -80,7 +79,7 @@ a { color: inherit; }
 .caps { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; }
 
 /* Small monospace numbers */
-.num { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.04em; }
+.num { font-family: var(--mono); font-weight: 500; letter-spacing: 0.04em; }
 
 /* Round arrow button (from design D): text + an arrow in its own circle */
 .button {
@@ -90,7 +89,7 @@ a { color: inherit; }
   background: var(--deep); color: var(--stone);
   font: 500 0.82rem/1 var(--sans); letter-spacing: 0.2em; text-transform: uppercase;
   cursor: pointer;
-  transition: background-color 0.5s var(--slow), border-color 0.5s var(--slow), opacity 0.3s;
+  transition: background-color 0.5s var(--slow), opacity 0.3s;
 }
 .button .arrow {
   display: grid; place-items: center; flex-shrink: 0;
@@ -103,9 +102,23 @@ a { color: inherit; }
 .button:hover { background: var(--deep-hover); }
 .button:hover .arrow { transform: translateX(3px); }   /* the arrow nudges forward */
 
+/* Disabled (no answer chosen yet): faded, no hover movement */
+.button:disabled { opacity: 0.4; cursor: not-allowed; }
+.button:disabled:hover { background: var(--deep); }
+.button:disabled:hover .arrow { transform: none; }
+
+/* Plain text button (Back, Skip) */
+.text-button {
+  min-height: 44px; padding: 10px 4px;
+  background: none; border: 0; color: var(--ink);
+  font: 500 0.8rem/1 var(--sans); letter-spacing: 0.2em; text-transform: uppercase;
+  cursor: pointer;
+}
+.text-button:hover { text-decoration: underline; text-underline-offset: 6px; }
+
 /* =========================================================
    4. PAGE LAYOUT (phone first)
-   On a phone everything is stacked: header, hole band, content.
+   Phone: header, then (on question screens) the hole band, then the content.
    ========================================================= */
 .app {
   display: grid;
@@ -120,82 +133,178 @@ a { color: inherit; }
   display: flex; justify-content: space-between; align-items: center; gap: 16px;
   padding: 14px var(--gutter);
 }
-.wordmark {
-  font-family: var(--serif); font-size: 1.2rem; font-weight: 500;
-  text-decoration: none; white-space: nowrap;
-}
-.header-link {
-  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
-  text-decoration: none; white-space: nowrap;
-}
+.wordmark { font-family: var(--serif); font-size: 1.2rem; font-weight: 500; text-decoration: none; white-space: nowrap; }
+.header-link { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
 .wordmark:hover, .header-link:hover { text-decoration: underline; text-underline-offset: 6px; }
 
-.content {
-  grid-area: main;
-  padding: 32px var(--gutter) 56px;
-}
-.screen { width: 100%; max-width: 36rem; }
+.content { grid-area: main; padding: 28px var(--gutter) 56px; }
+.screen { width: 100%; }
 
 /* =========================================================
-   5. THE HOLE PANEL
+   5. THE HOLE PANEL (question screens only)
    ========================================================= */
 .hole-panel {
   grid-area: hole;
+  position: relative;
   margin: 0;
-  display: flex; flex-direction: column;
-  height: var(--band-home);
+  display: none;                 /* hidden on home and results */
+  flex-direction: column;
+  height: var(--band);
   background: var(--panel);
 }
-/* During the questions and results the phone band gets shorter */
-.app:not([data-screen="home"]) .hole-panel { height: var(--band-questions); }
+.app[data-screen="questions"] .hole-panel { display: flex; }
 
 /* The drawing fills the frame; script.js moves its "camera" (the SVG viewBox) */
 .hole-frame { position: relative; flex: 1; min-height: 0; }
 .hole-frame svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
-/* Inspiration credit: small text on plain paper, never on top of the drawing */
-.hole-caption {
-  padding: 8px var(--gutter) 14px;
-  font-size: 0.78rem; line-height: 1.5; color: var(--muted);
+/* While a shot is playing, the panel can be clicked to skip to the end of the shot */
+.app.is-playing .hole-panel { cursor: pointer; }
+
+/* "Shot 3 · Fairway bunker": on a solid pill, never directly on the artwork */
+.shot-label {
+  position: absolute; top: 12px; left: 12px; z-index: 2;
+  margin: 0; padding: 7px 14px;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: rgba(251, 249, 244, 0.94);
+  font-size: 0.7rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
 }
+.shot-label .num { color: var(--brass-ink); letter-spacing: 0.04em; }
+
+/* Inspiration credit: only under the hole on laptop (see section 9) */
+.hole-caption { display: none; font-size: 0.78rem; line-height: 1.5; color: var(--muted); }
 .hole-caption a { color: var(--deep); font-weight: 500; text-underline-offset: 3px; white-space: nowrap; }
-.app:not([data-screen="home"]) .hole-caption { display: none; }   /* home screen only */
 
 /* =========================================================
-   6. HOME SCREEN
+   6. HOME SCREEN (temporary until Leon picks a home page design)
    ========================================================= */
+.home { max-width: 60rem; padding-block: clamp(32px, 10vh, 120px); }
 .home h1 {
-  margin: 0 0 16px;
+  margin: 0 0 18px;
   font-family: var(--serif); font-weight: 400;
-  font-size: clamp(2.5rem, 4.8vw, 4.9rem); line-height: 1.02; letter-spacing: -0.01em;
+  font-size: clamp(2.8rem, 7vw, 6.2rem); line-height: 1.02; letter-spacing: -0.01em;
 }
-.home h1 em { display: block; color: var(--deep); }   /* second sentence on its own line, in italic green */
-.home .lede { margin: 0 0 28px; max-width: 26em; font-size: 1.1rem; color: var(--muted); }
+.home h1 em { display: block; color: var(--deep); }   /* second sentence on its own line, italic green */
+.lede { margin: 0 0 30px; max-width: 28em; font-size: 1.15rem; color: var(--muted); }
 
 /* =========================================================
-   7. LAPTOP LAYOUT (1024px and wider)
-   The hole fills a sticky panel on the left (45%), the content sits on the right.
+   7. QUESTION SCREEN
+   ========================================================= */
+.questions { max-width: 38rem; }
+.q-progress { margin: 0 0 14px; color: var(--muted); }
+.q-progress .num { color: var(--ink); font-size: 0.85rem; }
+
+/* The question area dims while a shot plays, then the next question fades in */
+.q-body { transition: opacity 0.35s var(--slow), transform 0.35s var(--slow); }
+.q-body.is-waiting { opacity: 0.35; }
+.q-body.is-entering { opacity: 0; transform: translateY(8px); }
+
+fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+legend { padding: 0; margin-bottom: 10px; }
+.q-title {
+  margin: 0;
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(1.9rem, 3.4vw, 2.9rem); line-height: 1.1;
+  font-variant-numeric: lining-nums;
+  text-wrap: balance;
+}
+.q-title:focus { outline: none; }   /* focus is moved here by script.js; it isn't a control */
+.hint { margin: 0 0 24px; max-width: 34em; font-size: 1rem; color: var(--muted); }
+
+/* Answer options: real radio buttons inside labels, so the whole card is clickable */
+.options { display: grid; gap: 10px; }
+.option {
+  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 14px;
+  min-height: 56px; padding: 14px 18px;
+  border: 1px solid var(--line); border-radius: 14px;
+  background: var(--paper); cursor: pointer;
+  font-weight: 500; font-variant-numeric: lining-nums; line-height: 1.3;
+  transition: border-color 0.4s var(--slow), box-shadow 0.4s var(--slow);
+}
+.option:hover { border-color: rgba(45, 66, 51, 0.5); }
+.option input {
+  appearance: none; -webkit-appearance: none; margin: 0;
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: radial-gradient(circle, var(--deep) 0 42%, transparent 45%) center / 0 0 no-repeat;
+  transition: background-size 0.3s var(--slow), border-color 0.3s;
+  cursor: pointer;
+}
+.option input:checked { border-color: var(--deep); background-size: 100% 100%; }
+.option:has(input:checked) { border-color: var(--deep); box-shadow: 0 0 0 1px var(--deep), 0 12px 28px -20px rgba(45, 66, 51, 0.5); }
+/* Keyboard focus ring on the whole card (browsers that support :has) */
+@supports selector(:has(*)) {
+  .option input:focus-visible { outline: none; }
+  .option:has(input:focus-visible) { outline: 3px solid var(--deep); outline-offset: 3px; }
+}
+
+/* Phones under 420px: questions with 5+ options use 2 compact columns (Leon, 24 Nov) */
+@media (max-width: 419px) {
+  .options.compact { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .options.compact .option { min-height: 52px; padding: 10px 12px; gap: 8px; font-size: 0.92rem; border-radius: 12px; }
+  .options.compact .option input { width: 18px; height: 18px; }
+}
+
+/* Question 10: optional number fields */
+.fields { display: grid; gap: 18px; }
+.field label { display: block; margin-bottom: 6px; font-weight: 500; }
+.field-hint { display: block; margin: -2px 0 8px; font-size: 0.9rem; color: var(--muted); }
+.field input {
+  width: 100%; max-width: 12rem; min-height: 48px; padding: 10px 14px;
+  border: 1px solid var(--line-strong); border-radius: 10px;
+  background: var(--paper); color: var(--ink); font: inherit;
+}
+.field input:focus-visible { outline: 3px solid var(--deep); outline-offset: 2px; }
+
+/* Back on the left, (Skip +) Next on the right */
+.q-nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 30px; }
+.q-nav-right { display: flex; align-items: center; gap: 18px; }
+
+/* =========================================================
+   8. RESULTS SCREEN (placeholder)
+   ========================================================= */
+.results { max-width: 44rem; padding-block: clamp(16px, 6vh, 72px); }
+.results-kicker { margin: 0 0 14px; color: var(--brass-ink); }
+.results h1 { margin: 0 0 14px; font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.05; }
+.results h1:focus { outline: none; }
+.answers-list {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 0;
+  margin: 0 0 32px; border-top: 1px solid var(--line-strong);
+}
+.answers-list div { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.answers-list dt { font-size: 0.85rem; color: var(--muted); }
+.answers-list dd { margin: 0; font-weight: 500; }
+@media (min-width: 640px) {
+  .answers-list div { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+}
+
+/* =========================================================
+   9. LAPTOP LAYOUT (1024px and wider)
+   On question screens the hole fills a sticky panel on the left (45%).
    ========================================================= */
 @media (min-width: 1024px) {
-  .app {
+  .site-header { padding: 28px clamp(40px, 5vw, 88px); }
+  .content { padding: 24px clamp(40px, 5vw, 88px) 88px; }
+
+  .app[data-screen="questions"] {
     grid-template-columns: 45% minmax(0, 1fr);
     grid-template-rows: auto 1fr;
     grid-template-areas: "hole header" "hole main";
   }
-  .hole-panel,
-  .app:not([data-screen="home"]) .hole-panel {
+  .app[data-screen="questions"] .hole-panel {
     grid-row: 1 / span 2;
     align-self: start;
     position: sticky; top: 0;
     height: 100vh; height: 100svh;
   }
-  .hole-frame { margin-top: 28px; }   /* no side margins: the Alps and contours run to the panel's edges */
-  .hole-caption { padding: 14px 44px 28px; max-width: 42em; }
+  .app[data-screen="questions"] .content { display: flex; align-items: center; }
+  .shot-label { top: 24px; left: 24px; }
+  .hole-caption { display: block; padding: 12px 32px 22px; max-width: 46em; }
+}
 
-  .site-header { padding: 28px clamp(40px, 5vw, 88px); }
-  .content {
-    display: flex; align-items: center;
-    padding: 24px clamp(40px, 5vw, 88px) 88px;
-  }
-  .home .lede { font-size: 1.2rem; }
+/* =========================================================
+   10. REDUCED MOTION: no fades or movement (the ball also jumps, see script.js)
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .q-body, .button, .button .arrow, .option, .option input { transition: none; }
 }
