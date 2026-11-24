@@ -7,16 +7,18 @@
   the questionnaire "plays one golf hole" shot by shot. The look is design direction D (design/d-chosen.html).
 
   Screens (only one shows at a time; script.js switches them):
-    1. Home        - TEMPORARY simple version until Leon chooses a home page design (design/home-1, 2, 3).
+    1. Home        - Leon's chosen home page, option 1 "D, refined" (from design/home-1.html, 24 Nov).
     2. Questions   - the 10 questions, with the golf hole next to them (laptop) or above them (phone).
     3. Results     - placeholder for now.
-    4. How it works - to do.
+    4. How it works - to do (for now the header link goes to "How it works" on the home page).
 
   The golf hole is shown ONLY on the question screens (Leon, 24 Nov).
 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!-- Adds the class "js" straight away, so home page fade-ins only hide things when JavaScript works -->
+  <script>document.documentElement.classList.add("js");</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Personalised Golf for All</title>
   <meta name="description" content="A free, honest starting point before you buy irons or book a fitting.">
@@ -30,25 +32,10 @@
 </head>
 <body>
 
-  <!-- The whole app. data-screen tells the CSS which screen is showing (home, questions or results). -->
-  <div class="app" data-screen="home">
-
-    <!-- SITE HEADER: name of the site + link to How it works -->
-    <header class="site-header">
-      <a class="wordmark" href="./">Personalised Golf for All</a>
-      <a class="header-link" href="#how-it-works">How it works</a>
-    </header>
-
-    <!-- THE HOLE: shown only on the question screens. A decorative illustration (screen readers skip it).
-         Original drawing inspired by the 15th at Crans-sur-Sierre. Not a course map, no distances.
-         Clicking or tapping it during a shot skips to the end of the shot. -->
-    <figure class="hole-panel" id="hole-panel">
-      <!-- Small label naming the shot you're about to play, e.g. "Shot 3 · Fairway bunker" (filled by script.js) -->
-      <p class="shot-label" id="shot-label" aria-hidden="true"></p>
-      <div class="hole-frame" id="hole-frame">
-        <svg id="hole" viewBox="0 0 600 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
-        <!-- Patterns and gradients: mowing stripes and the fade under the Alps -->
-        <defs>
+  <!-- SHARED DRAWING PARTS (hidden): patterns and gradients for the hole, the landscape that stands in
+       for Leon's photos, and the arrow used on buttons. Kept outside the hole so the home page can use them too. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
           <pattern id="mow" width="34" height="34" patternUnits="userSpaceOnUse" patternTransform="rotate(-28)">
             <rect width="17" height="34" fill="#FFFFFF" fill-opacity="0.09"/>
           </pattern>
@@ -59,7 +46,48 @@
             <stop offset="0" stop-color="#EBE4D4" stop-opacity="0"/>
             <stop offset="1" stop-color="#EBE4D4" stop-opacity="1"/>
           </linearGradient>
-        </defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9D1C6"/><stop offset="0.5" stop-color="#E8E1CF"/><stop offset="1" stop-color="#EAD7B8"/></linearGradient>
+      <radialGradient id="glow" cx="0.68" cy="0.46" r="0.35"><stop offset="0" stop-color="#FAF0D8" stop-opacity="0.95"/><stop offset="1" stop-color="#FAF0D8" stop-opacity="0"/></radialGradient>
+      <!-- Drawn landscape: a stand-in for Leon's own photos -->
+      <symbol id="landscape" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+        <rect width="1600" height="1000" fill="url(#sky)"/><rect width="1600" height="1000" fill="url(#glow)"/>
+        <path d="M0 520 L160 470 L250 440 L300 400 L340 430 L420 380 L470 410 L560 360 L600 330 L640 370 L720 410 L800 395 L900 430 L980 400 L1060 300 L1090 270 L1120 300 L1180 380 L1260 410 L1360 395 L1480 430 L1600 420 V600 H0Z" fill="#D7DAD1"/>
+        <path d="M0 540 C220 500 380 520 560 492 C760 460 920 512 1120 480 C1320 450 1460 486 1600 470 V1000 H0Z" fill="#A9B29C"/>
+        <path d="M0 610 C300 570 600 630 900 590 C1150 556 1400 600 1600 580 V1000 H0Z" fill="#879777"/>
+        <path d="M0 705 C350 645 700 725 1050 675 C1300 640 1480 665 1600 655 V1000 H0Z" fill="#647A57"/>
+        <path d="M-40 830 C380 760 820 850 1220 795 C1420 768 1530 784 1640 778 V1000 H-40Z" fill="#455C3E"/>
+        <line x1="1004" y1="676" x2="1004" y2="606" stroke="#2A2E28" stroke-width="3"/><path d="M1004 606 L1034 615 L1004 624Z" fill="#B5543A"/>
+      </symbol>
+      <!-- Arrow inside the round buttons -->
+      <symbol id="arrow" viewBox="0 0 16 16"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- The whole app. data-screen tells the CSS which screen is showing (home, questions or results). -->
+  <div class="app" data-screen="home">
+
+    <!-- SITE HEADER (navigation bar).
+         Home page: section links (laptop) + a small Start button.
+         Question and results screens: just the name and "How it works" (which goes back to the home page). -->
+    <header class="site-header">
+      <a class="wordmark" href="./">Personalised Golf for All</a>
+      <nav class="nav-links" aria-label="Main">
+        <a href="#how">How it works</a><a href="#get">What you get</a><a href="#trust">Why trust it</a><a href="#about">About</a>
+      </nav>
+      <a class="header-link" href="#how">How it works</a>
+      <button class="button small header-start" type="button" data-start>
+        Start <span class="arrow" aria-hidden="true"><svg focusable="false"><use href="#arrow"/></svg></span>
+      </button>
+    </header>
+
+    <!-- THE HOLE: shown only on the question screens. A decorative illustration (screen readers skip it).
+         Original drawing inspired by the 15th at Crans-sur-Sierre. Not a course map, no distances.
+         Clicking or tapping it during a shot skips to the end of the shot. -->
+    <figure class="hole-panel" id="hole-panel">
+      <div class="hole-frame" id="hole-frame">
+        <svg id="hole" viewBox="0 0 600 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+        <!-- THE COURSE (static layers), grouped so the home page can show it too with <use href="#hole-art"> -->
+        <g id="hole-art">
         <!-- Paper background (same colour as the panel) -->
         <rect x="-400" y="-400" width="1400" height="1800" fill="#EBE4D4"/>
         <!-- ALPS: a quiet two-layer ridge at the far end; one peak hints at the Matterhorn (view: PGA.com) -->
@@ -395,12 +423,13 @@
         <path d="M335.6 533.2C337.4 534.9 337.6 539.1 335.9 543C334.1 546.9 329.5 552.7 325.1 556.5C320.7 560.3 313.7 564.7 309.5 565.9C305.2 567 301.4 565.5 299.7 563.4C298 561.3 296.9 556.9 299 553.3C301.2 549.7 308.3 545.1 312.7 541.6C317 538.2 321.5 534.2 325.3 532.8C329.1 531.4 333.8 531.5 335.6 533.2Z" transform="translate(2.5 3.5)" fill="#262A24" fill-opacity="0.14"/><path d="M335.6 533.2C337.4 534.9 337.6 539.1 335.9 543C334.1 546.9 329.5 552.7 325.1 556.5C320.7 560.3 313.7 564.7 309.5 565.9C305.2 567 301.4 565.5 299.7 563.4C298 561.3 296.9 556.9 299 553.3C301.2 549.7 308.3 545.1 312.7 541.6C317 538.2 321.5 534.2 325.3 532.8C329.1 531.4 333.8 531.5 335.6 533.2Z" fill="#E2D6BC"/><path d="M334.8 536.6C336.2 537.9 336.3 541.4 334.7 544.6C333.1 547.8 329.1 552.7 325.4 555.9C321.6 559.1 315.8 562.9 312.2 564C308.7 565 305.5 563.9 304.2 562.3C302.8 560.6 302.1 557.1 304 554C305.9 551 311.7 546.9 315.4 544C319.1 541.1 323.1 537.6 326.3 536.4C329.5 535.2 333.4 535.2 334.8 536.6Z" fill="#F1E9D7"/>
         <path d="M325.3 739C322.8 740.5 317.7 739.7 314 736.7C310.2 733.8 305.2 726.6 302.5 721.5C299.9 716.4 298.1 709.9 298.1 706.1C298 702.4 300.1 700.6 302.2 699C304.2 697.3 306.9 694.4 310.1 696.3C313.4 698.3 318.3 705.3 321.4 710.6C324.5 715.8 328 723.1 328.6 727.8C329.3 732.6 327.7 737.5 325.3 739Z" transform="translate(2.5 3.5)" fill="#262A24" fill-opacity="0.14"/><path d="M325.3 739C322.8 740.5 317.7 739.7 314 736.7C310.2 733.8 305.2 726.6 302.5 721.5C299.9 716.4 298.1 709.9 298.1 706.1C298 702.4 300.1 700.6 302.2 699C304.2 697.3 306.9 694.4 310.1 696.3C313.4 698.3 318.3 705.3 321.4 710.6C324.5 715.8 328 723.1 328.6 727.8C329.3 732.6 327.7 737.5 325.3 739Z" fill="#E2D6BC"/><path d="M325.2 736.9C323.3 738 319.2 737.2 316 734.7C312.9 732.2 308.6 726.1 306.3 721.7C304 717.3 302.4 711.8 302.2 708.5C302 705.3 303.6 703.6 305.2 702.3C306.9 701 309.2 699 311.9 700.7C314.6 702.5 318.8 708.5 321.5 713C324.1 717.4 327 723.7 327.7 727.6C328.3 731.6 327.1 735.7 325.2 736.9Z" fill="#F1E9D7"/>
         </g>
+        </g>
         <!-- LINE OF PLAY (invisible): the ball's 11 stops are taken along this path by script.js -->
         <path id="line-of-play" d="M300 940C299.3 928.3 300 895 296 870C292 845 285.7 816.3 276 790C266.3 763.7 248.3 737 238 712C227.7 687 216 663.3 214 640C212 616.7 217 593.3 226 572C235 550.7 251.3 532 268 512C284.7 492 309.3 473.3 326 452C342.7 430.7 360.3 406.3 368 384C375.7 361.7 375 339 372 318C369 297 353.3 274 350 258C346.7 242 351.7 228 352 222" fill="none" stroke="none"/>
         
         <!-- TRAIL: thin brass dotted line showing the path played so far (one line per shot, drawn by script.js) -->
         <g id="trail" fill="none" stroke="#9C7A3C" stroke-width="2" stroke-dasharray="0.5 6" stroke-linecap="round" stroke-linejoin="round"></g>
-        <!-- SAND SPRAY: little sand particles for the bunker shots (added and removed by script.js) -->
+        <!-- PUFFS: little sand or turf particles when the ball is hit from a bunker or lands (added and removed by script.js) -->
         <g id="spray"></g>
         <!-- TRACER: solid brass line that follows the ball in the air, then fades (drawn by script.js) -->
         <path id="tracer" fill="none" stroke="#B8914A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d=""/>
@@ -425,6 +454,13 @@
           <text x="46" y="980" font-family="Jost, system-ui, sans-serif" font-size="11" letter-spacing="3" fill="#5F5C52">PAR 5</text>
         </g>
         </svg>
+
+        <!-- CLOUD SHADOWS: very faint soft shapes that drift slowly over the hole (CSS only, decorative) -->
+        <div class="clouds" aria-hidden="true"><span></span><span></span><span></span></div>
+
+        <!-- ANSWER MARKERS: one numbered button per shot played, where the ball came to rest.
+             Hover, focus or tap shows the question and your answer. Filled in by script.js. -->
+        <ul class="markers" id="markers" aria-label="Your answers so far"></ul>
       </div>
       <!-- Credit for the inspiration (Leon's wording). Shown under the hole on laptop screens. -->
       <figcaption class="hole-caption">
@@ -436,24 +472,184 @@
 
     <main class="content" id="main">
 
-      <!-- SCREEN 1: HOME (TEMPORARY, until Leon chooses one of the home page designs in Part 2).
-           Text from docs/product-plan.md, section 8 (Leon's choice). -->
-      <section id="home" class="screen home" aria-labelledby="home-title">
-        <h1 id="home-title">Irons, explained. <em>For your game.</em></h1>
-        <p class="lede">A free, honest starting point before you buy or book a fitting.</p>
-        <button class="button" id="start-button" type="button">
-          Start
-          <span class="arrow" aria-hidden="true">
-            <svg viewBox="0 0 16 16" focusable="false"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>
-          </span>
-        </button>
-      </section>
+      <!-- SCREEN 1: HOME PAGE. Leon's choice (24 Nov): option 1 "D, refined" from design/home-1.html.
+           Headline and line: docs/product-plan.md, section 8. Every fact has its source next to it
+           (full list in the footer). "Example Iron A" is a placeholder, not a real iron.
+           Every button with "data-start" starts the questionnaire. -->
+      <div id="home" class="screen home">
+
+        <!-- HERO: photo with the headline on it -->
+        <section class="hero" aria-labelledby="home-title">
+          <div class="photo" role="img" aria-label="Placeholder for Leon's own photo of a golf course">
+            <svg aria-hidden="true" focusable="false"><use href="#landscape"/></svg>
+            <span class="photo-label">Placeholder · Leon's photo</span>
+          </div>
+          <div class="hero-text wrap">
+            <p class="kicker caps"><span class="num">No.&nbsp;01</span> An iron finder for recreational golfers</p>
+            <h1 id="home-title">Irons, explained. <em>For your game.</em></h1>
+            <p class="hero-line">A free, honest starting point before you buy or book a fitting.</p>
+            <div class="hero-actions">
+              <button class="button light" type="button" data-start id="start-button">
+                Start <span class="arrow" aria-hidden="true"><svg focusable="false"><use href="#arrow"/></svg></span>
+              </button>
+              <span class="hero-note">10 questions, played as one golf hole</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- HOW IT WORKS (product-plan.md, section 1) -->
+        <section id="how" class="home-section" aria-labelledby="how-title">
+          <div class="wrap">
+            <div class="intro" data-reveal>
+              <div>
+                <p class="kicker caps"><span class="num">No.&nbsp;02</span> How it works</p>
+                <h2 id="how-title">Three steps. One hole.</h2>
+              </div>
+              <p>You answer as you play. Each answer moves the ball one shot closer to the cup, and your results are waiting at the end.</p>
+            </div>
+            <ol class="steps rule-top" data-reveal>
+              <li><span class="num">01</span><h3>Play 10 questions</h3><p>Your hand, budget, level, usual miss and what matters most to you. "Not sure" is always an answer.</p></li>
+              <li><span class="num">02</span><h3>Filter, then score</h3><p>Irons that can never fit, like the wrong hand or far over budget, are taken out. The rest are scored on what you need.</p><cite>Felfernig et al., 2015 · ASQ</cite></li>
+              <li><span class="num">03</span><h3>Your top 3</h3><p>Each with at least two reasons linked to your answers, a trade-off and an honest next step.</p></li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- WHAT YOU GET: example result card (placeholder iron) -->
+        <section id="get" class="home-section get" aria-labelledby="get-title">
+          <div class="wrap get-grid">
+            <div class="get-copy" data-reveal>
+              <p class="kicker caps"><span class="num">No.&nbsp;03</span> What you get</p>
+              <h2 id="get-title">A shortlist that explains itself</h2>
+              <p>Every suggestion shows why it fits you, what you give up, and what to do next. Every fact has its source next to it.</p>
+              <ul class="legend-list">
+                <li><span class="num">01–02</span> Reasons from your own answers</li>
+                <li><span class="num">03</span> A real trade-off</li>
+                <li><span class="num">04</span> A next step, never a promise</li>
+              </ul>
+            </div>
+
+            <div class="stack" data-reveal>
+              <div class="sheet sheet-3" aria-hidden="true"></div>
+              <div class="sheet sheet-2" aria-hidden="true"></div>
+              <article class="card" aria-label="Example result card (placeholder)">
+                <header class="card-head pad">
+                  <p class="rank">01<span class="num">of 03</span></p>
+                  <div>
+                    <p class="category caps">Game-improvement</p>
+                    <h3>Example Iron A</h3>
+                    <p class="placeholder-tag">Placeholder, not a real iron</p>
+                    <p class="price">New sets from big brands are often CHF 1,000–1,400 in Switzerland. <cite>Leon's price check, Nov 2026</cite></p>
+                  </div>
+                </header>
+                <section class="card-block pad">
+                  <h4 class="caps">Why it suits you</h4>
+                  <ol class="reasons">
+                    <li><span class="answer-tag">You said: Fat (ground first)</span><p>A wide sole glides through the turf and forgives fat shots. <cite>Summitt, 2026</cite></p></li>
+                    <li><span class="answer-tag">You said: Forgiveness matters most</span><p>If forgiveness is your priority, game-improvement is probably the category for you. <cite>Covey, 2025</cite></p></li>
+                  </ol>
+                </section>
+                <div class="card-split pad">
+                  <section class="trade">
+                    <h4 class="caps">Trade-off</h4>
+                    <p>The most carry of the iron types, but also the widest left-to-right spread. <cite>Today's Golfer, 2026</cite></p>
+                  </section>
+                  <section class="next-step">
+                    <h4 class="caps">Before you buy</h4>
+                    <p>A questionnaire can't measure your swing. Try it in person, and ask for a lie check. <cite>Stachura, 2026 · Saternus, 2018</cite></p>
+                  </section>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- WHY YOU CAN TRUST IT (every fact sourced; "Free, no sign-up, no ads": Leon, 24 Nov) -->
+        <section id="trust" class="home-section" aria-labelledby="trust-title">
+          <div class="wrap">
+            <div data-reveal>
+              <p class="kicker caps"><span class="num">No.&nbsp;04</span> Why you can trust it</p>
+              <h2 id="trust-title">Built on research, honest about its limits</h2>
+            </div>
+            <div class="trust-grid" data-reveal>
+              <div class="trust-item"><span class="num">01</span><h3>Every fact has a source</h3><p>Online tools are only as good as their data and can repeat common myths. Here, every claim links to where it came from.</p><cite>Stachura, Golf Digest, 2026</cite></div>
+              <div class="trust-item"><span class="num">02</span><h3>Not a fitting, and it says so</h3><p>It can't watch your swing, so it can't fit lie, length or shaft, or judge feel and sound. A fitting starts with you hitting balls.</p><cite>Stachura, 2026 · Wunder, Golf Magazine, 2026</cite></div>
+              <div class="trust-item"><span class="num">03</span><h3>Budget irons included</h3><p>In testing, the Takomo 101 matched major brands for ball speed and distance. What you mainly give up is the chance to try before you buy.</p><cite>Ferguson, Golf Monthly, 2026</cite></div>
+              <div class="trust-item"><span class="num">04</span><h3>Three options, not one winner</h3><p>A score is only as good as the weights behind it, so you get a shortlist with trade-offs and make the final call yourself.</p><cite>ASQ, "What Is a Decision Matrix?"</cite></div>
+            </div>
+            <p class="promise caps" data-reveal><span>Free</span><span>No sign-up</span><span>No ads</span></p>
+          </div>
+        </section>
+
+        <!-- ABOUT THIS PROJECT. The main text is a PLACEHOLDER: Leon writes it himself (24 Nov). -->
+        <section id="about" class="home-section about" aria-labelledby="about-title">
+          <div class="wrap about-grid">
+            <div data-reveal>
+              <p class="kicker caps"><span class="num">No.&nbsp;05</span> About this project</p>
+              <h2 id="about-title">About this project</h2>
+              <div class="placeholder-box">
+                <span class="draft">Placeholder</span>
+                <p>Leon will write this section himself: his MYP Personal Project, why he made the tool, and what he learned.</p>
+              </div>
+              <div class="teaser">
+                <p>The questionnaire plays one hole, inspired by the 15th at Crans-sur-Sierre, Switzerland, where Ludvig Åberg hit his favourite shot on the way to winning the 2023 Omega European Masters.</p>
+              </div>
+            </div>
+            <figure class="hole-card" data-reveal>
+              <div class="hole-crop">
+                <!-- The same drawing as the questionnaire, cropped around the green -->
+                <svg viewBox="150 120 360 450" aria-hidden="true" focusable="false"><use href="#hole-art"/><use href="#flag"/></svg>
+              </div>
+              <figcaption>An original drawing, not a course map. <a href="https://www.pgatour.com/article/news/daily-wrapup/2023/09/03/rookie-ludvig-aberg-surges-to-european-masters-win-and-into-europes-ryder-cup-selection-picture" target="_blank" rel="noopener">Source: PGA Tour, 2023<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- FOOTER with all the sources -->
+        <footer class="site-footer">
+          <div class="wrap">
+            <div class="foot-top">
+              <div>
+                <span class="wordmark">Personalised Golf for All</span>
+                <p>A free, honest starting point before you buy or book a fitting.</p>
+              </div>
+              <nav class="foot-links" aria-label="Footer">
+                <button class="link-button" type="button" data-start>Start</button><a href="#how">How it works</a><a href="#trust">Why trust it</a><a href="#sources">Sources</a>
+              </nav>
+            </div>
+            <div id="sources">
+              <h2>Sources</h2>
+              <ol class="source-list">
+                <li><a href="https://mygolfspy.com/news-opinion/game-improvement-vs-players-distance-irons-whats-the-difference/">Covey, T. "Game-Improvement vs. Players Distance Irons." MyGolfSpy, 2025.</a></li>
+                <li><a href="https://www.hirekogolf.com/blog/post/blades-vs-cavity-back-irons-a-clubmakers-engineering-guide">Summitt, J. "Blades vs Cavity Back Irons: A Clubmaker's Engineering Guide." Hireko Golf, 2026.</a></li>
+                <li><a href="https://www.todays-golfer.com/news-and-events/equipment-news/golf-iron-categories-comparison-2026/">Today's Golfer. "Game Improvement, Players' Distance, Cavity or Blades." 2026.</a></li>
+                <li>Stachura, M. "Your Next Custom Fitting Might Not Require a Single Swing." Golf Digest, 2026.</li>
+                <li>Wunder, J. "Fully Fit: 2026." Golf Magazine, 2026.</li>
+                <li><a href="https://pluggedingolf.com/much-lie-angle-matter-golf-myths-unplugged/">Saternus, M. "How Much Does Lie Angle Matter?" Plugged In Golf, 2018.</a></li>
+                <li><a href="https://www.golfmonthly.com/best-golf-deals/best-budget-irons-213550">Ferguson, J. "Best Budget Irons 2026." Golf Monthly, 2026.</a></li>
+                <li><a href="https://asq.org/quality-resources/decision-matrix">ASQ. "What Is a Decision Matrix?"</a></li>
+                <li><a href="https://web-ainf.aau.at/pub/jannach/files/BookChapter_Constraint-BasedRS_2015.pdf">Felfernig, A. et al. "Constraint-Based Recommender Systems." Springer, 2015.</a></li>
+                <li><a href="https://www.pgatour.com/article/news/daily-wrapup/2023/09/03/rookie-ludvig-aberg-surges-to-european-masters-win-and-into-europes-ryder-cup-selection-picture">PGA Tour / AP. "Rookie Ludvig Åberg surges to European Masters win." 3 Sept 2023.</a></li>
+                <li>Leon's Swiss price check (Galaxus, golfhome.ch, Decathlon), November 2026. Prices change.</li>
+              </ol>
+            </div>
+            <p class="fine">An MYP Personal Project, 2026. Not affiliated with any brand. Prices change; always check before you buy.</p>
+          </div>
+        </footer>
+      </div>
 
       <!-- SCREEN 2: QUESTIONS. One question at a time. script.js fills in #q-body
            (question, help text and answers) from the QUESTIONS list at the top of script.js. -->
       <section id="questions" class="screen questions" hidden aria-labelledby="q-title">
-        <!-- Always shown as text (U3) -->
-        <p class="q-progress caps">Question <span class="num" id="q-number">1</span> of 10</p>
+        <!-- THE QUESTION CARD: it eases towards the hole when the ball takes off,
+             and the next one arrives from the other side (Leon, 24 Nov) -->
+        <div class="q-card" id="q-card">
+        <div class="q-top">
+          <!-- Always shown as text (U3) -->
+          <p class="q-progress caps">Question <span class="num" id="q-number">1</span> of 10</p>
+          <!-- The shot you're about to play, with a small icon of the club, e.g. "Shot 3 · Fairway bunker" -->
+          <p class="shot-head" id="shot-head"></p>
+        </div>
 
         <form id="q-form" novalidate>
           <div class="q-body" id="q-body"></div>
@@ -475,18 +671,28 @@
             </div>
           </div>
         </form>
+        </div>
 
         <!-- Screen readers hear "Question 3 of 10" here each time a new question appears -->
         <p class="sr-only" id="announcer" aria-live="polite"></p>
       </section>
 
       <!-- SCREEN 3: RESULTS. PLACEHOLDER: the recommendations come later (algorithm phase).
-           For now it lists the stored answers, so Leon can check the answers object while testing. -->
+           For now it shows your answers as a scorecard, so Leon can check the answers object while testing.
+           After the tap-in it rises up like a scorecard being handed over. -->
       <section id="results" class="screen results" hidden aria-labelledby="results-title">
-        <p class="caps results-kicker">In the hole</p>
-        <h1 id="results-title" tabindex="-1">Your results will appear here</h1>
-        <p class="lede">Placeholder: the recommendations are built in the next phase. These are the answers that were saved.</p>
-        <dl class="answers-list" id="answers-list"></dl>
+        <div class="scorecard">
+          <div class="scorecard-head">
+            <p class="caps results-kicker">Hole 15 · Par 5 · In the hole</p>
+            <h1 id="results-title" tabindex="-1">Your results will appear here</h1>
+            <p class="lede">Placeholder: the recommendations are built in the next phase. This is your round so far.</p>
+          </div>
+          <table class="card-table">
+            <caption class="sr-only">Your answers, one per shot</caption>
+            <thead><tr><th scope="col">Shot</th><th scope="col">Question</th><th scope="col">Your answer</th></tr></thead>
+            <tbody id="answers-list"></tbody>
+          </table>
+        </div>
         <button class="button" id="restart-button" type="button">
           Play the hole again
           <span class="arrow" aria-hidden="true">

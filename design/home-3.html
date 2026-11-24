@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<!--
+  HOME PAGE OPTION 3: "Modern product"
+  Made by Claude (AI) on 24 Nov 2026 for Leon to compare. NOT the live home page (index.html is unchanged).
+
+  Inspired by top modern product sites (e.g. Linear, Stripe): a crisp grid, refined bordered cards,
+  subtle depth and glow, monospace labels and small interactions (cards light up where your pointer is,
+  arrows slide). The hero shows a preview of the real questionnaire. Kept in Leon's golf colours.
+  Inspired by, not copied: no logos, text or images from any other site.
+
+  Everything is in this one file. "Example Iron A" is a placeholder. Text marked "Draft" is for Leon to rewrite.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Option 3 · Modern product (home page test)</title>
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- 1. Variables ---------- */
+    :root {
+      --bg: #F6F4EE; --card: #FFFFFF; --soft: #EFECE3;
+      --ink: #141A15; --muted: #586056; --line: rgba(20, 30, 22, 0.1); --line-2: rgba(20, 30, 22, 0.18);
+      --deep: #23402F; --sage: #7E9671; --brass: #C9A45E; --brass-ink: #7A5C26;
+      --night: #0F1A13; --night-2: #15241B; --on-night: #ECE8DD; --on-night-2: rgba(236, 232, 221, 0.7); --night-line: rgba(236, 232, 221, 0.12);
+      --sans: "Geist", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "Geist Mono", ui-monospace, Menlo, Consolas, monospace;
+      --gutter: clamp(20px, 5vw, 56px);
+      --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    /* ---------- 2. Basics ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-padding-top: 72px; }
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid var(--sage); outline-offset: 3px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+    .wrap { max-width: 1160px; margin-inline: auto; padding-inline: var(--gutter); }
+    .label { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 16px; font: 500 0.78rem/1 var(--mono); letter-spacing: 0.02em; color: var(--brass-ink); }
+    .label::before { content: ""; width: 18px; height: 1px; background: currentColor; }
+    h2 { margin: 0 0 14px; font: 600 clamp(2rem, 4.2vw, 3.2rem)/1.08 var(--sans); letter-spacing: -0.035em; text-wrap: balance; }
+    .lead { margin: 0; max-width: 34em; font-size: 1.1rem; color: var(--muted); }
+    .chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px; border: 1px solid var(--line-2); border-radius: 6px; font: 500 0.72rem/1.4 var(--mono); color: var(--muted); background: var(--bg); }
+    .draft { display: inline-block; padding: 2px 8px; border: 1px dashed var(--brass-ink); border-radius: 6px; font: 500 0.7rem/1.4 var(--mono); color: var(--brass-ink); vertical-align: middle; }
+    section { padding-block: clamp(80px, 11vw, 128px); }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; gap: 10px; min-height: 46px; padding: 0 18px; border-radius: 10px; font: 500 0.98rem/1 var(--sans); text-decoration: none; border: 1px solid transparent; transition: background-color 0.2s, border-color 0.2s, transform 0.2s var(--ease); }
+    .btn svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.25s var(--ease); }
+    .btn:hover svg { transform: translateX(3px); }
+    .btn.primary { background: var(--on-night); color: var(--night); }
+    .btn.primary:hover { background: #FFFFFF; }
+    .btn.ghost { border-color: var(--night-line); color: var(--on-night); }
+    .btn.ghost:hover { border-color: rgba(236, 232, 221, 0.3); background: rgba(236, 232, 221, 0.05); }
+    .btn.dark { background: var(--deep); color: var(--on-night); }
+    .btn.dark:hover { background: #1A3324; }
+    .btn.small { min-height: 36px; padding: 0 14px; font-size: 0.9rem; border-radius: 8px; }
+
+    /* ---------- 3. Navigation (dark, see-through) ---------- */
+    .nav { position: sticky; top: 0; z-index: 20; background: rgba(15, 26, 19, 0.78); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--night-line); color: var(--on-night); }
+    .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 62px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.01em; text-decoration: none; white-space: nowrap; }
+    .brand svg { width: 22px; height: 22px; }
+    .nav-links { display: none; gap: 28px; font-size: 0.92rem; color: var(--on-night-2); }
+    .nav-links a { text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--on-night); }
+    @media (min-width: 900px) { .nav-links { display: flex; } }
+
+    /* ---------- 4. Hero (dark, with a faint grid and glow) ---------- */
+    .hero { position: relative; overflow: hidden; background: var(--night); color: var(--on-night); padding-block: clamp(64px, 10vw, 120px) clamp(72px, 10vw, 120px); }
+    .hero::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+      background-image: linear-gradient(var(--night-line) 1px, transparent 1px), linear-gradient(90deg, var(--night-line) 1px, transparent 1px);
+      background-size: 56px 56px; opacity: 0.5;
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 60% 30%, #000 20%, transparent 75%); mask-image: radial-gradient(ellipse 70% 60% at 60% 30%, #000 20%, transparent 75%); }
+    .hero::after { content: ""; position: absolute; width: 900px; height: 600px; right: -200px; top: -160px; pointer-events: none;
+      background: radial-gradient(closest-side, rgba(126, 150, 113, 0.28), transparent), radial-gradient(closest-side at 30% 70%, rgba(201, 164, 94, 0.12), transparent); }
+    .hero-grid { position: relative; z-index: 1; display: grid; gap: 56px; align-items: center; }
+    .badge { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 26px; padding: 6px 12px 6px 8px; border: 1px solid var(--night-line); border-radius: 999px; background: rgba(236, 232, 221, 0.04); font: 500 0.78rem/1 var(--mono); color: var(--on-night-2); }
+    .badge i { width: 8px; height: 8px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 4px rgba(201, 164, 94, 0.18); }
+    .hero h1 { margin: 0 0 20px; font: 600 clamp(2.9rem, 4.6vw, 4.4rem)/1.02 var(--sans); letter-spacing: -0.045em; }
+    .hero h1 span { display: block; background: linear-gradient(90deg, #EDE7D7 0%, #B9CDA9 70%, #9FB78F 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero .lead { color: var(--on-night-2); font-size: 1.15rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .micro { margin: 22px 0 0; font: 400 0.8rem/1.6 var(--mono); color: var(--on-night-2); }
+    @media (min-width: 1000px) { .hero-grid { grid-template-columns: 1.12fr 0.88fr; } }
+
+    /* The product window: a preview of the questionnaire */
+    .window { margin: 0; border: 1px solid var(--night-line); border-radius: 16px; background: var(--night-2); box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04); overflow: hidden; }
+    .window-bar { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--night-line); font: 500 0.74rem/1 var(--mono); color: var(--on-night-2); }
+    .window-bar b { color: var(--on-night); font-weight: 500; }
+    .window-body { display: grid; }
+    .mini-hole { aspect-ratio: 16 / 9; background: #EBE4D4; }
+    .mini-hole svg { display: block; width: 100%; height: 100%; }
+    .mini-card { margin: 0; padding: 20px; background: #F5F1E9; color: var(--ink); }
+    .mini-card .shot { margin: 0 0 8px; font: 500 0.72rem/1 var(--mono); color: var(--brass-ink); }
+    .mini-card .q { margin: 0 0 14px; font: 600 1.2rem/1.2 var(--sans); letter-spacing: -0.02em; }
+    .mini-opts { display: grid; grid-template-columns: 1fr; gap: 8px; }
+    .mini-opts span { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 9px 11px; border: 1px solid var(--line-2); border-radius: 9px; background: #FBF9F4; font-size: 0.85rem; font-weight: 500; }
+    .mini-opts span::after { content: ""; width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--line-2); flex-shrink: 0; }
+    .mini-opts span.on { border-color: var(--deep); box-shadow: 0 0 0 1px var(--deep); }
+    .mini-opts span.on::after { border-color: var(--deep); background: radial-gradient(circle, var(--deep) 0 40%, transparent 45%); }
+    @media (min-width: 560px) { .window-body { grid-template-columns: 1fr 1fr; } .mini-hole { aspect-ratio: auto; min-height: 280px; } }
+
+    /* ---------- 5. Research strip ---------- */
+    .strip { padding-block: 28px; border-bottom: 1px solid var(--line); }
+    .strip .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 28px; }
+    .strip p { margin: 0; font: 500 0.78rem/1 var(--mono); color: var(--muted); }
+    .strip ul { display: flex; flex-wrap: wrap; gap: 8px 26px; margin: 0; padding: 0; list-style: none; font-weight: 500; color: #3E453D; }
+
+    /* ---------- 6. Cards with a pointer spotlight ---------- */
+    .grid-3 { display: grid; gap: 16px; margin-top: 48px; }
+    .grid-2 { display: grid; gap: 16px; margin-top: 48px; }
+    @media (min-width: 820px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } .grid-2 { grid-template-columns: 1fr 1fr; } }
+    .tile { position: relative; padding: 26px; border: 1px solid var(--line); border-radius: 16px;
+      background: radial-gradient(420px circle at var(--mx, 50%) var(--my, -40%), rgba(126, 150, 113, 0.12), transparent 45%), var(--card);
+      box-shadow: 0 1px 2px rgba(20, 30, 22, 0.04); transition: border-color 0.25s, transform 0.25s var(--ease), box-shadow 0.25s; }
+    .tile:hover { border-color: var(--line-2); transform: translateY(-2px); box-shadow: 0 14px 30px -18px rgba(20, 30, 22, 0.25); }
+    .tile .step { font: 500 0.76rem/1 var(--mono); color: var(--brass-ink); }
+    .tile .icon { display: grid; place-items: center; width: 40px; height: 40px; margin: 18px 0 18px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--deep); }
+    .tile .icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .tile h3 { margin: 0 0 8px; font: 600 1.2rem/1.25 var(--sans); letter-spacing: -0.02em; }
+    .tile p { margin: 0 0 14px; color: var(--muted); font-size: 0.98rem; }
+    .tile p:last-child { margin-bottom: 0; }
+
+    /* ---------- 7. What you get: bento grid ---------- */
+    .bento { display: grid; gap: 16px; margin-top: 48px; }
+    @media (min-width: 900px) { .bento { grid-template-columns: 1.35fr 1fr; } .bento .side { display: grid; gap: 16px; } }
+    .result { padding: 0; overflow: hidden; }
+    .result-head { display: grid; grid-template-columns: auto 1fr; gap: 18px; padding: 24px; border-bottom: 1px solid var(--line); }
+    .result-head .rank { margin: 0; font: 600 3rem/0.9 var(--sans); letter-spacing: -0.05em; color: var(--deep); }
+    .result-head .rank small { display: block; margin-top: 8px; font: 500 0.7rem/1 var(--mono); letter-spacing: 0; color: var(--muted); }
+    .result-head .cat { margin: 0 0 4px; font: 500 0.74rem/1 var(--mono); color: var(--brass-ink); text-transform: uppercase; letter-spacing: 0.06em; }
+    .result-head h3 { margin: 0 0 8px; font-size: 1.6rem; }
+    .result-row { padding: 18px 24px; border-bottom: 1px solid var(--line); }
+    .result-row:last-child { border-bottom: 0; }
+    .result-row h4 { margin: 0 0 10px; font: 500 0.72rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+    .result-row p { margin: 0 0 4px; font-size: 0.98rem; color: var(--ink); }
+    .said { display: inline-block; margin-bottom: 6px; padding: 2px 8px; border-radius: 6px; background: var(--soft); font: 500 0.74rem/1.5 var(--mono); color: var(--deep); }
+    .reason + .reason { margin-top: 14px; }
+    .result-row.next { background: var(--deep); color: var(--on-night); }
+    .result-row.next h4 { color: var(--brass); }
+    .result-row.next p { color: var(--on-night); }
+    .result-row.next .chip { background: transparent; border-color: rgba(236, 232, 221, 0.25); color: var(--on-night-2); }
+    .stat { display: flex; gap: 18px; align-items: flex-start; }
+    .stat b { font: 600 2.4rem/1 var(--sans); letter-spacing: -0.04em; color: var(--deep); min-width: 2.2ch; }
+    .stat h3 { margin-top: 2px; }
+
+    /* ---------- 8. Why you can trust it ---------- */
+    .checks { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .checks span { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--card); font-weight: 500; }
+    .checks svg { width: 16px; height: 16px; fill: none; stroke: var(--sage); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ---------- 9. About ---------- */
+    .about-card { display: grid; overflow: hidden; padding: 0; }
+    .about-text { padding: clamp(24px, 4vw, 44px); }
+    .about-text p { color: var(--muted); }
+    .about-text blockquote { margin: 22px 0 0; padding: 16px 18px; border: 1px solid var(--line); border-left: 2px solid var(--brass); border-radius: 0 10px 10px 0; background: var(--bg); font-size: 1rem; }
+    .about-text blockquote a { color: var(--deep); font-weight: 500; text-underline-offset: 3px; }
+    .about-art { min-height: 300px; background: #EBE4D4; border-top: 1px solid var(--line); }
+    .about-art svg { display: block; width: 100%; height: 100%; }
+    @media (min-width: 900px) { .about-card { grid-template-columns: 1.1fr 0.9fr; } .about-art { border-top: 0; border-left: 1px solid var(--line); } }
+
+    /* ---------- 10. Footer ---------- */
+    footer { background: var(--night); color: var(--on-night-2); padding-block: 64px 36px; font-size: 0.9rem; }
+    .foot-grid { display: grid; gap: 36px; padding-bottom: 36px; border-bottom: 1px solid var(--night-line); }
+    .foot-grid h3 { margin: 0 0 12px; font: 500 0.76rem/1 var(--mono); color: var(--on-night); }
+    .foot-grid ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+    .foot-grid a { text-decoration: none; }
+    .foot-grid a:hover { color: var(--on-night); text-decoration: underline; text-underline-offset: 3px; }
+    .foot-grid .brand { color: var(--on-night); }
+    .sources { margin: 0; padding-left: 1.3em; font-size: 0.82rem; line-height: 1.55; }
+    .sources li { margin-bottom: 6px; }
+    .sources a { text-decoration: underline; text-underline-offset: 2px; }
+    .fine { margin: 24px 0 0; font: 400 0.76rem/1.6 var(--mono); }
+    @media (min-width: 900px) { .foot-grid { grid-template-columns: 1fr 0.6fr 1.8fr; } }
+
+    /* ---------- 11. Motion: quick, crisp reveals (only if allowed) ---------- */
+    @media (prefers-reduced-motion: no-preference) {
+      .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+      .js .reveal.is-visible { opacity: 1; transform: none; }
+      .js .stagger.is-visible > * { animation: up 0.7s var(--ease) both; }
+      .js .stagger.is-visible > :nth-child(2) { animation-delay: 0.08s; }
+      .js .stagger.is-visible > :nth-child(3) { animation-delay: 0.16s; }
+      .js .stagger.is-visible > :nth-child(4) { animation-delay: 0.24s; }
+      @keyframes up { from { opacity: 0; transform: translateY(14px); } }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .tile, .btn, .btn svg { transition: none; }
+      .tile:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- The golf hole drawing (same as the questionnaire), stored once as a symbol and shown cropped with <use> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="hole-art" viewBox="0 0 600 1000">
+<defs>
+  <pattern id="mow" width="34" height="34" patternUnits="userSpaceOnUse" patternTransform="rotate(-28)">
+    <rect width="17" height="34" fill="#FFFFFF" fill-opacity="0.09"/>
+  </pattern>
+  <pattern id="mow-green" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(30)">
+    <rect width="7" height="14" fill="#FFFFFF" fill-opacity="0.1"/>
+  </pattern>
+  <linearGradient id="alps-fade" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#EBE4D4" stop-opacity="0"/>
+    <stop offset="1" stop-color="#EBE4D4" stop-opacity="1"/>
+  </linearGradient>
+</defs>
+<rect x="-400" y="-400" width="1400" height="1800" fill="#EBE4D4"/>
+<g class="alps">
+<path d="M-300 150 L-150 128 L-10 150 L30 118 L62 104 L95 92 L120 100 L150 80 L178 92 L210 70 L240 86 L268 78 L300 96 L330 84 L372 58 L398 40 L408 28 L416 36 L430 64 L452 82 L480 74 L512 90 L548 78 L585 96 L610 110 L700 92 L800 118 L900 140 L900 180 L-300 180Z" fill="#DDDED6"/>
+<path d="M398 40 L408 28 L416 36 L421 48 L412 45 L405 52Z" fill="#F4F2EC"/>
+<path d="M205 74 L210 70 L219 76 L213 79Z" fill="#F4F2EC"/>
+<path d="M145 84 L150 80 L156 84 L151 87Z" fill="#F4F2EC"/>
+<path d="M-300 160 L-160 140 L-10 160 L40 140 L90 128 L140 136 L190 118 L236 130 L280 120 L330 134 L380 124 L430 138 L480 126 L530 140 L610 132 L720 128 L900 150 L900 180 L-300 180Z" fill="#D1D5CA"/>
+<rect x="-300" y="96" width="1200" height="84" fill="url(#alps-fade)"/>
+</g>
+<g class="contours" fill="none" stroke="#262A24" stroke-opacity="0.07" stroke-width="1">
+<path d="M-340 200C-326.7 203 -286.7 216.8 -260 217.9C-233.3 219 -206.7 208.6 -180 206.7C-153.3 204.7 -126.7 207.1 -100 206.1C-73.3 205.1 -46.7 205.1 -20 200.6C6.7 196.2 33.3 181.1 60 179.3C86.7 177.4 113.3 184.8 140 189.5C166.7 194.1 193.3 204.6 220 207C246.7 209.4 273.3 202.8 300 204C326.7 205.2 353.3 212.6 380 214C406.7 215.4 433.3 217.1 460 212.5C486.7 207.9 513.3 190.7 540 186.4C566.7 182.2 593.3 185.2 620 186.8C646.7 188.4 673.3 194.9 700 196C726.7 197 753.3 190.6 780 193.3C806.7 195.9 833.3 207.5 860 211.9C886.7 216.4 926.7 218.7 940 220.1"/>
+<path d="M-340 271.8C-326.7 271.5 -286.7 272.7 -260 270.3C-233.3 267.9 -206.7 259.2 -180 257.3C-153.3 255.5 -126.7 261.5 -100 259.2C-73.3 256.9 -46.7 247.1 -20 243.4C6.7 239.6 33.3 233.8 60 236.6C86.7 239.5 113.3 255.6 140 260.3C166.7 265.1 193.3 264.8 220 265.3C246.7 265.7 273.3 262.1 300 263C326.7 264 353.3 273 380 271.1C406.7 269.3 433.3 257.9 460 252.1C486.7 246.3 513.3 236.4 540 236.2C566.7 236 593.3 247.9 620 250.8C646.7 253.6 673.3 252.2 700 253.5C726.7 254.8 753.3 254.6 780 258.6C806.7 262.5 833.3 276.2 860 277C886.7 277.9 926.7 265.9 940 263.7"/>
+<path d="M-340 333.1C-326.7 330.2 -286.7 319.7 -260 315.9C-233.3 312.1 -206.7 311.9 -180 310.5C-153.3 309.2 -126.7 310.9 -100 307.8C-73.3 304.7 -46.7 292.2 -20 292C6.7 291.7 33.3 300.5 60 306.2C86.7 311.9 113.3 323.9 140 326.1C166.7 328.2 193.3 319.8 220 319.1C246.7 318.4 273.3 322.1 300 321.9C326.7 321.7 353.3 322.8 380 318C406.7 313.3 433.3 296.9 460 293.6C486.7 290.4 513.3 295 540 298.4C566.7 301.8 593.3 311.7 620 314C646.7 316.3 673.3 310.3 700 312.3C726.7 314.2 753.3 322.9 780 325.7C806.7 328.5 833.3 332.7 860 329.1C886.7 325.4 926.7 308 940 303.8"/>
+<path d="M-340 381.2C-326.7 378.1 -286.7 365.3 -260 362.6C-233.3 359.8 -206.7 366 -180 364.7C-153.3 363.5 -126.7 357 -100 355C-73.3 353.1 -46.7 349 -20 352.9C6.7 356.9 33.3 373.9 60 378.8C86.7 383.6 113.3 383 140 382C166.7 381 193.3 373.6 220 372.7C246.7 371.7 273.3 378.5 300 376.3C326.7 374 353.3 363.8 380 358.9C406.7 354 433.3 345.5 460 346.8C486.7 348.2 513.3 362.7 540 367.1C566.7 371.5 593.3 372 620 373.2C646.7 374.3 673.3 371.8 700 374C726.7 376.2 753.3 387.2 780 386.5C806.7 385.8 833.3 375.9 860 370C886.7 364 926.7 354.1 940 350.9"/>
+<path d="M-340 422.6C-326.7 421.4 -286.7 416 -260 415.1C-233.3 414.3 -206.7 418.8 -180 417.6C-153.3 416.4 -126.7 406.9 -100 408C-73.3 409.1 -46.7 418.4 -20 424.3C6.7 430.2 33.3 442.3 60 443.4C86.7 444.5 113.3 433.6 140 430.9C166.7 428.3 193.3 428.5 220 427.3C246.7 426.1 273.3 427.7 300 423.8C326.7 419.9 353.3 405.5 380 403.8C406.7 402 433.3 408.3 460 413.2C486.7 418.1 513.3 430.5 540 433.2C566.7 436 593.3 429.1 620 429.6C646.7 430.1 673.3 435.2 700 436.2C726.7 437.2 753.3 440 780 435.6C806.7 431.2 833.3 414.1 860 409.7C886.7 405.3 926.7 409.3 940 409.3"/>
+<path d="M-340 467.4C-326.7 468.3 -286.7 472.1 -260 472.5C-233.3 473 -206.7 470.3 -180 470.1C-153.3 469.9 -126.7 466.9 -100 471.2C-73.3 475.5 -46.7 492.1 -20 496.1C6.7 500.2 33.3 498.3 60 495.5C86.7 492.7 113.3 481.9 140 479.4C166.7 477 193.3 482.8 220 480.9C246.7 479 273.3 471.5 300 468.1C326.7 464.8 353.3 458.1 380 460.9C406.7 463.8 433.3 480 460 485.2C486.7 490.3 513.3 491.6 540 491.8C566.7 491.9 593.3 486.1 620 486.3C646.7 486.5 673.3 494.7 700 493C726.7 491.3 753.3 481.6 780 475.9C806.7 470.3 833.3 459.3 860 459.1C886.7 458.9 926.7 472.3 940 474.9"/>
+<path d="M-340 521.6C-326.7 523.1 -286.7 530 -260 530.8C-233.3 531.6 -206.7 524.6 -180 526.5C-153.3 528.4 -126.7 536.8 -100 542C-73.3 547.2 -46.7 558.1 -20 557.7C6.7 557.3 33.3 543.9 60 539.6C86.7 535.2 113.3 533 140 531.6C166.7 530.2 193.3 533.7 220 531.4C246.7 529 273.3 517.5 300 517.3C326.7 517.2 353.3 524.7 380 530.5C406.7 536.2 433.3 549.7 460 551.9C486.7 554.2 513.3 545.5 540 544.1C566.7 542.7 593.3 543.9 620 543.4C646.7 542.9 673.3 545.2 700 540.9C726.7 536.6 753.3 520.8 780 517.6C806.7 514.4 833.3 517.9 860 521.6C886.7 525.4 926.7 537 940 540.1"/>
+<path d="M-340 583.5C-326.7 584.3 -286.7 587 -260 588C-233.3 589.1 -206.7 586 -180 589.8C-153.3 593.6 -126.7 608.3 -100 610.9C-73.3 613.5 -46.7 610 -20 605.6C6.7 601.2 33.3 587.7 60 584.5C86.7 581.4 113.3 587.4 140 586.7C166.7 586 193.3 582.1 220 580.6C246.7 579.1 273.3 574.1 300 577.9C326.7 581.7 353.3 598.5 380 603.4C406.7 608.4 433.3 609.1 460 607.8C486.7 606.4 513.3 597 540 595.3C566.7 593.6 593.3 599.8 620 597.8C646.7 595.7 673.3 587.7 700 583.1C726.7 578.6 753.3 569.2 780 570.6C806.7 572.1 833.3 586.8 860 591.7C886.7 596.6 926.7 598.6 940 600"/>
+<path d="M-340 647.1C-326.7 646.9 -286.7 644.2 -260 646C-233.3 647.8 -206.7 654 -180 657.7C-153.3 661.5 -126.7 670.5 -100 668.5C-73.3 666.6 -46.7 651.4 -20 646C6.7 640.7 33.3 637.2 60 636.5C86.7 635.8 113.3 642.3 140 641.9C166.7 641.5 193.3 633 220 634.1C246.7 635.3 273.3 642.9 300 648.6C326.7 654.4 353.3 667.4 380 668.5C406.7 669.6 433.3 658.6 460 655.2C486.7 651.9 513.3 649.8 540 648.4C566.7 647 593.3 650.2 620 646.9C646.7 643.6 673.3 630.2 700 628.6C726.7 627 753.3 632.1 780 637.2C806.7 642.3 833.3 656.2 860 659.3C886.7 662.3 926.7 655.9 940 655.3"/>
+<path d="M-340 707.5C-326.7 707.5 -286.7 704.7 -260 707.2C-233.3 709.6 -206.7 721.4 -180 722.3C-153.3 723.3 -126.7 718.4 -100 712.9C-73.3 707.5 -46.7 692.6 -20 689.7C6.7 686.7 33.3 694 60 695.1C86.7 696.2 113.3 696.1 140 696.4C166.7 696.6 193.3 692.6 220 696.5C246.7 700.5 273.3 716.2 300 720.2C326.7 724.2 353.3 723.5 380 720.4C406.7 717.4 433.3 704.7 460 701.7C486.7 698.6 513.3 703.9 540 702.4C566.7 701 593.3 695.8 620 693C646.7 690.2 673.3 682.8 700 685.6C726.7 688.4 753.3 704.5 780 709.9C806.7 715.3 833.3 718.1 860 718.1C886.7 718 926.7 711 940 709.6"/>
+<path d="M-340 764.8C-326.7 765.8 -286.7 768.5 -260 770.4C-233.3 772.3 -206.7 779.3 -180 776.2C-153.3 773.1 -126.7 757.2 -100 751.7C-73.3 746.3 -46.7 742.9 -20 743.6C6.7 744.3 33.3 754.1 60 755.7C86.7 757.3 113.3 751.4 140 753.1C166.7 754.8 193.3 761.2 220 766C246.7 770.8 273.3 782.4 300 781.9C326.7 781.5 353.3 768.2 380 763.3C406.7 758.4 433.3 754.1 460 752.7C486.7 751.3 513.3 756.6 540 754.9C566.7 753.3 593.3 743.1 620 743.1C646.7 743 673.3 749.1 700 754.8C726.7 760.5 753.3 775.1 780 777.5C806.7 779.9 833.3 771.2 860 769.1C886.7 766.9 926.7 765.5 940 764.8"/>
+<path d="M-340 821.8C-326.7 823.3 -286.7 830.9 -260 830.4C-233.3 829.9 -206.7 824.5 -180 818.8C-153.3 813.2 -126.7 798.4 -100 796.4C-73.3 794.4 -46.7 803.8 -20 806.8C6.7 809.9 33.3 813.4 60 814.8C86.7 816.1 113.3 811.9 140 815.1C166.7 818.4 193.3 831.7 220 834.2C246.7 836.6 273.3 834.3 300 829.8C326.7 825.2 353.3 810.2 380 806.7C406.7 803.2 433.3 808.8 460 808.7C486.7 808.6 513.3 807.2 540 806.2C566.7 805.3 593.3 799.6 620 803.2C646.7 806.8 673.3 822.8 700 827.8C726.7 832.9 753.3 835 780 833.3C806.7 831.7 833.3 820.4 860 818C886.7 815.6 926.7 818.9 940 819.1"/>
+<path d="M-340 879.7C-326.7 880 -286.7 885.3 -260 881.7C-233.3 878.2 -206.7 863.1 -180 858.4C-153.3 853.8 -126.7 851.6 -100 853.9C-73.3 856.2 -46.7 869.4 -20 872.5C6.7 875.6 33.3 871.2 60 872.7C86.7 874.1 113.3 878 140 881.1C166.7 884.3 193.3 893.8 220 891.8C246.7 889.9 273.3 875.1 300 869.5C326.7 863.9 353.3 858.7 380 858.1C406.7 857.5 433.3 865.7 460 866.1C486.7 866.5 513.3 859.4 540 860.6C566.7 861.7 593.3 867.5 620 873C646.7 878.4 673.3 892.2 700 893.3C726.7 894.4 753.3 883.4 780 879.5C806.7 875.5 833.3 871.2 860 869.6C886.7 868 926.7 869.8 940 869.9"/>
+<path d="M-340 935.8C-326.7 934 -286.7 929.9 -260 925C-233.3 920 -206.7 906.6 -180 906.1C-153.3 905.6 -126.7 917.1 -100 921.8C-73.3 926.5 -46.7 932.6 -20 934.3C6.7 936 33.3 930.3 60 932C86.7 933.8 113.3 943.9 140 944.7C166.7 945.4 193.3 942 220 936.6C246.7 931.2 273.3 915.3 300 912.2C326.7 909.1 353.3 916 380 917.8C406.7 919.5 433.3 922 460 922.7C486.7 923.4 513.3 918.6 540 922.1C566.7 925.7 593.3 940.2 620 944C646.7 947.8 673.3 948.4 700 945.1C726.7 941.8 753.3 927.5 780 924C806.7 920.5 833.3 925 860 924C886.7 923 926.7 919 940 918"/>
+<path d="M-340 986.8C-326.7 983.6 -286.7 970.7 -260 967.6C-233.3 964.4 -206.7 963.7 -180 967.6C-153.3 971.6 -126.7 987.1 -100 991C-73.3 994.9 -46.7 990.8 -20 991.2C6.7 991.5 33.3 991.8 60 993.1C86.7 994.3 113.3 1001.7 140 998.8C166.7 995.8 193.3 980.8 220 975.3C246.7 969.9 273.3 965 300 965.9C326.7 966.8 353.3 978.3 380 980.6C406.7 982.9 433.3 978.3 460 979.9C486.7 981.5 513.3 985.7 540 990C566.7 994.3 593.3 1006.2 620 1005.8C646.7 1005.3 673.3 992.3 700 987.1C726.7 981.8 753.3 975.5 780 974C806.7 972.6 833.3 979.3 860 978.5C886.7 977.6 926.7 970.7 940 969.1"/>
+</g>
+<path class="rough" d="M395.8 934.5C412.3 911.1 401.1 884.1 398.7 853.6C396.2 823 389.1 782.8 381.1 751.4C373.1 720 358 685.7 350.7 665.4C343.5 645.1 340.5 637.5 337.5 629.4C334.6 621.4 330.4 624.9 332.9 617.1C335.4 609.3 338.2 597.8 352.5 582.4C366.9 567 396.9 551 419 524.6C441.1 498.3 473.6 461.5 485.3 424.3C496.9 387 494.5 335.2 488.8 301.3C483.2 267.4 476.9 251.4 451.4 220.8C425.9 190.3 369.8 105.6 336 118C302.2 130.4 262.1 259.1 248.6 295.2C235.1 331.3 254.8 326.6 255.2 334.7C255.5 342.8 254.4 336.3 250.7 343.7C247 351.2 244.2 363 233 379.4C221.8 395.7 202.5 417 183.5 441.6C164.5 466.2 134.6 492.1 119.1 526.9C103.6 561.7 89.4 612 90.5 650.6C91.5 689.2 111.9 728.9 125.3 758.6C138.7 788.3 159.5 807.3 170.9 828.6C182.2 849.9 187.8 867 193.3 886.4C198.9 905.9 186.4 927.5 204.2 945.5C221.9 963.4 268.1 995.8 300 994C331.9 992.2 379.4 957.9 395.8 934.5Z" fill="#A8B493"/>
+<path d="M395.8 934.5C412.3 911.1 401.1 884.1 398.7 853.6C396.2 823 389.1 782.8 381.1 751.4C373.1 720 358 685.7 350.7 665.4C343.5 645.1 340.5 637.5 337.5 629.4C334.6 621.4 330.4 624.9 332.9 617.1C335.4 609.3 338.2 597.8 352.5 582.4C366.9 567 396.9 551 419 524.6C441.1 498.3 473.6 461.5 485.3 424.3C496.9 387 494.5 335.2 488.8 301.3C483.2 267.4 476.9 251.4 451.4 220.8C425.9 190.3 369.8 105.6 336 118C302.2 130.4 262.1 259.1 248.6 295.2C235.1 331.3 254.8 326.6 255.2 334.7C255.5 342.8 254.4 336.3 250.7 343.7C247 351.2 244.2 363 233 379.4C221.8 395.7 202.5 417 183.5 441.6C164.5 466.2 134.6 492.1 119.1 526.9C103.6 561.7 89.4 612 90.5 650.6C91.5 689.2 111.9 728.9 125.3 758.6C138.7 788.3 159.5 807.3 170.9 828.6C182.2 849.9 187.8 867 193.3 886.4C198.9 905.9 186.4 927.5 204.2 945.5C221.9 963.4 268.1 995.8 300 994C331.9 992.2 379.4 957.9 395.8 934.5Z" fill="none" stroke="#97A483" stroke-width="10" stroke-opacity="0.6"/>
+<g class="tree-shadows" fill="#262A24" fill-opacity="0.16">
+<ellipse cx="232.7" cy="188.8" rx="10.2" ry="9.1"/>
+<ellipse cx="248" cy="192.5" rx="9" ry="8.1"/>
+<ellipse cx="236.4" cy="202.9" rx="8.7" ry="7.8"/>
+<ellipse cx="249.4" cy="206.1" rx="7.5" ry="6.7"/>
+<ellipse cx="447.8" cy="221.8" rx="7.1" ry="6.4"/>
+<ellipse cx="436.1" cy="232" rx="8.3" ry="7.4"/>
+<ellipse cx="464.1" cy="237.3" rx="9.8" ry="8.8"/>
+<ellipse cx="447.5" cy="252.5" rx="10.7" ry="9.6"/>
+<ellipse cx="461.4" cy="268.9" rx="10.7" ry="9.6"/>
+<ellipse cx="243" cy="277.8" rx="8.8" ry="7.9"/>
+<ellipse cx="231.4" cy="283.7" rx="8.7" ry="7.8"/>
+<ellipse cx="262.6" cy="298" rx="7.3" ry="6.5"/>
+<ellipse cx="243.3" cy="300.8" rx="9.7" ry="8.7"/>
+<ellipse cx="261.6" cy="320.8" rx="10.3" ry="9.2"/>
+<ellipse cx="476.5" cy="324.3" rx="7.5" ry="6.7"/>
+<ellipse cx="471" cy="337.5" rx="10.6" ry="9.5"/>
+<ellipse cx="480.9" cy="343.3" rx="10.7" ry="9.6"/>
+<ellipse cx="461.8" cy="350.3" rx="7" ry="6.3"/>
+<ellipse cx="244" cy="361.3" rx="8.3" ry="7.4"/>
+<ellipse cx="256.3" cy="369" rx="10.1" ry="9.1"/>
+<ellipse cx="277.4" cy="370" rx="9.4" ry="8.4"/>
+<ellipse cx="244" cy="382.8" rx="9.2" ry="8.2"/>
+<ellipse cx="261.4" cy="395.4" rx="8.3" ry="7.5"/>
+<ellipse cx="456.3" cy="417.7" rx="9" ry="8.1"/>
+<ellipse cx="469.6" cy="436.6" rx="9.5" ry="8.5"/>
+<ellipse cx="452" cy="440.8" rx="10" ry="9"/>
+<ellipse cx="189.1" cy="442.8" rx="10" ry="8.9"/>
+<ellipse cx="163.6" cy="450.5" rx="9.6" ry="8.6"/>
+<ellipse cx="492.2" cy="454" rx="9.7" ry="8.6"/>
+<ellipse cx="472.8" cy="453.8" rx="7.7" ry="6.9"/>
+<ellipse cx="163" cy="467.6" rx="8.4" ry="7.5"/>
+<ellipse cx="184.4" cy="467.6" rx="7.6" ry="6.8"/>
+<ellipse cx="476.8" cy="469.3" rx="10.7" ry="9.5"/>
+<ellipse cx="175.5" cy="476.3" rx="10.8" ry="9.7"/>
+<ellipse cx="62" cy="551.7" rx="8.5" ry="7.6"/>
+<ellipse cx="433.3" cy="553" rx="9.5" ry="8.5"/>
+<ellipse cx="398.7" cy="552.9" rx="8.5" ry="7.6"/>
+<ellipse cx="87" cy="557.3" rx="8.7" ry="7.8"/>
+<ellipse cx="538.1" cy="559.6" rx="6.9" ry="6.2"/>
+<ellipse cx="556.1" cy="560.5" rx="8.3" ry="7.4"/>
+<ellipse cx="125.4" cy="562.6" rx="10.1" ry="9"/>
+<ellipse cx="69.9" cy="567.3" rx="6.8" ry="6.1"/>
+<ellipse cx="138.7" cy="571.7" rx="8.9" ry="7.9"/>
+<ellipse cx="539.8" cy="574.3" rx="9.7" ry="8.7"/>
+<ellipse cx="102.7" cy="574.3" rx="9.6" ry="8.6"/>
+<ellipse cx="394.5" cy="581.2" rx="10.6" ry="9.5"/>
+<ellipse cx="414.2" cy="582.2" rx="9.6" ry="8.6"/>
+<ellipse cx="124.3" cy="584.3" rx="9.9" ry="8.9"/>
+<ellipse cx="106.6" cy="585.7" rx="9.9" ry="8.9"/>
+<ellipse cx="134.3" cy="599.2" rx="10.5" ry="9.4"/>
+<ellipse cx="365.4" cy="627.6" rx="7.7" ry="6.9"/>
+<ellipse cx="322" cy="636.5" rx="8.5" ry="7.6"/>
+<ellipse cx="340.2" cy="637.5" rx="7.3" ry="6.6"/>
+<ellipse cx="347.8" cy="647.3" rx="8.6" ry="7.7"/>
+<ellipse cx="322.4" cy="652.3" rx="10.4" ry="9.3"/>
+<ellipse cx="319.1" cy="668.4" rx="7.4" ry="6.6"/>
+<ellipse cx="127" cy="676.3" rx="8.9" ry="8"/>
+<ellipse cx="114.9" cy="683.7" rx="7.8" ry="7"/>
+<ellipse cx="126.7" cy="695.5" rx="10.6" ry="9.5"/>
+<ellipse cx="132.6" cy="710.9" rx="10" ry="8.9"/>
+<ellipse cx="109.9" cy="716.1" rx="10.9" ry="9.7"/>
+<ellipse cx="359.3" cy="740.3" rx="9.5" ry="8.5"/>
+<ellipse cx="374.2" cy="745" rx="8.7" ry="7.8"/>
+<ellipse cx="389.2" cy="756.6" rx="10" ry="9"/>
+<ellipse cx="402.3" cy="764.6" rx="7.3" ry="6.5"/>
+<ellipse cx="380.3" cy="769.4" rx="8.1" ry="7.3"/>
+<ellipse cx="389.9" cy="777.3" rx="8.6" ry="7.7"/>
+<ellipse cx="377.8" cy="784.5" rx="8.9" ry="7.9"/>
+<ellipse cx="175.3" cy="789.4" rx="7.1" ry="6.4"/>
+<ellipse cx="184.2" cy="804.5" rx="10.6" ry="9.4"/>
+<ellipse cx="159.5" cy="806" rx="10.2" ry="9.2"/>
+<ellipse cx="171.5" cy="809.2" rx="10.5" ry="9.4"/>
+<ellipse cx="191.3" cy="820.6" rx="9.1" ry="8.2"/>
+<ellipse cx="162" cy="820.9" rx="8.3" ry="7.4"/>
+<ellipse cx="515.4" cy="827.9" rx="8.2" ry="7.4"/>
+<ellipse cx="531.5" cy="848.7" rx="10.5" ry="9.4"/>
+<ellipse cx="73" cy="855.2" rx="10.9" ry="9.8"/>
+<ellipse cx="559" cy="860.5" rx="7.5" ry="6.8"/>
+<ellipse cx="62.6" cy="870.2" rx="10.4" ry="9.3"/>
+<ellipse cx="77.6" cy="871.2" rx="9.6" ry="8.6"/>
+<ellipse cx="404.6" cy="895.2" rx="8.4" ry="7.5"/>
+<ellipse cx="198.7" cy="897.1" rx="10.9" ry="9.8"/>
+<ellipse cx="414.8" cy="902.4" rx="9.7" ry="8.7"/>
+<ellipse cx="402.3" cy="909.7" rx="7.4" ry="6.6"/>
+<ellipse cx="391.6" cy="912.4" rx="10.5" ry="9.4"/>
+<ellipse cx="197.4" cy="914.9" rx="9.1" ry="8.1"/>
+<ellipse cx="211.1" cy="919.7" rx="9.8" ry="8.8"/>
+<ellipse cx="392.9" cy="925.5" rx="10.4" ry="9.3"/>
+<ellipse cx="209.8" cy="932.1" rx="9.7" ry="8.7"/>
+<ellipse cx="187.8" cy="935.5" rx="10.9" ry="9.8"/>
+<ellipse cx="212.9" cy="946.3" rx="10.4" ry="9.3"/>
+</g>
+<g class="trees">
+<g fill="#56694E"><circle cx="228.4" cy="183.4" r="9.2"/><circle cx="226.9" cy="187.2" r="6.7"/><circle cx="226.2" cy="180" r="6.7"/></g>
+<circle cx="225.8" cy="180.4" r="3.9" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="244.2" cy="187.8" r="8.2"/><circle cx="240.7" cy="186.8" r="5.9"/><circle cx="247" cy="185.5" r="5.9"/></g>
+<circle cx="241.9" cy="185.1" r="3.4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="232.7" cy="198.3" r="7.9"/><circle cx="230.4" cy="195.8" r="5.7"/><circle cx="236.2" cy="198" r="5.7"/></g>
+<circle cx="230.5" cy="195.8" r="3.3" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="246.3" cy="202.2" r="6.7"/><circle cx="243.3" cy="201.7" r="4.9"/><circle cx="248.4" cy="200.1" r="4.9"/></g>
+<circle cx="244.4" cy="200" r="2.8" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="444.8" cy="218.1" r="6.4"/><circle cx="442.2" cy="219.1" r="4.6"/><circle cx="445.6" cy="215.3" r="4.6"/></g>
+<circle cx="443" cy="216" r="2.7" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="432.6" cy="227.6" r="7.5"/><circle cx="433.3" cy="230.9" r="5.4"/><circle cx="429.7" cy="226.2" r="5.4"/></g>
+<circle cx="430.6" cy="225.2" r="3.1" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="460" cy="232.1" r="8.9"/><circle cx="457.1" cy="234.8" r="6.4"/><circle cx="459.5" cy="228.2" r="6.4"/></g>
+<circle cx="457.5" cy="229.2" r="3.7" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="443.1" cy="246.9" r="9.7"/><circle cx="439.5" cy="249.3" r="7"/><circle cx="443.2" cy="242.6" r="7"/></g>
+<circle cx="440.4" cy="243.8" r="4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="456.9" cy="263.3" r="9.7"/><circle cx="460.7" cy="265.3" r="7"/><circle cx="453.1" cy="265.2" r="7"/></g>
+<circle cx="454.2" cy="260.1" r="4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="239.3" cy="273.1" r="8"/><circle cx="242.8" cy="272.4" r="5.8"/><circle cx="237.9" cy="276.3" r="5.8"/></g>
+<circle cx="237.1" cy="270.5" r="3.3" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="227.7" cy="279.1" r="7.9"/><circle cx="225.4" cy="281.8" r="5.7"/><circle cx="226.9" cy="275.7" r="5.7"/></g>
+<circle cx="225.5" cy="276.5" r="3.3" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="259.5" cy="294.2" r="6.6"/><circle cx="257.9" cy="291.8" r="4.7"/><circle cx="262.4" cy="294.4" r="4.7"/></g>
+<circle cx="257.7" cy="292.1" r="2.8" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="239.2" cy="295.7" r="8.8"/><circle cx="242.3" cy="293.4" r="6.3"/><circle cx="239.2" cy="299.6" r="6.3"/></g>
+<circle cx="236.7" cy="292.8" r="3.7" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="257.2" cy="315.3" r="9.3"/><circle cx="261.3" cy="315.8" r="6.7"/><circle cx="254.4" cy="318.3" r="6.7"/></g>
+<circle cx="254.6" cy="312.3" r="3.9" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="473.3" cy="320.4" r="6.8"/><circle cx="473.4" cy="317.4" r="4.9"/><circle cx="475.7" cy="322.2" r="4.9"/></g>
+<circle cx="471.4" cy="318.2" r="2.8" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="466.6" cy="332" r="9.6"/><circle cx="470.5" cy="333.5" r="6.9"/><circle cx="463" cy="334.2" r="6.9"/></g>
+<circle cx="463.9" cy="328.9" r="4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="476.4" cy="337.7" r="9.7"/><circle cx="476.9" cy="333.4" r="7"/><circle cx="479.6" cy="340.5" r="7"/></g>
+<circle cx="473.7" cy="334.5" r="4.1" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="458.9" cy="346.6" r="6.4"/><circle cx="461.3" cy="348" r="4.6"/><circle cx="456.3" cy="347.8" r="4.6"/></g>
+<circle cx="457.1" cy="344.6" r="2.7" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="240.5" cy="356.9" r="7.5"/><circle cx="237.9" cy="354.9" r="5.4"/><circle cx="243.7" cy="356" r="5.4"/></g>
+<circle cx="238.4" cy="354.5" r="3.1" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="252.1" cy="363.7" r="9.2"/><circle cx="253.5" cy="359.9" r="6.6"/><circle cx="254.3" cy="367.1" r="6.6"/></g>
+<circle cx="249.5" cy="360.7" r="3.8" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="273.5" cy="365" r="8.5"/><circle cx="276.3" cy="362.6" r="6.1"/><circle cx="273.8" cy="368.8" r="6.1"/></g>
+<circle cx="271.1" cy="362.3" r="3.6" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="240.1" cy="378" r="8.3"/><circle cx="237.3" cy="375.6" r="6"/><circle cx="243.7" cy="377.1" r="6"/></g>
+<circle cx="237.8" cy="375.3" r="3.5" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="257.9" cy="391" r="7.5"/><circle cx="259.5" cy="394" r="5.4"/><circle cx="254.6" cy="390.5" r="5.4"/></g>
+<circle cx="255.8" cy="388.6" r="3.2" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="452.5" cy="412.9" r="8.2"/><circle cx="455.4" cy="410.8" r="5.9"/><circle cx="452.5" cy="416.5" r="5.9"/></g>
+<circle cx="450.2" cy="410.2" r="3.4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="465.6" cy="431.6" r="8.6"/><circle cx="464.7" cy="427.9" r="6.2"/><circle cx="469.1" cy="433.1" r="6.2"/></g>
+<circle cx="463.2" cy="428.8" r="3.6" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="447.8" cy="435.6" r="9.1"/><circle cx="446.8" cy="439.5" r="6.5"/><circle cx="445.2" cy="432.5" r="6.5"/></g>
+<circle cx="445.2" cy="432.6" r="3.8" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="184.9" cy="437.5" r="9"/><circle cx="181" cy="437.1" r="6.5"/><circle cx="187.6" cy="434.5" r="6.5"/></g>
+<circle cx="182.4" cy="434.6" r="3.8" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="159.5" cy="445.4" r="8.7"/><circle cx="156.7" cy="442.7" r="6.3"/><circle cx="163.3" cy="444.8" r="6.3"/></g>
+<circle cx="157.1" cy="442.6" r="3.7" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="488.2" cy="448.9" r="8.7"/><circle cx="487.9" cy="445.1" r="6.3"/><circle cx="491.4" cy="451" r="6.3"/></g>
+<circle cx="485.7" cy="446.1" r="3.7" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="469.6" cy="449.7" r="7"/><circle cx="471.7" cy="452" r="5"/><circle cx="466.5" cy="450.1" r="5"/></g>
+<circle cx="467.6" cy="447.5" r="2.9" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="159.4" cy="463.2" r="7.6"/><circle cx="156.2" cy="462.4" r="5.5"/><circle cx="162" cy="461" r="5.5"/></g>
+<circle cx="157.3" cy="460.7" r="3.2" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="181.2" cy="463.6" r="6.9"/><circle cx="184.1" cy="462.7" r="5"/><circle cx="180.3" cy="466.5" r="5"/></g>
+<circle cx="179.3" cy="461.4" r="2.9" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="472.3" cy="463.7" r="9.6"/><circle cx="468.3" cy="462.2" r="7"/><circle cx="475.9" cy="461.4" r="7"/></g>
+<circle cx="469.6" cy="460.6" r="4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="170.9" cy="470.6" r="9.8"/><circle cx="166.7" cy="469.5" r="7.1"/><circle cx="174.2" cy="467.8" r="7.1"/></g>
+<circle cx="168.2" cy="467.4" r="4.1" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="58.4" cy="547.3" r="7.7"/><circle cx="55.1" cy="546.5" r="5.5"/><circle cx="61" cy="545.1" r="5.5"/></g>
+<circle cx="56.3" cy="544.8" r="3.2" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="429.3" cy="548" r="8.6"/><circle cx="428.6" cy="544.3" r="6.2"/><circle cx="432.8" cy="549.6" r="6.2"/></g>
+<circle cx="426.9" cy="545.2" r="3.6" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="395.2" cy="548.4" r="7.7"/><circle cx="397" cy="551.2" r="5.5"/><circle cx="391.8" cy="548.2" r="5.5"/></g>
+<circle cx="393" cy="545.9" r="3.2" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="83.4" cy="552.8" r="7.9"/><circle cx="86.7" cy="553.8" r="5.7"/><circle cx="80.5" cy="554.8" r="5.7"/></g>
+<circle cx="81.2" cy="550.2" r="3.3" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="535.1" cy="556" r="6.3"/><circle cx="536.8" cy="553.7" r="4.5"/><circle cx="536" cy="558.6" r="4.5"/></g>
+<circle cx="533.4" cy="553.9" r="2.6" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="552.6" cy="556.2" r="7.5"/><circle cx="555.1" cy="554" r="5.4"/><circle cx="552.9" cy="559.5" r="5.4"/></g>
+<circle cx="550.5" cy="553.7" r="3.1" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="121.2" cy="557.3" r="9.1"/><circle cx="117.5" cy="555.6" r="6.6"/><circle cx="124.7" cy="555.2" r="6.6"/></g>
+<circle cx="118.6" cy="554.3" r="3.8" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="67" cy="563.7" r="6.2"/><circle cx="65.9" cy="566.1" r="4.5"/><circle cx="65.7" cy="561.3" r="4.5"/></g>
+<circle cx="65.3" cy="561.6" r="2.6" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="134.9" cy="567.1" r="8"/><circle cx="131.4" cy="566.9" r="5.8"/><circle cx="137.1" cy="564.3" r="5.8"/></g>
+<circle cx="132.7" cy="564.4" r="3.4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="535.7" cy="569.2" r="8.8"/><circle cx="533.5" cy="566" r="6.3"/><circle cx="539.6" cy="569.3" r="6.3"/></g>
+<circle cx="533.3" cy="566.3" r="3.7" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="98.7" cy="569.3" r="8.7"/><circle cx="95.3" cy="571.1" r="6.3"/><circle cx="99.2" cy="565.5" r="6.3"/></g>
+<circle cx="96.2" cy="566.4" r="3.6" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="390" cy="575.6" r="9.6"/><circle cx="387" cy="578.6" r="6.9"/><circle cx="389.4" cy="571.4" r="6.9"/></g>
+<circle cx="387.4" cy="572.5" r="4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="410.1" cy="577.1" r="8.7"/><circle cx="413.6" cy="578.9" r="6.3"/><circle cx="406.7" cy="578.9" r="6.3"/></g>
+<circle cx="407.7" cy="574.3" r="3.6" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="120.1" cy="579.1" r="9"/><circle cx="120.4" cy="583" r="6.5"/><circle cx="116.7" cy="577" r="6.5"/></g>
+<circle cx="117.6" cy="576.1" r="3.8" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="102.5" cy="580.5" r="9"/><circle cx="100.8" cy="584.1" r="6.5"/><circle cx="100.5" cy="577.1" r="6.5"/></g>
+<circle cx="100" cy="577.6" r="3.7" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="129.9" cy="593.7" r="9.5"/><circle cx="126.9" cy="596.6" r="6.9"/><circle cx="129.3" cy="589.5" r="6.9"/></g>
+<circle cx="127.3" cy="590.6" r="4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="362.2" cy="623.6" r="7"/><circle cx="362.1" cy="626.6" r="5"/><circle cx="359.7" cy="621.7" r="5"/></g>
+<circle cx="360.2" cy="621.3" r="2.9" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="318.4" cy="632" r="7.7"/><circle cx="317.5" cy="635.2" r="5.5"/><circle cx="316.4" cy="629.3" r="5.5"/></g>
+<circle cx="316.3" cy="629.5" r="3.2" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="337.1" cy="633.7" r="6.6"/><circle cx="337.6" cy="630.8" r="4.8"/><circle cx="339.2" cy="635.8" r="4.8"/></g>
+<circle cx="335.3" cy="631.5" r="2.8" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="344.2" cy="642.8" r="7.8"/><circle cx="340.7" cy="642.9" r="5.6"/><circle cx="346.1" cy="639.9" r="5.6"/></g>
+<circle cx="342" cy="640.2" r="3.3" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="318" cy="646.8" r="9.4"/><circle cx="321.7" cy="645" r="6.8"/><circle cx="317.3" cy="650.9" r="6.8"/></g>
+<circle cx="315.4" cy="643.7" r="3.9" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="316" cy="664.6" r="6.7"/><circle cx="313.6" cy="662.8" r="4.8"/><circle cx="318.8" cy="663.6" r="4.8"/></g>
+<circle cx="314.1" cy="662.4" r="2.8" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="123.3" cy="671.5" r="8.1"/><circle cx="126.5" cy="670.1" r="5.8"/><circle cx="122.5" cy="675" r="5.8"/></g>
+<circle cx="121" cy="668.9" r="3.4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="111.6" cy="679.5" r="7.1"/><circle cx="112.6" cy="682.5" r="5.1"/><circle cx="108.6" cy="678.6" r="5.1"/></g>
+<circle cx="109.6" cy="677.2" r="3" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="122.2" cy="690" r="9.6"/><circle cx="118" cy="689.9" r="6.9"/><circle cx="124.7" cy="686.6" r="6.9"/></g>
+<circle cx="119.6" cy="686.9" r="4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="128.4" cy="705.7" r="9"/><circle cx="126" cy="708.8" r="6.5"/><circle cx="127.3" cy="701.8" r="6.5"/></g>
+<circle cx="125.9" cy="702.7" r="3.8" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="105.3" cy="710.4" r="9.8"/><circle cx="101.3" cy="708.6" r="7.1"/><circle cx="109.1" cy="708.3" r="7.1"/></g>
+<circle cx="102.5" cy="707.2" r="4.1" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="355.4" cy="735.3" r="8.6"/><circle cx="352.7" cy="738" r="6.2"/><circle cx="354.7" cy="731.6" r="6.2"/></g>
+<circle cx="353" cy="732.5" r="3.6" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="370.5" cy="740.4" r="7.9"/><circle cx="367.1" cy="741.3" r="5.7"/><circle cx="371.7" cy="737.1" r="5.7"/></g>
+<circle cx="368.3" cy="737.8" r="3.3" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="385" cy="751.4" r="9.1"/><circle cx="384.3" cy="747.4" r="6.5"/><circle cx="388.6" cy="753.1" r="6.5"/></g>
+<circle cx="382.5" cy="748.4" r="3.8" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="399.3" cy="760.8" r="6.6"/><circle cx="396.3" cy="760.5" r="4.8"/><circle cx="401.2" cy="758.6" r="4.8"/></g>
+<circle cx="397.4" cy="758.6" r="2.8" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="376.9" cy="765.1" r="7.3"/><circle cx="379" cy="767.6" r="5.3"/><circle cx="373.7" cy="765.4" r="5.3"/></g>
+<circle cx="374.8" cy="762.7" r="3.1" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="386.3" cy="772.8" r="7.8"/><circle cx="383.9" cy="775.3" r="5.6"/><circle cx="385.7" cy="769.4" r="5.6"/></g>
+<circle cx="384.1" cy="770.2" r="3.3" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="374.1" cy="779.8" r="8"/><circle cx="376.8" cy="777.5" r="5.8"/><circle cx="374.3" cy="783.3" r="5.8"/></g>
+<circle cx="371.8" cy="777.2" r="3.4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="172.3" cy="785.7" r="6.5"/><circle cx="175" cy="784.9" r="4.7"/><circle cx="171.3" cy="788.3" r="4.7"/></g>
+<circle cx="170.5" cy="783.5" r="2.7" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="179.8" cy="799" r="9.6"/><circle cx="175.9" cy="797.4" r="6.9"/><circle cx="183.4" cy="796.7" r="6.9"/></g>
+<circle cx="177.1" cy="795.9" r="4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="155.2" cy="800.6" r="9.3"/><circle cx="153.1" cy="797.1" r="6.7"/><circle cx="159.3" cy="800.9" r="6.7"/></g>
+<circle cx="152.6" cy="797.6" r="3.9" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="167.1" cy="803.7" r="9.5"/><circle cx="169.1" cy="800" r="6.8"/><circle cx="169" cy="807.5" r="6.8"/></g>
+<circle cx="164.5" cy="800.6" r="4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="187.5" cy="815.8" r="8.2"/><circle cx="185.8" cy="819" r="5.9"/><circle cx="185.8" cy="812.5" r="5.9"/></g>
+<circle cx="185.2" cy="813.1" r="3.5" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="158.5" cy="816.5" r="7.5"/><circle cx="159.5" cy="813.4" r="5.4"/><circle cx="160.4" cy="819.2" r="5.4"/></g>
+<circle cx="156.4" cy="814.1" r="3.1" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="511.9" cy="823.6" r="7.4"/><circle cx="512.4" cy="820.3" r="5.4"/><circle cx="514.2" cy="825.9" r="5.4"/></g>
+<circle cx="509.8" cy="821.2" r="3.1" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="527" cy="843.2" r="9.5"/><circle cx="524" cy="840.3" r="6.9"/><circle cx="531.2" cy="842.4" r="6.9"/></g>
+<circle cx="524.4" cy="840.1" r="4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="68.4" cy="849.5" r="9.9"/><circle cx="65" cy="852.2" r="7.1"/><circle cx="68.2" cy="845.1" r="7.1"/></g>
+<circle cx="65.7" cy="846.2" r="4.1" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="555.8" cy="856.5" r="6.8"/><circle cx="552.8" cy="856.3" r="4.9"/><circle cx="557.8" cy="854.2" r="4.9"/></g>
+<circle cx="553.9" cy="854.3" r="2.9" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#5D7154"><circle cx="58.3" cy="864.7" r="9.4"/><circle cx="61.5" cy="867.3" r="6.8"/><circle cx="54.2" cy="865.8" r="6.8"/></g>
+<circle cx="55.6" cy="861.6" r="3.9" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="73.6" cy="866.1" r="8.7"/><circle cx="71.3" cy="863.1" r="6.3"/><circle cx="77.4" cy="866.1" r="6.3"/></g>
+<circle cx="71.2" cy="863.3" r="3.6" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="401" cy="890.8" r="7.6"/><circle cx="401.7" cy="887.6" r="5.5"/><circle cx="403.3" cy="893.3" r="5.5"/></g>
+<circle cx="398.9" cy="888.4" r="3.2" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="194.1" cy="891.3" r="9.9"/><circle cx="191.4" cy="887.9" r="7.1"/><circle cx="198.5" cy="891.2" r="7.1"/></g>
+<circle cx="191.3" cy="888.1" r="4.1" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="410.7" cy="897.3" r="8.8"/><circle cx="411.2" cy="901.2" r="6.3"/><circle cx="407.3" cy="895.4" r="6.3"/></g>
+<circle cx="408.2" cy="894.5" r="3.7" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="399.2" cy="905.9" r="6.7"/><circle cx="396.7" cy="907.4" r="4.8"/><circle cx="399.5" cy="902.9" r="4.8"/></g>
+<circle cx="397.3" cy="903.7" r="2.8" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="387.2" cy="906.9" r="9.5"/><circle cx="389.5" cy="903.3" r="6.9"/><circle cx="388.7" cy="910.8" r="6.9"/></g>
+<circle cx="384.5" cy="903.8" r="4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="193.5" cy="910.1" r="8.2"/><circle cx="191.5" cy="907" r="5.9"/><circle cx="197.2" cy="910.2" r="5.9"/></g>
+<circle cx="191.3" cy="907.4" r="3.4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#475B42"><circle cx="207" cy="914.6" r="8.9"/><circle cx="210.6" cy="913.1" r="6.4"/><circle cx="206" cy="918.4" r="6.4"/></g>
+<circle cx="204.5" cy="911.7" r="3.7" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="388.5" cy="920" r="9.5"/><circle cx="392.4" cy="918.5" r="6.8"/><circle cx="387.4" cy="924.1" r="6.8"/></g>
+<circle cx="385.8" cy="916.9" r="4" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#56694E"><circle cx="205.8" cy="927" r="8.8"/><circle cx="202.4" cy="928.9" r="6.3"/><circle cx="206.2" cy="923.1" r="6.3"/></g>
+<circle cx="203.3" cy="924.1" r="3.7" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="183.2" cy="929.8" r="9.9"/><circle cx="186.8" cy="927.3" r="7.1"/><circle cx="183.1" cy="934.2" r="7.1"/></g>
+<circle cx="180.4" cy="926.6" r="4.1" fill="#8A9C7B" fill-opacity="0.5"/>
+<g fill="#4E6248"><circle cx="208.5" cy="940.8" r="9.4"/><circle cx="205.5" cy="943.8" r="6.8"/><circle cx="207.9" cy="936.7" r="6.8"/></g>
+<circle cx="205.9" cy="937.8" r="3.9" fill="#8A9C7B" fill-opacity="0.5"/>
+</g>
+<path d="M332.6 762.4C336.5 737.1 315 704.8 307.3 683.4C299.7 661.9 291.2 648.5 286.7 633.8C282.2 619 278 610.6 280.4 594.9C282.7 579.2 286.2 557.7 301 539.5C315.9 521.3 347.9 508.3 369.3 485.9C390.7 463.5 419.3 434.5 429.5 405.1C439.7 375.7 436.6 336.8 430.4 309.7C424.2 282.6 406.7 255.7 392.2 242.5C377.8 229.3 358.1 225.4 344 230.6C329.9 235.8 312.8 257.5 307.8 273.5C302.7 289.4 313.8 311.4 313.6 326.3C313.4 341.2 311.7 347.6 306.5 362.9C301.4 378.2 294.6 397.9 282.7 418.1C270.7 438.4 253.5 462.7 235 484.5C216.5 506.3 187.3 522.1 171.6 549.1C156 576 141.8 614.3 141.3 646.2C140.8 678.2 155.7 712.1 168.7 740.6C181.7 769.2 200.1 801.8 219.4 817.6C238.6 833.4 265.1 844.6 284 835.4C302.9 826.2 328.8 787.7 332.6 762.4Z" fill="#B3BE9D"/>
+<path class="fairway" d="M324.5 766.3C327 742.5 306.8 708.8 299 686.8C291.2 664.8 282.3 650.4 277.8 634.5C273.3 618.6 269.3 608.2 272.1 591.4C274.8 574.6 279.1 552.3 294.1 533.8C309.1 515.2 341.1 502.3 362.2 480.3C383.4 458.4 411.1 430.4 421 402.2C430.8 374 427.7 337 421.5 310.9C415.3 284.8 396.7 258.1 383.8 245.6C370.9 233.1 355.3 231.9 344 236C332.7 240.1 319.8 255.5 316.2 270.4C312.6 285.2 322.7 309.2 322.5 325.1C322.3 341 320.5 349.4 315 365.8C309.6 382.3 301.9 402.9 289.8 423.7C277.6 444.4 260.2 468.8 241.9 490.2C223.6 511.7 195.2 526.7 179.9 552.6C164.7 578.4 150.7 614.7 150.2 645.5C149.7 676.2 164.1 709.2 177 737.2C189.9 765.2 209.6 798.2 227.5 813.7C245.3 829.1 267.8 837.9 284 830C300.2 822.1 322 790.2 324.5 766.3Z" fill="#C3CBA8"/>
+<path d="M324.5 766.3C327 742.5 306.8 708.8 299 686.8C291.2 664.8 282.3 650.4 277.8 634.5C273.3 618.6 269.3 608.2 272.1 591.4C274.8 574.6 279.1 552.3 294.1 533.8C309.1 515.2 341.1 502.3 362.2 480.3C383.4 458.4 411.1 430.4 421 402.2C430.8 374 427.7 337 421.5 310.9C415.3 284.8 396.7 258.1 383.8 245.6C370.9 233.1 355.3 231.9 344 236C332.7 240.1 319.8 255.5 316.2 270.4C312.6 285.2 322.7 309.2 322.5 325.1C322.3 341 320.5 349.4 315 365.8C309.6 382.3 301.9 402.9 289.8 423.7C277.6 444.4 260.2 468.8 241.9 490.2C223.6 511.7 195.2 526.7 179.9 552.6C164.7 578.4 150.7 614.7 150.2 645.5C149.7 676.2 164.1 709.2 177 737.2C189.9 765.2 209.6 798.2 227.5 813.7C245.3 829.1 267.8 837.9 284 830C300.2 822.1 322 790.2 324.5 766.3Z" fill="url(#mow)"/>
+<g transform="rotate(-6 300 938)"><rect x="268" y="924" width="64" height="28" rx="7" fill="#B3BE9D"/><rect x="272" y="928" width="56" height="20" rx="5" fill="#C3CBA8"/><rect x="272" y="928" width="56" height="20" rx="5" fill="url(#mow)"/><circle cx="286" cy="934" r="1.8" fill="#F5F1E9"/><circle cx="314" cy="934" r="1.8" fill="#F5F1E9"/></g>
+<path d="M411.6 203.1C413.5 215.4 414.6 229.4 409.1 240.8C403.5 252.3 390.6 263.7 378.1 271.5C365.6 279.4 349.1 286.5 334.1 288.2C319.1 289.9 300.3 287.7 288.1 281.9C275.9 276.1 266.7 264 261 253.4C255.3 242.8 253.4 230.6 254.1 218.4C254.8 206.2 256.2 190.2 265.1 180.4C273.9 170.5 292.6 163.6 307.3 159.4C321.9 155.2 337.8 154 352.8 155.3C367.8 156.5 387.5 158.9 397.3 166.9C407.1 174.9 409.6 190.8 411.6 203.1Z" fill="#B9C4A0"/>
+<path class="green" d="M399.8 205.6C401.4 216 402.7 227.6 397.9 237.1C393.2 246.7 381.9 256.1 371.1 262.8C360.4 269.5 346.4 275.6 333.5 277.2C320.7 278.7 304.3 277 294 272.1C283.7 267.2 276.3 256.8 271.6 248C266.9 239.1 265.5 229.2 266 219C266.5 208.8 267 195.1 274.5 186.9C282 178.7 298.6 173.1 311.2 169.7C323.8 166.2 337.1 165.2 350 166C362.9 166.9 380.3 168.3 388.6 174.9C396.9 181.5 398.3 195.2 399.8 205.6Z" fill="#CDD5B2"/>
+<path d="M399.8 205.6C401.4 216 402.7 227.6 397.9 237.1C393.2 246.7 381.9 256.1 371.1 262.8C360.4 269.5 346.4 275.6 333.5 277.2C320.7 278.7 304.3 277 294 272.1C283.7 267.2 276.3 256.8 271.6 248C266.9 239.1 265.5 229.2 266 219C266.5 208.8 267 195.1 274.5 186.9C282 178.7 298.6 173.1 311.2 169.7C323.8 166.2 337.1 165.2 350 166C362.9 166.9 380.3 168.3 388.6 174.9C396.9 181.5 398.3 195.2 399.8 205.6Z" fill="url(#mow-green)"/>
+<g fill="none" stroke="#262A24" stroke-opacity="0.11" stroke-width="0.8">
+<path d="M371.4 215.1C373.1 223.5 369.3 234.8 363.6 242.9C357.9 250.9 347.4 260.2 337.3 263.5C327.2 266.9 313.8 265.3 303 263.2C292.2 261.1 278.5 257.9 272.4 251.1C266.3 244.3 263.9 231.5 266.2 222.4C268.5 213.3 277.3 202.1 286.4 196.4C295.4 190.6 309.3 188.7 320.5 188.1C331.7 187.4 345.1 187.8 353.6 192.3C362.1 196.8 369.8 206.6 371.4 215.1Z"/>
+<path d="M361.5 216.9C362.6 222.6 361.4 229.9 357.8 235.5C354.3 241.2 347.3 248.3 340.3 250.7C333.4 253.2 323.1 252 316 250.2C309 248.4 301.8 244.5 298.1 239.8C294.4 235 292.1 227.3 293.7 221.7C295.3 216.1 301.9 210.2 307.6 206C313.4 201.9 321.2 197.6 328.4 196.8C335.6 196 345.4 197.7 350.9 201C356.4 204.4 360.3 211.1 361.5 216.9Z"/>
+<path d="M354.2 218.1C354.9 221.3 354.5 225.4 352.5 228.4C350.5 231.3 346.1 234.6 342.4 235.8C338.6 236.9 333.4 236.3 329.9 235.3C326.4 234.2 323.4 232.1 321.4 229.7C319.5 227.3 317.7 223.8 318.2 220.8C318.8 217.9 321.8 214.5 324.8 212.1C327.8 209.7 332.2 206.8 336.2 206.4C340.2 205.9 345.5 207.4 348.5 209.4C351.5 211.4 353.6 215 354.2 218.1Z"/>
+</g>
+<g class="bunkers">
+<path d="M255.3 273.2C253.3 275.6 251.7 279.7 248.1 279.5C244.4 279.4 237 275.4 233.6 272.1C230.1 268.7 228.3 263.5 227.1 259.6C226 255.8 225.1 251.3 226.7 249.2C228.3 247 232.8 246.2 236.7 246.7C240.6 247.2 246.3 249.3 250.1 252.3C254 255.3 259.1 261.4 260 264.9C260.8 268.3 257.3 270.7 255.3 273.2Z" transform="translate(2.5 3.5)" fill="#262A24" fill-opacity="0.14"/><path d="M255.3 273.2C253.3 275.6 251.7 279.7 248.1 279.5C244.4 279.4 237 275.4 233.6 272.1C230.1 268.7 228.3 263.5 227.1 259.6C226 255.8 225.1 251.3 226.7 249.2C228.3 247 232.8 246.2 236.7 246.7C240.6 247.2 246.3 249.3 250.1 252.3C254 255.3 259.1 261.4 260 264.9C260.8 268.3 257.3 270.7 255.3 273.2Z" fill="#E2D6BC"/><path d="M255.2 273.2C253.7 275.1 252.2 278.2 249.1 277.9C246 277.6 239.9 274.2 236.9 271.4C233.9 268.6 232.1 264.2 231 261C229.9 257.9 229.2 254.1 230.4 252.4C231.7 250.7 235.5 250.1 238.7 250.6C242 251.2 246.8 253.1 250.1 255.7C253.4 258.3 257.7 263.4 258.5 266.3C259.4 269.2 256.8 271.3 255.2 273.2Z" fill="#F1E9D7"/>
+<path d="M437.5 179.9C439.9 181.3 441.5 186.8 440.4 190.5C439.4 194.1 434.1 198.9 431.1 201.9C428 205 425.5 207 422.1 208.5C418.8 210.1 413.3 212.7 411 211.5C408.8 210.2 408 205 408.7 201.2C409.3 197.3 412.2 191.6 415.1 188.5C418 185.3 422.3 183.7 426.1 182.3C429.8 180.8 435.1 178.6 437.5 179.9Z" transform="translate(2.5 3.5)" fill="#262A24" fill-opacity="0.14"/><path d="M437.5 179.9C439.9 181.3 441.5 186.8 440.4 190.5C439.4 194.1 434.1 198.9 431.1 201.9C428 205 425.5 207 422.1 208.5C418.8 210.1 413.3 212.7 411 211.5C408.8 210.2 408 205 408.7 201.2C409.3 197.3 412.2 191.6 415.1 188.5C418 185.3 422.3 183.7 426.1 182.3C429.8 180.8 435.1 178.6 437.5 179.9Z" fill="#E2D6BC"/><path d="M436.8 183.7C438.7 184.8 439.9 189.2 438.9 192.3C438 195.4 433.8 199.5 431.2 202.2C428.6 204.8 426.3 206.7 423.5 208.1C420.7 209.4 416.2 211.5 414.4 210.5C412.6 209.4 412.1 205.2 412.7 202C413.4 198.9 415.9 194.1 418.3 191.4C420.8 188.6 424.5 187 427.6 185.7C430.7 184.4 434.9 182.6 436.8 183.7Z" fill="#F1E9D7"/>
+<path d="M409.7 287.5C409 288.9 406.9 289.8 404.9 290.4C402.9 291 399.6 291.7 397.5 290.9C395.4 290.2 393.7 287.5 392.4 285.7C391.1 283.9 389.2 281.6 389.5 280.2C389.9 278.7 392.6 277.3 394.7 277C396.7 276.8 399.6 277.6 402 278.5C404.4 279.3 407.7 280.5 409 282C410.3 283.5 410.4 286.1 409.7 287.5Z" transform="translate(2.5 3.5)" fill="#262A24" fill-opacity="0.14"/><path d="M409.7 287.5C409 288.9 406.9 289.8 404.9 290.4C402.9 291 399.6 291.7 397.5 290.9C395.4 290.2 393.7 287.5 392.4 285.7C391.1 283.9 389.2 281.6 389.5 280.2C389.9 278.7 392.6 277.3 394.7 277C396.7 276.8 399.6 277.6 402 278.5C404.4 279.3 407.7 280.5 409 282C410.3 283.5 410.4 286.1 409.7 287.5Z" fill="#E2D6BC"/><path d="M409.3 287.9C408.7 289 407 289.8 405.3 290.2C403.5 290.6 400.7 291 398.9 290.4C397 289.7 395.4 287.5 394.3 286.1C393.1 284.6 391.6 282.7 391.9 281.6C392.2 280.4 394.4 279.3 396.2 279.1C397.9 278.9 400.5 279.6 402.5 280.3C404.6 281 407.4 282.1 408.5 283.4C409.7 284.7 409.8 286.8 409.3 287.9Z" fill="#F1E9D7"/>
+<path d="M227.9 508.4C228.9 510.5 228.5 513.7 227.2 516.9C225.9 520 223.3 524.7 220.2 527.4C217.1 530 211.7 532.1 208.5 532.7C205.3 533.3 202.6 532.4 201.1 530.8C199.5 529.3 198.2 526.8 199.2 523.5C200.1 520.3 203 514.5 206.6 511.2C210.2 507.9 217.4 504.4 221 503.9C224.5 503.5 226.8 506.2 227.9 508.4Z" transform="translate(2.5 3.5)" fill="#262A24" fill-opacity="0.14"/><path d="M227.9 508.4C228.9 510.5 228.5 513.7 227.2 516.9C225.9 520 223.3 524.7 220.2 527.4C217.1 530 211.7 532.1 208.5 532.7C205.3 533.3 202.6 532.4 201.1 530.8C199.5 529.3 198.2 526.8 199.2 523.5C200.1 520.3 203 514.5 206.6 511.2C210.2 507.9 217.4 504.4 221 503.9C224.5 503.5 226.8 506.2 227.9 508.4Z" fill="#E2D6BC"/><path d="M227.7 511.1C228.5 512.8 228.1 515.5 226.9 518.2C225.7 520.8 223.3 524.8 220.6 527.1C217.8 529.4 213.3 531.4 210.5 532C207.8 532.6 205.5 532 204.3 530.7C203 529.5 202.1 527.3 203.1 524.6C204 521.8 206.6 517 209.8 514.3C212.9 511.5 218.8 508.4 221.8 507.9C224.8 507.4 226.8 509.4 227.7 511.1Z" fill="#F1E9D7"/>
+<path d="M335.6 533.2C337.4 534.9 337.6 539.1 335.9 543C334.1 546.9 329.5 552.7 325.1 556.5C320.7 560.3 313.7 564.7 309.5 565.9C305.2 567 301.4 565.5 299.7 563.4C298 561.3 296.9 556.9 299 553.3C301.2 549.7 308.3 545.1 312.7 541.6C317 538.2 321.5 534.2 325.3 532.8C329.1 531.4 333.8 531.5 335.6 533.2Z" transform="translate(2.5 3.5)" fill="#262A24" fill-opacity="0.14"/><path d="M335.6 533.2C337.4 534.9 337.6 539.1 335.9 543C334.1 546.9 329.5 552.7 325.1 556.5C320.7 560.3 313.7 564.7 309.5 565.9C305.2 567 301.4 565.5 299.7 563.4C298 561.3 296.9 556.9 299 553.3C301.2 549.7 308.3 545.1 312.7 541.6C317 538.2 321.5 534.2 325.3 532.8C329.1 531.4 333.8 531.5 335.6 533.2Z" fill="#E2D6BC"/><path d="M334.8 536.6C336.2 537.9 336.3 541.4 334.7 544.6C333.1 547.8 329.1 552.7 325.4 555.9C321.6 559.1 315.8 562.9 312.2 564C308.7 565 305.5 563.9 304.2 562.3C302.8 560.6 302.1 557.1 304 554C305.9 551 311.7 546.9 315.4 544C319.1 541.1 323.1 537.6 326.3 536.4C329.5 535.2 333.4 535.2 334.8 536.6Z" fill="#F1E9D7"/>
+<path d="M325.3 739C322.8 740.5 317.7 739.7 314 736.7C310.2 733.8 305.2 726.6 302.5 721.5C299.9 716.4 298.1 709.9 298.1 706.1C298 702.4 300.1 700.6 302.2 699C304.2 697.3 306.9 694.4 310.1 696.3C313.4 698.3 318.3 705.3 321.4 710.6C324.5 715.8 328 723.1 328.6 727.8C329.3 732.6 327.7 737.5 325.3 739Z" transform="translate(2.5 3.5)" fill="#262A24" fill-opacity="0.14"/><path d="M325.3 739C322.8 740.5 317.7 739.7 314 736.7C310.2 733.8 305.2 726.6 302.5 721.5C299.9 716.4 298.1 709.9 298.1 706.1C298 702.4 300.1 700.6 302.2 699C304.2 697.3 306.9 694.4 310.1 696.3C313.4 698.3 318.3 705.3 321.4 710.6C324.5 715.8 328 723.1 328.6 727.8C329.3 732.6 327.7 737.5 325.3 739Z" fill="#E2D6BC"/><path d="M325.2 736.9C323.3 738 319.2 737.2 316 734.7C312.9 732.2 308.6 726.1 306.3 721.7C304 717.3 302.4 711.8 302.2 708.5C302 705.3 303.6 703.6 305.2 702.3C306.9 701 309.2 699 311.9 700.7C314.6 702.5 318.8 708.5 321.5 713C324.1 717.4 327 723.7 327.7 727.6C328.3 731.6 327.1 735.7 325.2 736.9Z" fill="#F1E9D7"/>
+</g>
+
+<g>
+  <line x1="354" y1="224" x2="372" y2="216" stroke="#262A24" stroke-opacity="0.18" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="352" cy="222" r="6" fill="#2A2E28"/>
+  <circle cx="352" cy="222" r="6" fill="none" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="0.8"/>
+  <g>
+    <line x1="352" y1="222" x2="352" y2="180" stroke="#2A2E28" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M352 180 L376 187 L352 195 Z" fill="#B5543A"/>
+  </g>
+</g>
+<g>
+  <ellipse cx="301" cy="939" rx="4" ry="2.4" fill="#262A24" fill-opacity="0.3"/>
+  <circle cx="300" cy="938" r="3.6" fill="#FFFFFF" stroke="#262A24" stroke-opacity="0.4" stroke-width="0.7"/>
+</g>
+<g class="hole-label" fill="#2D4233">
+  <text x="44" y="958" font-family="Cormorant Garamond, Georgia, serif" font-size="54" font-weight="500" style="font-variant-numeric: lining-nums">15</text>
+  <text x="46" y="980" font-family="Jost, system-ui, sans-serif" font-size="11" letter-spacing="3" fill="#5F5C52">PAR 5</text>
+</g>
+</symbol></svg>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="arrow" viewBox="0 0 16 16"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></symbol>
+    <symbol id="check" viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></symbol>
+  </svg>
+
+  <!-- NAVIGATION -->
+  <header class="nav">
+    <div class="wrap">
+      <a class="brand" href="#top">
+        <svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="none" stroke="#C9A45E" stroke-width="1.4"/><path d="M9 16V5l6 2.2L9 9.4" fill="none" stroke="#ECE8DD" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        Personalised Golf for All
+      </a>
+      <nav class="nav-links" aria-label="Main">
+        <a href="#how">How it works</a><a href="#get">What you get</a><a href="#trust">Why trust it</a><a href="#about">About</a>
+      </nav>
+      <a class="btn primary small" href="../index.html">Start <svg><use href="#arrow"/></svg></a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO with a preview of the questionnaire -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div class="reveal">
+          <p class="badge"><i aria-hidden="true"></i>MYP Personal Project · 2026</p>
+          <h1 id="hero-title">Irons, explained. <span>For your game.</span></h1>
+          <p class="lead">A free, honest starting point before you buy or book a fitting.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="../index.html">Start <svg><use href="#arrow"/></svg></a>
+            <a class="btn ghost" href="#how">How it works</a>
+          </div>
+          <p class="micro">10 questions · played as one golf hole · free, no sign-up, no ads</p>
+        </div>
+
+        <figure class="window reveal" aria-label="Preview of the questionnaire">
+          <div class="window-bar"><span>Hole 15 · Par 5</span><b>Question 6 of 10</b></div>
+          <div class="window-body">
+            <div class="mini-hole">
+              <svg viewBox="150 150 330 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <use href="#hole-art" width="600" height="1000"/>
+                <!-- the path played so far and the ball in the greenside bunker -->
+                <polyline points="352,392 300,330 242,262" fill="none" stroke="#9C7A3C" stroke-width="2" stroke-dasharray="0.5 6" stroke-linecap="round"/>
+                <ellipse cx="243" cy="263.2" rx="4" ry="2.4" fill="#262A24" fill-opacity="0.3"/>
+                <circle cx="242" cy="262" r="3.6" fill="#fff" stroke="#262A24" stroke-opacity="0.4" stroke-width="0.7"/>
+              </svg>
+            </div>
+            <div class="mini-card">
+              <p class="shot">Shot 6 · Greenside bunker</p>
+              <p class="q">What's your most common bad iron shot?</p>
+              <div class="mini-opts" aria-hidden="true">
+                <span class="on">Fat (ground first)</span><span>Thin</span><span>Off the toe or heel</span><span>Slice or hook</span>
+              </div>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Research strip: where the facts come from -->
+    <div class="strip">
+      <div class="wrap">
+        <p>Research from</p>
+        <ul>
+          <li>Golf Digest</li><li>MyGolfSpy</li><li>Golf Monthly</li><li>Today's Golfer</li><li>Golf Magazine</li><li>Sports Engineering</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <div class="reveal">
+          <p class="label">How it works</p>
+          <h2 id="how-title">From the first tee to your shortlist</h2>
+          <p class="lead">Each answer is one shot. By the time the ball drops, your results are ready.</p>
+        </div>
+        <div class="grid-3 reveal stagger">
+          <article class="tile">
+            <span class="step">STEP 01</span>
+            <div class="icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M6 17V3l8 3-8 3"/><path d="M3 17h12"/></svg></div>
+            <h3>Play 10 questions</h3>
+            <p>Your hand, budget, level, usual miss and what matters most. "Not sure" is always an answer.</p>
+          </article>
+          <article class="tile">
+            <span class="step">STEP 02</span>
+            <div class="icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M3 4h14l-5.5 6.5V16l-3 1.5v-7z"/></svg></div>
+            <h3>Filter, then score</h3>
+            <p>Irons that can never fit, like the wrong hand or far over budget, are taken out. The rest are scored on what you need.</p>
+            <p><span class="chip">Felfernig et al., 2015</span> <span class="chip">ASQ</span></p>
+          </article>
+          <article class="tile">
+            <span class="step">STEP 03</span>
+            <div class="icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M7 5h10M7 10h10M7 15h10"/><circle cx="3.5" cy="5" r="0.8"/><circle cx="3.5" cy="10" r="0.8"/><circle cx="3.5" cy="15" r="0.8"/></svg></div>
+            <h3>Get your top 3</h3>
+            <p>Each with at least two reasons linked to your answers, a trade-off and an honest next step.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT YOU GET: result card preview in a bento grid -->
+    <section id="get" style="padding-top: 0" aria-labelledby="get-title">
+      <div class="wrap">
+        <div class="reveal">
+          <p class="label">What you get</p>
+          <h2 id="get-title">A shortlist that explains itself</h2>
+        </div>
+        <div class="bento reveal stagger">
+          <article class="tile result" aria-label="Example result card (placeholder)">
+            <div class="result-head">
+              <p class="rank">01<small>OF 03</small></p>
+              <div>
+                <p class="cat">Game-improvement</p>
+                <h3>Example Iron A</h3>
+                <span class="chip">Placeholder, not a real iron</span>
+              </div>
+            </div>
+            <div class="result-row">
+              <h4>Why it suits you</h4>
+              <div class="reason"><span class="said">You said: Fat (ground first)</span><p>A wide sole glides through the turf and forgives fat shots.</p><span class="chip">Summitt, 2026</span></div>
+              <div class="reason"><span class="said">You said: Forgiveness matters most</span><p>If forgiveness is your priority, game-improvement is probably the category for you.</p><span class="chip">Covey, 2025</span></div>
+            </div>
+            <div class="result-row">
+              <h4>Trade-off</h4>
+              <p>The most carry of the iron types, but also the widest left-to-right spread.</p><span class="chip">Today's Golfer, 2026</span>
+            </div>
+            <div class="result-row next">
+              <h4>Before you buy</h4>
+              <p>A questionnaire can't measure your swing. Try it in person, and ask for a lie check.</p><span class="chip">Stachura, 2026</span> <span class="chip">Saternus, 2018</span>
+            </div>
+          </article>
+          <div class="side">
+            <article class="tile stat"><b>2+</b><div><h3>Reasons from your answers</h3><p>Each one points back to something you said.</p></div></article>
+            <article class="tile stat"><b>1</b><div><h3>Real trade-off</h3><p>Every iron gives something up. You'll see what.</p></div></article>
+            <article class="tile stat"><b>1</b><div><h3>Next step, not a promise</h3><p>What to check in person before you pay.</p></div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY YOU CAN TRUST IT -->
+    <section id="trust" style="background: var(--soft)" aria-labelledby="trust-title">
+      <div class="wrap">
+        <div class="reveal">
+          <p class="label">Why you can trust it</p>
+          <h2 id="trust-title">Built on research. Honest about its limits.</h2>
+        </div>
+        <div class="grid-2 reveal stagger">
+          <article class="tile"><h3>Every fact has a source</h3><p>Online tools are only as good as their data and can repeat common myths. Here, every claim links to where it came from.</p><span class="chip">Stachura, Golf Digest, 2026</span></article>
+          <article class="tile"><h3>Not a fitting, and it says so</h3><p>It can't watch your swing, so it can't fit lie, length or shaft, or judge feel and sound. A fitting starts with you hitting balls.</p><span class="chip">Stachura, 2026</span> <span class="chip">Wunder, Golf Magazine, 2026</span></article>
+          <article class="tile"><h3>Budget irons included</h3><p>In testing, the Takomo 101 matched major brands for ball speed and distance. What you mainly give up is the chance to try before you buy.</p><span class="chip">Ferguson, Golf Monthly, 2026</span></article>
+          <article class="tile"><h3>Three options, not one winner</h3><p>A score is only as good as the weights behind it, so you get a shortlist with trade-offs and make the final call.</p><span class="chip">ASQ, Decision Matrix</span></article>
+        </div>
+        <div class="checks reveal">
+          <span><svg aria-hidden="true"><use href="#check"/></svg>Free</span>
+          <span><svg aria-hidden="true"><use href="#check"/></svg>No sign-up</span>
+          <span><svg aria-hidden="true"><use href="#check"/></svg>No ads</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT THIS PROJECT -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="wrap">
+        <article class="tile about-card reveal">
+          <div class="about-text">
+            <p class="label">About this project</p>
+            <h2 id="about-title">A student project, built from real research <span class="draft">DRAFT</span></h2>
+            <p>Personalised Golf for All is Leon's MYP Personal Project: learning how a golfer's game and an iron's design fit together, and how to weigh the evidence, then turning it into a free tool.</p>
+            <blockquote>The questionnaire plays one hole, inspired by the 15th at Crans-sur-Sierre, Switzerland, where Ludvig Åberg hit his favourite shot on the way to winning the 2023 Omega European Masters. <a href="https://www.pgatour.com/article/news/daily-wrapup/2023/09/03/rookie-ludvig-aberg-surges-to-european-masters-win-and-into-europes-ryder-cup-selection-picture" target="_blank" rel="noopener">Source: PGA Tour<span class="sr-only"> (opens in a new tab)</span></a></blockquote>
+          </div>
+          <div class="about-art">
+            <svg viewBox="170 120 330 380" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#hole-art" width="600" height="1000"/></svg>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER with sources -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <a class="brand" href="#top">Personalised Golf for All</a>
+          <p>A free, honest starting point before you buy or book a fitting.</p>
+          <a class="btn primary small" href="../index.html">Start <svg><use href="#arrow"/></svg></a>
+        </div>
+        <div>
+          <h3>Pages</h3>
+          <ul><li><a href="#how">How it works</a></li><li><a href="#get">What you get</a></li><li><a href="#trust">Why trust it</a></li><li><a href="#about">About</a></li></ul>
+        </div>
+        <div id="sources">
+          <h3>Sources</h3>
+          <ol class="sources">
+            <li><a href="https://mygolfspy.com/news-opinion/game-improvement-vs-players-distance-irons-whats-the-difference/">Covey, "Game-Improvement vs. Players Distance Irons," MyGolfSpy, 2025</a></li>
+            <li><a href="https://www.hirekogolf.com/blog/post/blades-vs-cavity-back-irons-a-clubmakers-engineering-guide">Summitt, "Blades vs Cavity Back Irons," Hireko Golf, 2026</a></li>
+            <li><a href="https://www.todays-golfer.com/news-and-events/equipment-news/golf-iron-categories-comparison-2026/">Today's Golfer, "Game Improvement, Players' Distance, Cavity or Blades," 2026</a></li>
+            <li>Stachura, "Your Next Custom Fitting Might Not Require a Single Swing," Golf Digest, 2026</li>
+            <li>Wunder, "Fully Fit: 2026," Golf Magazine, 2026</li>
+            <li><a href="https://pluggedingolf.com/much-lie-angle-matter-golf-myths-unplugged/">Saternus, "How Much Does Lie Angle Matter?," Plugged In Golf, 2018</a></li>
+            <li><a href="https://www.golfmonthly.com/best-golf-deals/best-budget-irons-213550">Ferguson, "Best Budget Irons 2026," Golf Monthly, 2026</a></li>
+            <li><a href="https://asq.org/quality-resources/decision-matrix">ASQ, "What Is a Decision Matrix?"</a></li>
+            <li><a href="https://web-ainf.aau.at/pub/jannach/files/BookChapter_Constraint-BasedRS_2015.pdf">Felfernig et al., "Constraint-Based Recommender Systems," Springer, 2015</a></li>
+            <li><a href="https://www.pgatour.com/article/news/daily-wrapup/2023/09/03/rookie-ludvig-aberg-surges-to-european-masters-win-and-into-europes-ryder-cup-selection-picture">PGA Tour / AP, "Rookie Ludvig Åberg surges to European Masters win," 2023</a></li>
+          </ol>
+        </div>
+      </div>
+      <p class="fine">An MYP Personal Project, 2026 · Not affiliated with any brand · Prices change, always check before you buy</p>
+    </div>
+  </footer>
+
+  <script>
+    // 1. Reveal sections as they scroll into view
+    var items = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); } });
+      }, { threshold: 0.15 });
+      items.forEach(function (el) { io.observe(el); });
+    } else { items.forEach(function (el) { el.classList.add("is-visible"); }); }
+
+    // 2. Pointer spotlight: each card lights up softly where the pointer is (mouse only)
+    document.querySelectorAll(".tile").forEach(function (tile) {
+      tile.addEventListener("pointermove", function (e) {
+        var r = tile.getBoundingClientRect();
+        tile.style.setProperty("--mx", (e.clientX - r.left) + "px");
+        tile.style.setProperty("--my", (e.clientY - r.top) + "px");
+      });
+    });
+  </script>
+</body>
+</html>

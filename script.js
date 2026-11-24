@@ -6,11 +6,12 @@
   each answered question = one shot. 10 questions = 10 shots, and the 10th drops into the cup.
 
   Sections:
-    1. The 10 questions (Leon's exact wording)    6. Next, Back, Skip
-    2. The answers object                          7. Playing a shot (the animation)
-    3. The 10 shots (where the ball goes, how)     8. The camera
-    4. Screens (home, questions, results)          9. Drawing helpers (ball, trail, tracer, sand, flag)
-    5. Showing a question                         10. Start-up
+    1. The 10 questions (Leon's exact wording)    7. Playing a shot (the animation)
+    2. The answers object                          8. The camera
+    3. The 10 shots (where the ball goes, how)     9. Answer markers on the hole
+    4. Screens (home, questions, results)         10. Drawing helpers (ball, trail, tracer, puffs, flag)
+    5. Showing a question                         11. Start-up
+    6. Next, Back, Skip
 
   Later (algorithm phase): FILTER -> SCORE -> RANK the irons, using the answers object.
 */
@@ -20,10 +21,15 @@
    1. THE 10 QUESTIONS
    Wording, help text and options copied exactly from docs/product-plan.md, section 3
    (all approved by Leon, 24 Nov). "value" is a short code the algorithm will use later.
+   "short" = the name shown on the answer markers and the scorecard (Leon, 24 Nov).
+
+   "note" = the Caddie's note (why we ask). SUGGESTION: drafted by Claude (AI) from Leon's
+   research notes only, with the source from product-plan.md section 3. Leon approves or
+   rewrites each one; set approved: true to remove the "Draft" tag. No note on question 1 (Leon).
    ========================================================= */
 const QUESTIONS = [
   {
-    id: "hand",
+    id: "hand", short: "Hand",
     text: "Are you right- or left-handed?",
     help: "The way you stand to the ball. Most right-handed people play right-handed.",
     options: [
@@ -32,7 +38,7 @@ const QUESTIONS = [
     ]
   },
   {
-    id: "budget",
+    id: "budget", short: "Budget",
     text: "What's your budget for a set of irons?",
     help: "For a full set, usually 6–7 irons (e.g. 5-iron to pitching wedge). New sets from big brands are often CHF 1,000–1,400 in Switzerland.",
     options: [
@@ -42,20 +48,26 @@ const QUESTIONS = [
       { value: "over-1400", label: "Over CHF 1,400" },
       { value: "no-limit", label: "No limit" },
       { value: "not-sure", label: "Not sure yet" }
-    ]
+    ],
+    note: { approved: false,
+      text: "Swiss prices run higher than US ones: MyGolfSpy's US game-improvement range works out to about CHF 670–1,090, but similar sets here often cost CHF 1,000 or more.",
+      source: "Leon's Swiss price research, Nov 2026; Covey, MyGolfSpy, 2025" }
   },
   {
-    id: "used",
+    id: "used", short: "Used irons",
     text: "Would you buy used irons?",
     help: "Irons a few years old lose very little performance and can cost much less.",
     options: [
       { value: "new-only", label: "New only" },
       { value: "open-to-used", label: "Open to used" },
       { value: "not-sure", label: "Not sure" }
-    ]
+    ],
+    note: { approved: false,
+      text: "Golf Digest says replacing irons is never a necessity. They suggest a set loses little in about five years, and estimate a 10-year-old set costs about a stroke every 9 holes.",
+      source: "Johnson & Stachura, Golf Digest, 2019; coach interview" }
   },
   {
-    id: "level",
+    id: "level", short: "Level",
     text: "What's your level?",
     help: "Your handicap shows your level. If you don't have one, choose Beginner or Not sure.",
     options: [
@@ -65,20 +77,26 @@ const QUESTIONS = [
       { value: "6-14", label: "6–14" },
       { value: "0-5", label: "0–5" },
       { value: "not-sure", label: "Not sure" }
-    ]
+    ],
+    note: { approved: false,
+      text: "The higher the handicap, the bigger and more forgiving the iron usually suggested. But it's only a rough guide: no single type of iron is best for everyone.",
+      source: "Weston, Golf Monthly, 2025; Covey, MyGolfSpy, 2025; Today's Golfer, 2026" }
   },
   {
-    id: "play",
+    id: "play", short: "How often",
     text: "How much do you play, and how keen are you?",
     help: "This helps decide how much it's worth spending.",
     options: [
       { value: "few-times", label: "A few times a year" },
       { value: "regularly", label: "Regularly" },
       { value: "improving", label: "Seriously trying to improve" }
-    ]
+    ],
+    note: { approved: false,
+      text: "In a large fitting study, golfers of every level improved with clubs that suited them, and higher handicaps gained the most. The study was run with a fitting company, so treat the numbers with care.",
+      source: "Shapcott, National Club Golfer, 2022; coach interview" }
   },
   {
-    id: "miss",
+    id: "miss", short: "Usual miss",
     text: "What's your most common bad iron shot?",
     help: "Fat = you hit the ground before the ball. Thin = you catch the ball low on the face and it flies low. Toe/heel = off the end of the face or near the shaft.",
     options: [
@@ -87,10 +105,13 @@ const QUESTIONS = [
       { value: "toe-heel", label: "Off the toe or heel" },
       { value: "slice-hook", label: "Slice or hook" },
       { value: "not-sure", label: "Not sure" }
-    ]
+    ],
+    note: { approved: false,
+      text: "Different designs help different misses: a wide sole forgives fat shots, a high MOI keeps off-centre hits straighter, and more offset helps reduce a slice.",
+      source: "Summitt, Hireko Golf, 2026; Johnson, Golf Digest, 2026" }
   },
   {
-    id: "flight",
+    id: "flight", short: "Ball flight",
     text: "How high do your irons fly?",
     help: "Some irons are built to launch the ball higher, which helps if your shots stay low.",
     options: [
@@ -98,10 +119,13 @@ const QUESTIONS = [
       { value: "normal", label: "Normal" },
       { value: "too-high", label: "Too high" },
       { value: "not-sure", label: "Not sure" }
-    ]
+    ],
+    note: { approved: false,
+      text: "A centre of gravity that sits low and back helps launch the ball higher, and many golfers don't have the speed to launch it high on their own.",
+      source: "Covey, MyGolfSpy, 2025; Summitt, Hireko Golf, 2026; Johnson, Golf Digest, 2026" }
   },
   {
-    id: "priority",
+    id: "priority", short: "Priority",
     text: "What matters most to you?",
     help: "Every iron is a trade-off. Pick the one thing you'd least like to give up.",
     options: [
@@ -112,20 +136,26 @@ const QUESTIONS = [
       { value: "looks", label: "How it looks" },
       { value: "price", label: "Price" },
       { value: "not-sure", label: "Not sure" }
-    ]
+    ],
+    note: { approved: false,
+      text: "In one test at the same loft, distance irons carried about 5 yards further than blades, but the blades were more accurate for 4 of the 5 golfers.",
+      source: "Saternus, Club Champion, 2019; Today's Golfer, 2026; coach interview" }
   },
   {
-    id: "goal",
+    id: "goal", short: "Goal",
     text: "What's your goal?",
     help: "Easier irons help your scores now. There's no clear proof that harder irons make you improve faster.",
     options: [
       { value: "score-now", label: "Score better now" },
       { value: "long-term", label: "Improve my ball striking long term" },
       { value: "not-sure", label: "Not sure" }
-    ]
+    ],
+    note: { approved: false,
+      text: "In two tests, even good players hit more good shots with forgiving irons. Neither test measured whether harder irons help you improve over time.",
+      source: "Bishop, MyGolfSpy Labs; Saternus, Plugged In Golf; coach interview" }
   },
   {
-    id: "measurements",
+    id: "measurements", short: "Measurements",
     type: "numbers",   // number boxes instead of options, plus a Skip button
     text: "Optional: height, wrist-to-floor, swing speed (if known)",
     help: "Only if you know them. Used for tips on lie, length and shaft, not to choose the iron.",
@@ -133,7 +163,10 @@ const QUESTIONS = [
       { id: "heightCm", label: "Height (cm)" },
       { id: "wristToFloorCm", label: "Wrist-to-floor (cm)" },
       { id: "driverSpeedMph", label: "Driver swing speed (mph)", hint: "Only if you've measured it on a launch monitor" }
-    ]
+    ],
+    note: { approved: false,
+      text: "Height and wrist-to-floor give a starting point for lie and length, which a fitter then checks. In a small test, the right lie put shots about 5 yards closer together.",
+      source: "PING colour code chart; Saternus, Plugged In Golf, 2018; MacKenzie & Sprigings, 2009" }
   }
 ];
 
@@ -154,7 +187,7 @@ function resetAnswers() {
 
 /* =========================================================
    3. THE 10 SHOTS
-   The ball has 11 spots (in the drawing's coordinates, 600 wide x 1000 tall):
+   The ball has 11 resting spots (in the drawing's coordinates, 600 wide x 1000 tall):
    0 = tee ... 10 = in the cup. Shot 1 goes from spot 0 to spot 1, and so on.
    Pressing Next on question 3 plays shot 3.
    ========================================================= */
@@ -163,7 +196,7 @@ const RIM = 6;                    // radius of the cup's rim, used for the lip-o
 
 const SPOTS = [
   { x: 300, y: 938 },   // 0  tee
-  { x: 250, y: 700 },   // 1  drive lands on the fairway
+  { x: 250, y: 700 },   // 1  drive comes to rest on the fairway
   { x: 214, y: 522 },   // 2  fairway wood rolls into the fairway bunker
   { x: 268, y: 494 },   // 3  bunker escape, back on the fairway
   { x: 352, y: 392 },   // 4  layup area
@@ -186,50 +219,84 @@ SPOTS[9] = {
   y: CUP.y + Math.sin(LIP_END_ANGLE + 0.3) * 11
 };
 
+// Small line icons of the clubs, shown in the card header (Leon, 24 Nov: driver, wood, iron, wedge, putter)
+const CLUBS = {
+  driver: '<path d="M15.5 2.5 9 13.2"/><path d="M9 13.2c-2.8-.6-6 .6-6.3 2.6-.2 1.5 1.7 2.2 4 1.9 2.6-.4 4.2-1.9 4-3.4-.1-.6-.7-1-1.7-1.1z"/>',
+  wood: '<path d="M15.5 2.5 9.6 13.8"/><path d="M9.6 13.8c-2.2-.3-4.6.7-4.8 2.2-.1 1.1 1.3 1.7 3.1 1.4 2-.3 3.2-1.4 3-2.6-.1-.5-.5-.9-1.3-1z"/>',
+  iron: '<path d="M15.5 2.5 10 14"/><path d="M10 14 4.2 15.6l.9 2.4 6-1.4z"/>',
+  wedge: '<path d="M15.5 2.5 10.2 13.6"/><path d="M10.2 13.6 4 14.2l.6 3.6 6.4-1.6z"/><path d="M5.6 15.6l4-.5"/>',
+  putter: '<path d="M12.5 2.5v12"/><path d="M6.5 14.5h9a1.6 1.6 0 0 1 0 3.2h-9a1.6 1.6 0 0 1 0-3.2z"/>'
+};
+
 /*
-  Each shot is made of "segments" played one after another:
-    flight = the ball flies in an arc (height = how high it rises, in drawing units)
-    roll   = the ball rolls along the ground and slows down (bend = a curve, hop = a small bounce at the start)
-    rim    = the ball circles the rim of the cup (lip-out)
-    drop   = the ball drops into the cup
-  "time" is in milliseconds. Every shot is under 1.5 seconds (Leon, 24 Nov).
-  "label" is shown on the hole BEFORE the shot is played, e.g. "Shot 3 · Fairway bunker".
+  Real ball physics (Leon, 24 Nov): a full shot flies to where it LANDS, takes 1–2 small bounces,
+  then rolls out to where it RESTS. This helper builds those pieces ("segments") for one shot.
+    landBack = how far before the resting spot the ball lands (the roll-out)
+    bounces  = 0, 1 or 2 small bounces after landing
+    puff     = "turf" or "sand": a tiny puff of particles where the ball lands
+*/
+function fullShot(from, rest, o) {
+  const dir = unit(rest.x - from.x, rest.y - from.y);
+  const land = { x: rest.x - dir.x * o.landBack, y: rest.y - dir.y * o.landBack };
+  const segments = [{ type: "flight", to: land, time: o.time, height: o.height, tracer: o.tracer, puff: o.puff }];
+  const stops = o.bounces === 2 ? [0.45, 0.75] : o.bounces === 1 ? [0.6] : [];
+  const bounceHeight = [0.16, 0.06];   // each bounce is much lower than the shot
+  const bounceTime = [200, 130];
+  stops.forEach(function (f, k) {
+    segments.push({
+      type: "flight", time: bounceTime[k], height: o.height * bounceHeight[k],
+      to: { x: land.x + (rest.x - land.x) * f, y: land.y + (rest.y - land.y) * f }
+    });
+  });
+  if (o.landBack > 0) segments.push({ type: "roll", to: rest, time: o.rollTime });
+  return segments;
+}
+
+/*
+  The 10 shots. "label" is shown in the card header BEFORE the shot is played, e.g. "Shot 3 · Fairway bunker".
+  "club" picks the icon. "spray" = sand particles thrown out of a bunker at the start.
+  Every shot is 1.5 seconds or less (Leon, 24 Nov).
 */
 const SHOTS = [
-  { label: "Drive",
-    segments: [{ type: "flight", to: SPOTS[1], time: 1400, height: 95, tracer: true }] },
-  { label: "Fairway wood",
-    segments: [{ type: "flight", to: { x: 230, y: 566 }, time: 1000, height: 70, tracer: true },
-               { type: "roll", to: SPOTS[2], time: 450 }] },
-  { label: "Fairway bunker", spray: 6,
-    segments: [{ type: "flight", to: SPOTS[3], time: 900, height: 26 }] },
-  { label: "Layup",
-    segments: [{ type: "flight", to: SPOTS[4], time: 1100, height: 55, tracer: true }] },
-  { label: "Approach",
-    segments: [{ type: "flight", to: SPOTS[5], time: 1200, height: 65, tracer: true }] },
-  { label: "Greenside bunker", spray: 14,
-    segments: [{ type: "flight", to: SPOTS[6], time: 1000, height: 34 }] },
-  { label: "Chip from the fringe",
+  { label: "Drive", club: "driver",
+    segments: fullShot(SPOTS[0], SPOTS[1], { landBack: 36, time: 950, height: 95, bounces: 2, rollTime: 200, puff: "turf", tracer: true }) },
+  { label: "Fairway wood", club: "wood",
+    segments: fullShot(SPOTS[1], SPOTS[2], { landBack: 56, time: 860, height: 70, bounces: 1, rollTime: 380, puff: "turf", tracer: true }) },
+  { label: "Fairway bunker", club: "wedge", spray: 6,
+    segments: fullShot(SPOTS[2], SPOTS[3], { landBack: 10, time: 700, height: 26, bounces: 1, rollTime: 200, puff: "turf" }) },
+  { label: "Layup", club: "iron",
+    segments: fullShot(SPOTS[3], SPOTS[4], { landBack: 22, time: 820, height: 55, bounces: 2, rollTime: 200, puff: "turf", tracer: true }) },
+  { label: "Approach", club: "iron",   // lands straight in the bunker: no bounce, a sand puff
+    segments: fullShot(SPOTS[4], SPOTS[5], { landBack: 0, time: 1050, height: 65, bounces: 0, puff: "sand", tracer: true }) },
+  { label: "Greenside bunker", club: "wedge", spray: 14,
+    segments: fullShot(SPOTS[5], SPOTS[6], { landBack: 6, time: 750, height: 34, bounces: 1, rollTime: 180 }) },
+  { label: "Chip from the fringe", club: "wedge",
     segments: [{ type: "roll", to: SPOTS[7], time: 1100, hop: 5 }] },
-  { label: "Long putt",
+  { label: "Long putt", club: "putter",
     segments: [{ type: "roll", to: SPOTS[8], time: 1400, bend: { x: 318, y: 244 } }] },
-  { label: "Lip-out",
+  { label: "Lip-out", club: "putter",
     segments: [{ type: "roll", to: LIP_ENTRY, time: 450, ease: "linear" },
                { type: "rim", to: LIP_EXIT, time: 700 },
                { type: "roll", to: SPOTS[9], time: 300 }] },
-  { label: "Tap-in",
+  { label: "Tap-in", club: "putter",
     segments: [{ type: "roll", to: CUP, time: 350, ease: "inOut" },
                { type: "drop", to: CUP, time: 300 }] }
 ];
 
-// Fill in where each segment starts and the total time of each shot
+// Work out where each segment starts, each shot's total time, and when its puffs happen
 SHOTS.forEach(function (shot, i) {
   let from = SPOTS[i];
   let total = 0;
+  shot.effects = [];
+  if (shot.spray) {
+    // sand thrown out of the bunker, mostly in the direction of the shot
+    shot.effects.push({ time: 0, at: from, towards: shot.segments[0].to, kind: "sand", count: shot.spray, big: shot.spray > 8 });
+  }
   shot.segments.forEach(function (seg) {
     seg.from = from;
     seg.startTime = total;
     total += seg.time;
+    if (seg.puff) shot.effects.push({ time: total, at: seg.to, kind: seg.puff, count: seg.puff === "sand" ? 7 : 5, landing: true });
     from = seg.to;
   });
   shot.totalTime = total;
@@ -253,35 +320,66 @@ function showScreen(name) {
   Object.keys(screens).forEach(function (key) {
     screens[key].hidden = (key !== name);
   });
-  window.scrollTo(0, 0);
+  window.scrollTo({ top: 0, behavior: "instant" });   // jump to the top (no smooth scroll between screens)
 }
+
+// HOME PAGE: sections fade in as they scroll into view (adds "is-visible"; the CSS does nothing with reduced motion)
+const revealItems = document.querySelectorAll("[data-reveal]");
+if ("IntersectionObserver" in window) {
+  const revealer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        revealer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealItems.forEach(function (item) { revealer.observe(item); });
+} else {
+  revealItems.forEach(function (item) { item.classList.add("is-visible"); });
+}
+
+// Header links like "How it works" point to home page sections. From a question or results screen,
+// they first go back to the home page, then scroll to that section.
+document.querySelectorAll('.site-header a[href^="#"]').forEach(function (link) {
+  link.addEventListener("click", function (event) {
+    if (app.dataset.screen === "home") return;   // already on the home page: the browser scrolls normally
+    event.preventDefault();
+    if (playing) return;
+    showScreen("home");
+    const target = document.querySelector(link.getAttribute("href"));
+    if (target) target.scrollIntoView();
+  });
+});
 
 function startQuestionnaire() {
   resetAnswers();
   current = 0;
   showScreen("questions");
   placeBall(0);
-  showQuestion(0);
+  showQuestion(0, false);
 }
 
-function showResults() {
-  // PLACEHOLDER: list the saved answers so Leon can check them while testing
-  const list = document.getElementById("answers-list");
-  list.innerHTML = "";
-  QUESTIONS.forEach(function (q) {
-    const row = document.createElement("div");
-    const dt = document.createElement("dt");
-    const dd = document.createElement("dd");
-    dt.textContent = q.text;
-    dd.textContent = describeAnswer(q);
-    row.append(dt, dd);
-    list.append(row);
+// The results screen (PLACEHOLDER): your answers as a scorecard.
+// rise = true: the scorecard rises up (after the dive into the cup).
+function showResults(rise) {
+  const body = document.getElementById("answers-list");
+  body.innerHTML = "";
+  QUESTIONS.forEach(function (q, i) {
+    const row = document.createElement("tr");
+    [String(i + 1), q.short, describeAnswer(q)].forEach(function (text) {
+      const cell = document.createElement("td");
+      cell.textContent = text;
+      row.append(cell);
+    });
+    body.append(row);
   });
   showScreen("results");
+  screens.results.classList.toggle("is-rising", Boolean(rise) && !reducedMotion());
   document.getElementById("results-title").focus();
 }
 
-// Turns a stored answer back into readable text for the results list
+// Turns a stored answer back into readable text (scorecard and markers)
 function describeAnswer(q) {
   const value = answers[q.id];
   if (q.type === "numbers") {
@@ -298,21 +396,25 @@ function describeAnswer(q) {
 /* =========================================================
    5. SHOWING A QUESTION
    ========================================================= */
+const qCard = document.getElementById("q-card");
 const qBody = document.getElementById("q-body");
 const nextButton = document.getElementById("next-button");
 const backButton = document.getElementById("back-button");
 const skipButton = document.getElementById("skip-button");
 
-function showQuestion(index) {
+// arriving = true: the card slides in from the side away from the hole (after a shot)
+function showQuestion(index, arriving) {
   const q = QUESTIONS[index];
+  const shot = SHOTS[index];
   current = index;
 
-  // "Question X of 10" (always shown as text) and the shot label on the hole
+  // Card header: "Question X of 10" (always shown as text) and the shot with its club icon
   document.getElementById("q-number").textContent = index + 1;
-  document.getElementById("shot-label").innerHTML =
-    '<span class="num">Shot ' + (index + 1) + "</span> · " + SHOTS[index].label;
+  document.getElementById("shot-head").innerHTML =
+    '<svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">' + CLUBS[shot.club] + "</svg>" +
+    '<span><span class="num">Shot ' + (index + 1) + "</span> · " + shot.label + "</span>";
 
-  // Build the question: a fieldset with the question as its legend, help text, then the answers
+  // Build the question: a fieldset with the question as its legend, help text, caddie's note, then the answers
   qBody.innerHTML = "";
   const fieldset = document.createElement("fieldset");
   fieldset.setAttribute("aria-describedby", "q-help");
@@ -321,6 +423,7 @@ function showQuestion(index) {
     '<p class="hint" id="q-help"></p>';
   fieldset.querySelector("#q-title").textContent = q.text;
   fieldset.querySelector("#q-help").textContent = q.help;
+  if (q.note) fieldset.append(buildCaddieNote(q.note));
 
   if (q.type === "numbers") {
     fieldset.append(buildNumberFields(q));
@@ -332,17 +435,40 @@ function showQuestion(index) {
   skipButton.hidden = (q.type !== "numbers");
   updateNextButton();
 
-  // Fade the new question in (CSS does nothing if reduced motion is on)
-  qBody.classList.remove("is-waiting");
-  qBody.classList.add("is-entering");
-  void qBody.offsetWidth;   // makes the browser notice the class before it is removed
-  qBody.classList.remove("is-entering");
+  // Card motion: the new card arrives from the other side (CSS does nothing if reduced motion is on)
+  qCard.classList.remove("is-leaving");
+  if (arriving) {
+    qCard.classList.add("is-arriving");
+    void qCard.offsetWidth;   // makes the browser notice the class before it is removed
+    qCard.classList.remove("is-arriving");
+  }
 
   // Accessibility: move focus to the question and announce "Question X of 10"
   document.getElementById("q-title").focus({ preventScroll: true });
   const announcer = document.getElementById("announcer");
   announcer.textContent = "";
   setTimeout(function () { announcer.textContent = "Question " + (index + 1) + " of 10"; }, 60);
+}
+
+// Caddie's note: a native <details>, closed until tapped, with its source
+function buildCaddieNote(note) {
+  const details = document.createElement("details");
+  details.className = "caddie";
+  const summary = document.createElement("summary");
+  summary.textContent = "Caddie's note: why we ask";
+  if (!note.approved) {
+    const tag = document.createElement("span");
+    tag.className = "draft-tag";
+    tag.textContent = "Draft";
+    summary.append(" ", tag);
+  }
+  const p = document.createElement("p");
+  p.textContent = note.text;
+  const cite = document.createElement("cite");
+  cite.textContent = "Source: " + note.source;
+  p.append(cite);
+  details.append(summary, p);
+  return details;
 }
 
 // Radio buttons inside labels (the whole card can be clicked)
@@ -433,7 +559,10 @@ function updateNextButton() {
 /* =========================================================
    6. NEXT, BACK, SKIP
    ========================================================= */
-document.getElementById("start-button").addEventListener("click", startQuestionnaire);
+// Every Start button on the home page (hero, navigation bar, footer) has data-start
+document.querySelectorAll("[data-start]").forEach(function (button) {
+  button.addEventListener("click", startQuestionnaire);
+});
 document.getElementById("restart-button").addEventListener("click", startQuestionnaire);
 
 // Next (also runs when Enter is pressed inside the form)
@@ -460,7 +589,7 @@ backButton.addEventListener("click", function () {
     return;
   }
   placeBall(current - 1);
-  showQuestion(current - 1);
+  showQuestion(current - 1, false);
 });
 
 // Skipping a shot: click/tap the hole panel, or press Enter or Space while a shot plays
@@ -476,7 +605,7 @@ document.addEventListener("keydown", function (event) {
 
 function playShotThenContinue() {
   const shotIndex = current;
-  qBody.classList.add("is-waiting");   // dim the question while the shot plays
+  qCard.classList.add("is-leaving");   // the card eases towards the hole as the ball takes off
 
   // Phone: make sure the hole band is visible before the shot starts
   if (!isLaptop() && window.scrollY > 0) {
@@ -485,9 +614,9 @@ function playShotThenContinue() {
 
   playShot(shotIndex, function () {
     if (shotIndex < QUESTIONS.length - 1) {
-      showQuestion(shotIndex + 1);
+      showQuestion(shotIndex + 1, true);
     } else {
-      holeOut();   // the 10th shot dropped in: flag sways, short pause, then results
+      holeOut();   // the 10th shot dropped in: flag sways, the camera dives into the cup, then results
     }
   });
 }
@@ -503,18 +632,20 @@ let playing = null;   // information about the shot that is playing (null = no s
 function playShot(index, onDone) {
   const shot = SHOTS[index];
 
-  // Reduced motion: no flight, spray or camera move. The ball just appears at its new spot.
+  // Reduced motion: no flight, puffs or camera move. The ball just appears at its new spot.
   if (reducedMotion()) {
-    placeBall(index + 1);
+    placeBall(index + 1, true);
     onDone();
     return;
   }
 
-  playing = { index: index, shot: shot, start: performance.now(), onDone: onDone, frameId: null, particles: [] };
+  playing = {
+    index: index, shot: shot, start: performance.now(), onDone: onDone, frameId: null,
+    effects: shot.effects.map(function (e) { return { e: e, particles: null }; })
+  };
   app.classList.add("is-playing");
   nextButton.setAttribute("aria-disabled", "true");
   backButton.setAttribute("aria-disabled", "true");
-  if (shot.spray) playing.particles = makeSpray(SPOTS[index], shot.segments[0].to, shot.spray);
   playing.frameId = requestAnimationFrame(frame);
 }
 
@@ -522,7 +653,13 @@ function frame(now) {
   if (!playing) return;
   const elapsed = Math.min(now - playing.start, playing.shot.totalTime);
   drawShotAt(playing.index, elapsed);
-  drawSpray(playing.particles, now - playing.start);
+  // Puffs: create each one when its moment comes, then animate it
+  playing.effects.forEach(function (fx) {
+    const age = (now - playing.start) - fx.e.time;
+    if (age < 0) return;
+    if (!fx.particles) fx.particles = makeParticles(fx.e);
+    drawParticles(fx.particles, age);
+  });
   if (elapsed < playing.shot.totalTime) {
     playing.frameId = requestAnimationFrame(frame);
   } else {
@@ -531,12 +668,12 @@ function frame(now) {
 }
 
 // Jump straight to the end of the shot (Leon, 24 Nov: skipping is allowed).
-// During the flag sway after the last shot, skipping goes straight to the results.
+// During the hole-out (flag sway and dive into the cup), skipping goes straight to the results.
 function skipShot() {
   if (!playing) return;
   cancelAnimationFrame(playing.frameId);
   if (playing.holeOut) {
-    endHoleOut();
+    endHoleOut(false);
   } else {
     finishShot();
   }
@@ -545,13 +682,13 @@ function skipShot() {
 function finishShot() {
   const done = playing.onDone;
   const index = playing.index;
-  clearSpray(playing.particles);
+  playing.effects.forEach(function (fx) { if (fx.particles) clearParticles(fx.particles); });
   playing = null;
   app.classList.remove("is-playing");
   nextButton.removeAttribute("aria-disabled");
   backButton.removeAttribute("aria-disabled");
   fadeTracer();
-  placeBall(index + 1);
+  placeBall(index + 1, true);
   done();
 }
 
@@ -565,7 +702,7 @@ function ballAt(shot, elapsed) {
   const u = clamp((elapsed - seg.startTime) / seg.time, 0, 1);   // 0 = start of segment, 1 = end
   const state = { x: seg.to.x, y: seg.to.y, h: 0, scale: 1, opacity: 1, seg: seg, u: u };
 
-  if (seg.type === "flight") {
+  if (seg.type === "flight") {                     // used for full shots AND the small bounces
     const g = 1 - Math.pow(1 - u, 1.6);           // fast off the club, slower as it comes down
     state.x = lerp(seg.from.x, seg.to.x, g);
     state.y = lerp(seg.from.y, seg.to.y, g);
@@ -605,7 +742,7 @@ function drawShotAt(index, elapsed) {
 // Points along the ground path from the start of the shot up to "upTo" ms (for the dotted trail)
 function samplePath(shot, upTo) {
   const points = [];
-  const steps = 32;
+  const steps = 40;
   for (let k = 0; k <= steps; k++) {
     const p = ballAt(shot, upTo * k / steps);
     points.push(p.x.toFixed(1) + "," + p.y.toFixed(1));
@@ -613,31 +750,60 @@ function samplePath(shot, upTo) {
   return points.join(" ");
 }
 
-// The 10th shot is in: the flag sways, short pause, then the results screen
+/*
+  The hole-out (after the 10th shot drops):
+    0–0.7 s   the flag sways
+    0.7–1.6 s the camera dives into the cup (the cup fills the panel)
+    then      the results scorecard rises up
+  Skippable with a click or Enter. With reduced motion, the results appear straight away.
+*/
 function holeOut() {
-  if (reducedMotion()) { showResults(); return; }
+  if (reducedMotion()) { showResults(false); return; }
   const start = performance.now();
+  const from = lastCamera;
   playing = { holeOut: true, frameId: null };
   app.classList.add("is-playing");
-  function sway(now) {
+  function step(now) {
     if (!playing) return;
-    const p = Math.min((now - start) / 1000, 1);
-    swayFlag(8 * Math.sin(p * Math.PI * 3) * (1 - p));   // a few swings, getting smaller
-    if (now - start < 1450) {
-      playing.frameId = requestAnimationFrame(sway);
+    const t = now - start;
+    if (t < 700) {
+      const p = t / 700;
+      swayFlag(8 * Math.sin(p * Math.PI * 3) * (1 - p));   // a few swings, getting smaller
     } else {
-      endHoleOut();
+      const p = easeIn(clamp((t - 700) / 900, 0, 1));
+      const fade = String(Math.max(0, 1 - clamp((t - 700) / 250, 0, 1)));
+      swayFlag(0);
+      // Everything except the cup fades in the first quarter of a second, so only the cup fills the view
+      flagPin.style.opacity = fade;
+      flagShadow.style.opacity = fade;
+      trail.style.opacity = fade;
+      markerList.style.opacity = fade;
+      setCamera({
+        cx: lerp(from.cx, CUP.x, easeOut(p)),
+        cy: lerp(from.cy, CUP.y, easeOut(p)),
+        span: from.span * Math.pow(5 / from.span, p)      // zooms in smoothly until the cup fills the view
+      });
+    }
+    if (t < 1650) {
+      playing.frameId = requestAnimationFrame(step);
+    } else {
+      endHoleOut(true);
     }
   }
-  playing.frameId = requestAnimationFrame(sway);
+  playing.frameId = requestAnimationFrame(step);
 }
 
-function endHoleOut() {
+function endHoleOut(rise) {
   cancelAnimationFrame(playing.frameId);
   playing = null;
   app.classList.remove("is-playing");
+  showResults(rise);
+}
+
+// Puts back everything the dive faded out (used when a new round starts)
+function resetHoleLook() {
   swayFlag(0);
-  showResults();
+  [flagPin, flagShadow, trail, markerList].forEach(function (el) { el.style.opacity = ""; });
 }
 
 
@@ -649,6 +815,8 @@ function endHoleOut() {
    ========================================================= */
 const svg = document.getElementById("hole");
 const frameBox = document.getElementById("hole-frame");
+let lastCamera = { cx: 300, cy: 500, span: 1010 };   // what the camera showed last (used by the dive)
+let viewBox = { x: 0, y: 0, w: 600, h: 1000 };        // the exact visible area (used by the markers)
 
 // Phone: how much of the drawing's height is visible at each spot (smaller = more zoomed in)
 const PHONE_ZOOM = [300, 300, 280, 280, 280, 220, 160, 130, 110, 100, 100];
@@ -680,15 +848,18 @@ function cameraDuringShot(index, t, ball) {
 function setCamera(cam) {
   const box = frameBox.getBoundingClientRect();
   if (box.width === 0 || box.height === 0) return;   // the hole isn't on screen
+  lastCamera = cam;
   const h = cam.span;
   const w = h * (box.width / box.height);
   let cx = cam.cx, cy = cam.cy;
-  if (!isLaptop()) {
-    // keep the phone camera inside the drawing
+  if (!isLaptop() && h > 20) {
+    // keep the phone camera inside the drawing (not during the dive into the cup)
     cx = (w >= 760) ? 300 : clamp(cx, -80 + w / 2, 680 - w / 2);
     cy = clamp(cy, -10 + h / 2, 1010 - h / 2);
   }
-  svg.setAttribute("viewBox", [cx - w / 2, cy - h / 2, w, h].map(function (n) { return n.toFixed(1); }).join(" "));
+  viewBox = { x: cx - w / 2, y: cy - h / 2, w: w, h: h };
+  svg.setAttribute("viewBox", [viewBox.x, viewBox.y, w, h].map(function (n) { return n.toFixed(2); }).join(" "));
+  positionMarkers(box);
 }
 
 // If the window changes size, keep the camera right
@@ -698,14 +869,80 @@ window.addEventListener("resize", function () {
 
 
 /* =========================================================
-   9. DRAWING HELPERS
+   9. ANSWER MARKERS ON THE HOLE (Leon, 24 Nov)
+   After each shot, a small numbered marker stays where the ball came to rest.
+   They are real buttons on top of the drawing: hover, focus or tap shows
+   "2 · Budget: CHF 500–1,000". The hole becomes a record of your answers.
+   ========================================================= */
+const markerList = document.getElementById("markers");
+
+// Rebuild the markers for every shot played so far. "newest" = the shot that just finished (it pops in).
+function renderMarkers(shotsPlayed, newest) {
+  markerList.innerHTML = "";
+  for (let i = 0; i < Math.min(shotsPlayed, 9); i++) {   // shot 10 ends in the cup: no marker needed
+    const q = QUESTIONS[i];
+    const li = document.createElement("li");
+    li.dataset.spot = i + 1;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "marker" + (i + 1 === newest ? " is-new" : "");
+    button.innerHTML = '<span aria-hidden="true">' + (i + 1) + '</span><span class="marker-tip"></span>';
+    button.querySelector(".marker-tip").textContent = (i + 1) + " · " + q.short + ": " + describeAnswer(q);
+    button.addEventListener("click", function (event) {
+      if (playing) return;              // during a shot, a click skips the shot instead
+      event.stopPropagation();
+      const wasOpen = button.classList.contains("is-open");
+      closeMarkers();
+      button.classList.toggle("is-open", !wasOpen);   // tap to open, tap again to close
+    });
+    li.append(button);
+    markerList.append(li);
+  }
+  positionMarkers();
+}
+
+function closeMarkers() {
+  markerList.querySelectorAll(".is-open").forEach(function (m) { m.classList.remove("is-open"); });
+}
+document.addEventListener("click", function (event) {
+  if (!event.target.closest(".marker")) closeMarkers();
+});
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") closeMarkers();
+});
+
+// Moves each marker to where its spot is on screen (called every time the camera moves)
+function positionMarkers(box) {
+  box = box || frameBox.getBoundingClientRect();
+  const placed = [];
+  const nudges = [[0, 0], [16, -8], [-16, -8], [0, -18], [20, 6], [-20, 6], [0, 18]];   // fan out if markers overlap
+  markerList.querySelectorAll("li").forEach(function (li) {
+    const spot = SPOTS[Number(li.dataset.spot)];
+    let x = (spot.x - viewBox.x) / viewBox.w * box.width;
+    let y = (spot.y - viewBox.y) / viewBox.h * box.height;
+    for (let k = 0; k < nudges.length; k++) {
+      const nx = x + nudges[k][0], ny = y + nudges[k][1];
+      if (placed.every(function (p) { return Math.hypot(p.x - nx, p.y - ny) > 22; })) { x = nx; y = ny; break; }
+    }
+    placed.push({ x: x, y: y });
+    li.style.transform = "translate(" + x.toFixed(1) + "px, " + y.toFixed(1) + "px)";
+    li.classList.toggle("is-offscreen", x < 0 || y < 10 || x > box.width || y > box.height);
+    li.classList.toggle("tip-left", x < 110);
+    li.classList.toggle("tip-right", x > box.width - 110);
+  });
+}
+
+
+/* =========================================================
+   10. DRAWING HELPERS
    ========================================================= */
 const ballBody = document.getElementById("ball-body");
 const ballShadow = document.getElementById("ball-shadow");
 const trail = document.getElementById("trail");
 const tracer = document.getElementById("tracer");
-const spray = document.getElementById("spray");
+const puffLayer = document.getElementById("spray");
 const flagPin = document.getElementById("flag-pin");
+const flagShadow = document.querySelector("#flag > line");   // the pin's shadow on the green
 
 // Ball: the shadow stays on the ground; the ball rises above it and looks bigger when high
 function drawBall(x, y, h, scale, opacity) {
@@ -721,16 +958,18 @@ function drawBall(x, y, h, scale, opacity) {
   ballBody.setAttribute("opacity", opacity.toFixed(2));
 }
 
-// Puts the ball at a spot with no animation (start, Back, reduced motion, after a shot)
-// and redraws the dotted trail for every shot played so far.
-function placeBall(spot) {
+// Puts the ball at a spot with no animation (start, Back, reduced motion, after a shot),
+// redraws the dotted trail and the answer markers for every shot played so far.
+// afterShot = true when a shot has just finished (its marker pops in).
+function placeBall(spot, afterShot) {
   const p = SPOTS[spot];
   drawBall(p.x, p.y, 0, 1, spot === 10 ? 0 : 1);   // spot 10 = in the cup, so hidden
   trail.innerHTML = "";
   for (let i = 0; i < spot; i++) {
     drawTrailLine(i, samplePath(SHOTS[i], SHOTS[i].totalTime));
   }
-  swayFlag(0);
+  resetHoleLook();
+  renderMarkers(spot, afterShot ? spot : 0);
   setCamera(cameraAtSpot(spot));
 }
 
@@ -764,29 +1003,34 @@ function fadeTracer() {
   tracer.style.opacity = "0";
 }
 
-// Sand spray: a few sand-coloured dots burst out of the bunker and fade (about 0.6 s)
-function makeSpray(from, towards, count) {
-  const dir = Math.atan2(towards.y - from.y, towards.x - from.x);
-  const big = count > 8;
+// Puffs: a few small particles that burst out and fade (about 0.6 s).
+//   Bunker shots: sand thrown mostly in the direction of the shot.
+//   Landings: a tiny puff all around the spot (green for turf, beige for sand).
+const PUFF_COLOURS = { sand: ["#D3C29C", "#EADDBF"], turf: ["#8FA27A", "#B3C19A"] };
+
+function makeParticles(e) {
+  const dir = e.towards ? Math.atan2(e.towards.y - e.at.y, e.towards.x - e.at.x) : 0;
   const particles = [];
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < e.count; i++) {
     const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    dot.setAttribute("r", ((big ? 1.4 : 1.1) + Math.random() * (big ? 1.6 : 1)).toFixed(2));
-    dot.setAttribute("fill", Math.random() < 0.6 ? "#D3C29C" : "#EADDBF");   // darker sand so it shows on light grass
-    spray.append(dot);
-    const angle = dir + (Math.random() - 0.5) * 2.4;   // mostly in the direction of the shot
+    const size = e.landing ? 0.8 + Math.random() * 0.8 : (e.big ? 1.4 : 1.1) + Math.random() * (e.big ? 1.6 : 1);
+    dot.setAttribute("r", size.toFixed(2));
+    const colours = PUFF_COLOURS[e.kind];
+    dot.setAttribute("fill", colours[Math.random() < 0.6 ? 0 : 1]);
+    puffLayer.append(dot);
+    const angle = e.landing ? Math.random() * Math.PI * 2 : dir + (Math.random() - 0.5) * 2.4;
     particles.push({
-      el: dot, x: from.x, y: from.y,
+      el: dot, x: e.at.x, y: e.at.y,
       dx: Math.cos(angle), dy: Math.sin(angle),
-      dist: (big ? 12 : 7) + Math.random() * (big ? 20 : 11),
-      rise: (big ? 10 : 5) * Math.random()
+      dist: e.landing ? 3 + Math.random() * 5 : (e.big ? 12 : 7) + Math.random() * (e.big ? 20 : 11),
+      rise: e.landing ? 3 * Math.random() : (e.big ? 10 : 5) * Math.random()
     });
   }
   return particles;
 }
 
-function drawSpray(particles, elapsed) {
-  const p = Math.min(elapsed / 600, 1);
+function drawParticles(particles, age) {
+  const p = Math.min(age / 600, 1);
   const out = easeOut(p);
   particles.forEach(function (s) {
     s.el.setAttribute("cx", (s.x + s.dx * s.dist * out).toFixed(1));
@@ -795,7 +1039,7 @@ function drawSpray(particles, elapsed) {
   });
 }
 
-function clearSpray(particles) {
+function clearParticles(particles) {
   particles.forEach(function (s) { s.el.remove(); });
 }
 
@@ -808,6 +1052,7 @@ function swayFlag(angle) {
 function lerp(a, b, t) { return a + (b - a) * t; }
 function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
 function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+function easeIn(t) { return t * t * t; }
 function easeInOut(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
 function quadratic(a, c, b, t) { return (1 - t) * (1 - t) * a + 2 * (1 - t) * t * c + t * t * b; }
 function unit(x, y) { const len = Math.hypot(x, y); return { x: x / len, y: y / len }; }
@@ -817,7 +1062,7 @@ function reducedMotion() { return window.matchMedia("(prefers-reduced-motion: re
 
 
 /* =========================================================
-   10. START-UP
+   11. START-UP
    ========================================================= */
 resetAnswers();
 showScreen("home");
