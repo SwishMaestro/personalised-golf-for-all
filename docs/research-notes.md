@@ -1,222 +1,214 @@
-<!-- Snapshot of Leon's Google Doc "Research notes - PP - Leon", copied by Claude on 8 Nov 2026 so Claude Code can cite his sources. Leon's own writing, unchanged. The Google Doc is the live version; this copy is updated when Leon asks. -->
+<!-- Snapshot of Leon's Google Doc "Research notes - PP - Leon", copied by Claude on 24 Nov 2026 (replaces the 8 Nov copy) so Claude Code can cite his sources. Leon's own writing, unchanged; green summaries in the Google Doc are AI summaries. The Google Doc is the live version. -->
 
-# **Research sources**
-
+# ** ch sources**
 *AI-assisted: I drafted the research questions and the guiding questions under each source with Claude and sometimes modified them; I also used Claude to find some sources.*
-
 ## **Research questions**
-
-* Which golfer characteristics matter most when choosing irons, and which of them can a golfer answer in a questionnaire?  
-* How do iron designs (blades, players distance, game improvement) differ, and who does each suit?  
-* What does a fitting measure that a questionnaire can't?  
-* How much do iron choice and fitting change performance for recreational golfers, and is the price difference worth it?
-
+  - Which golfer characteristics matter most when choosing irons, and which of them can a golfer answer in a questionnaire?
+  - How do iron designs (blades, players distance, game improvement) differ, and who does each suit?
+  - What does a fitting measure that a questionnaire can't?
+  - How much do iron choice and fitting change performance for recreational golfers, and is the price difference worth it?
 ## **High-end irons**
-
-[Bishop, Phillip. "Best Player's Distance Irons of 2026." MyGolfSpy, 2026\.](https://mygolfspy.com/buyers-guides/irons/best-players-distance-irons-of-2026/)
-
-*How found: Google search for "best players distance irons 2026 MyGolfSpy", 27 September 2026\.*
-
-* **What do these irons offer that cheaper ones don't?**  
-  First of all, this is a great source and tries to remove bias as much as possible and focus solely on performance, also taking into account price; this could be one of my most useful ones for creating my final product, as it includes several models (20 players' irons for low-to-mid handicap \- I want this as a section in my product website thingy) as well and analyses them. This article also uses reliable data referring to “MyGolfSpy,” alongside comprehensive testing over 200 hours and 20 models. My job will not be to test but to use these tests and include them in my final product and refer to these studies.  It then gives a list for the irons and tells you the best overall, etc. It then tells us exactly why you should buy a club and maybe why not, which is great, and then in some specific areas. Finally, these clubs are said to offer advanced materials, precision engineering, and extensive custom fitting options to maximize performance, distance, and control, and I want to investigate if these things are truly worth the price.  
-  ![][image1]  
-* **Should this category be in my collection of irons, and for which golfers?**  
-  I believe it should be yes, as many golfers fit into this category.
-
+[Bishop, Phillip. "Best Player's Distance Irons of 2026." MyGolfSpy, 2026.](https://mygolfspy.com/buyers-guides/irons/best-players-distance-irons-of-2026/)
+*How found: Google search for "best players distance irons 2026 MyGolfSpy", 27 September 2026.*
+  - **What do these irons offer that cheaper ones don't?**
+First of all, this is a great source and tries to remove bias as much as possible and focus solely on performance, also taking into account price; this could be one of my most useful ones for creating my final product, as it includes several models (20 players' irons for low-to-mid handicap - I want this as a section in my product website thingy) as well and analyses them. This article also uses reliable data referring to “MyGolfSpy,” alongside comprehensive testing over 200 hours and 20 models. My job will not be to test but to use these tests and include them in my final product and refer to these studies.  It then gives a list for the irons and tells you the best overall, etc. It then tells us exactly why you should buy a club and maybe why not, which is great, and then in some specific areas. Finally, these clubs are said to offer advanced materials, precision engineering, and extensive custom fitting options to maximize performance, distance, and control, and I want to investigate if these things are truly worth the price.
+\[image\]
+  - **Should this category be in my collection of irons, and for which golfers?**
+I believe it should be yes, as many golfers fit into this category.
 ## **Mid-range irons**
-
-[Bishop, Phillip. "Best Game-Improvement Irons of 2026." MyGolfSpy, 2026\.](https://mygolfspy.com/buyers-guides/game-improvement-irons/best-game-improvement-irons-of-2026/)
-
-*How found: Google search for "best game improvement irons 2026 MyGolfSpy", 27 September 2026\.*
-
-* **Why do prices vary so much within one category?**  
-  Now, by the same guy, there is game improvement, which is also great to include, as many people are here and are sometimes willing to pay lots of money, but I want them to make the best decisions. Because people in this category range from beginners to well-seasoned players the is immense versatility and diversity in selection regarding price and many other aspects. These are also made to improve your game regarding distance and hitting higher and straighter shots, so they sometimes tell you a lot is gonna change when sometimes there is not much of a difference.  
-* **Which features would matter most to the golfers using my website?**  
-  On my website, I really want it to be personalised, so maybe for one person they really care about price, so that will have more weight, or maybe another person wants basically the best no matter the price for them, or a mix; maybe they want distance or feel, etc. This is something these websites are not able to do and something I want to achieve.
-
-[Covey, Tony. "Game-Improvement vs. Players Distance Irons: What's the Difference?" MyGolfSpy, 2025\.](https://mygolfspy.com/news-opinion/game-improvement-vs-players-distance-irons-whats-the-difference/)
-
-*How found: Google search for "game improvement vs players distance irons difference", 27 September 2026\.*
-
-* **How are these two categories different?**  
-    
-  These two categories are significantly different. Here are the main differences, and this will be important to understand to be able to distinguish different golfers that fill in the questionnaire.  
-  **Players Distance Irons**  
-    
-- These irons take a distance-first approach with some forgiveness a little more than players irons but less than the game-improvement irons. The main focus of these irons, I believe, is to have distance-centric designs that are able to offer above-average forgiveness but also whilst offering the look of better player irons (this is the type of club I have). This is how tehy fram is as: “Think of it this way: the original concept of Players Distance was a distance iron that looks (somewhat) like a players iron.”  
-- This category has now evolved to include both hollow and traditional semi-cavity back designs like the Titleist T150. The selling point of this iron is to offer lots of distance, some forgiveness, with looks that were often blade-like. This club is usually always more compact and more complex with some being fully forged. Also as you get to the more forgiving end of the spectrum, GI vs. PD is often a distinction without much of a difference. There’s more separation at the other end between Players and Players Distance, but as player technology evolves, even that gap is narrowing. As you move from one end of a category to the other, the general rule is that heads get bigger, forgiveness and launch increase, and spin rates drop.
-
-  **Game-improvement Irons**
-
-- The main focus of these irons is on forgiveness and distance, increasingly becoming a bigger part of the total performance equation. They are obviously supposed to improve your game, and this is what they are for, contrasting with the players' irons, which rely much more on you rather than the club to do the work and improve.  
-- Regarding the design, the game-improvement irons are significantly larger than other types of irons, usually with a generous offset (a design where the leading edge of the clubface sits slightly behind the shaft or hosel at address). The centers of gravity are also low, with wider soles, with the objective of higher launch for these two mentioned reasons. Firstly, as lofts get stronger, the center of gravity needs to be positioned to create dynamic loft, and a large swath of GL users lack the speed to launch the ball high.
-
+[Bishop, Phillip. "Best Game-Improvement Irons of 2026." MyGolfSpy, 2026.](https://mygolfspy.com/buyers-guides/game-improvement-irons/best-game-improvement-irons-of-2026/)
+*How found: Google search for "best game improvement irons 2026 MyGolfSpy", 27 September 2026.*
+  - **Why do prices vary so much within one category?**
+Now, by the same guy, there is game improvement, which is also great to include, as many people are here and are sometimes willing to pay lots of money, but I want them to make the best decisions. Because people in this category range from beginners to well-seasoned players the is immense versatility and diversity in selection regarding price and many other aspects. These are also made to improve your game regarding distance and hitting higher and straighter shots, so they sometimes tell you a lot is gonna change when sometimes there is not much of a difference.
+  - **Which features would matter most to the golfers using my website?**
+On my website, I really want it to be personalised, so maybe for one person they really care about price, so that will have more weight, or maybe another person wants basically the best no matter the price for them, or a mix; maybe they want distance or feel, etc. This is something these websites are not able to do and something I want to achieve.
+[Covey, Tony. "Game-Improvement vs. Players Distance Irons: What's the Difference?" MyGolfSpy, 2025.](https://mygolfspy.com/news-opinion/game-improvement-vs-players-distance-irons-whats-the-difference/)
+*How found: Google search for "game improvement vs players distance irons difference", 27 September 2026.*
+  - **How are these two categories different?**
+These two categories are significantly different. Here are the main differences, and this will be important to understand to be able to distinguish different golfers that fill in the questionnaire.
+**Players Distance Irons**
+  - These irons take a distance-first approach with some forgiveness a little more than players irons but less than the game-improvement irons. The main focus of these irons, I believe, is to have distance-centric designs that are able to offer above-average forgiveness but also whilst offering the look of better player irons (this is the type of club I have). This is how tehy fram is as: “Think of it this way: the original concept of Players Distance was a distance iron that looks (somewhat) like a players iron.”
+  - This category has now evolved to include both hollow and traditional semi-cavity back designs like the Titleist T150. The selling point of this iron is to offer lots of distance, some forgiveness, with looks that were often blade-like. This club is usually always more compact and more complex with some being fully forged. Also as you get to the more forgiving end of the spectrum, GI vs. PD is often a distinction without much of a difference. There’s more separation at the other end between Players and Players Distance, but as player technology evolves, even that gap is narrowing. As you move from one end of a category to the other, the general rule is that heads get bigger, forgiveness and launch increase, and spin rates drop.
+**Game-improvement Irons**
+  - The main focus of these irons is on forgiveness and distance, increasingly becoming a bigger part of the total performance equation. They are obviously supposed to improve your game, and this is what they are for, contrasting with the players' irons, which rely much more on you rather than the club to do the work and improve.
+  - Regarding the design, the game-improvement irons are significantly larger than other types of irons, usually with a generous offset (a design where the leading edge of the clubface sits slightly behind the shaft or hosel at address). The centers of gravity are also low, with wider soles, with the objective of higher launch for these two mentioned reasons. Firstly, as lofts get stronger, the center of gravity needs to be positioned to create dynamic loft, and a large swath of GL users lack the speed to launch the ball high.
 **Overview**
-
-- Because of the PD category’s growth, the GL category has fragmented a bit. And to know what is right for you, we need to take into account priorities; for example, if your priority is forgiveness, or if you need help getting the ball airborne, GL is probably for you. When you get down to the 5-15 handicap range, a growing number of golfers are rotating to the PD category as their best option (the looks are also hella good, with still some forgiveness). Looking at other than technical asoecs its also important to realise that swing speed and handicap is not the only thing to take into account its also about feel something i will have to understand when making my website.
-
+  - Because of the PD category’s growth, the GL category has fragmented a bit. And to know what is right for you, we need to take into account priorities; for example, if your priority is forgiveness, or if you need help getting the ball airborne, GL is probably for you. When you get down to the 5-15 handicap range, a growing number of golfers are rotating to the PD category as their best option (the looks are also hella good, with still some forgiveness). Looking at other than technical asoecs its also important to realise that swing speed and handicap is not the only thing to take into account its also about feel something i will have to understand when making my website.
 Regarding prices, this is what they mention
-
-“Retail prices for Game-Improvement irons typically range from \$799-\$1,299 per set, while Players Distance options generally fall between \$999-\$1,499, with premium offerings occasionally exceeding that range.”
-
-* **Could my questionnaire tell which category suits someone?**  
-  I  believe this will be essential, and it will be important to frame the questions right so a category gets filled and then be able to become more specific, but because these categories are blending more and more, I will need to be able to somehow explain this or create my own separation. There is a lot to take into account, and it will be super interesting.
-
-[Johnson, E. Michael. "'Easy-To-Hit' Clubs Might Not Be the Fix for Your Iron Game." Golf Digest, vol. 77, no. 5, 2026, p. 44\.](https://research.ebsco.com/plink/45b0e117-2908-3533-b48a-1c2b00b8b405)
-
-*How found: EBSCO (school library), 27 September 2026\. Search: ("golf club\*" OR "golf iron\*") AND ("moment of inertia" OR forgiveness OR "off-center").*
-
-* Why might easy-to-hit irons not be enough on their own?  
-    
-  This article suggests that forgiving features (undercuts, special alloys, longer shafts) only help if the irons actually suit you as an individual. Fitters also often say that badly fitted clubs make you “fight” your equipment and build swing flaws to make up for it, which to a degree shows us the importance of the right clubs. Scott Felix’s point is that weaker players need fitting the most: “they’re not good enough not to get fit.”  
-    
-  For my tool, I want to include that recommending the “easiest” iron isn’t enough. It has to match the golfer and then point them to a fitting or a demo or a club whilst mentioning what type of fitting could help or something along those lines because I don't want it to always go to a fitting i want it to be kind of an alternative whilst not fully replacing fittings..  
-    
-* What should my tool tell golfers who shoot around 90?  
-    
-  The article mentioned that golfers who shoot 90s approximately hit only 3–4 greens a round, so they need help with mishits and consistency, as this could genuinely help them improve immensely. Testers who struggled with irons mostly chose game-improvement irons over super game-improvement ones. GI irons help mishits, while SGI irons mainly help launch, which is the difference. So my tool shouldn’t automatically send weaker players to the most forgiving category; I should try to figure out as much as possible and come to the best conclusion. My tool should ask about their usual miss if possible (low shots, slices, chunks), to choose between GI and SGI. It should tell them they’re “good enough” to get fitted, and suggest testing their current irons against new ones before paying. This made me think about how we could maybe incorporate a new little thing that could give future tips, not only like a couple of clubs to have in mind. But to be clear i want the focus and main goal to be to help at least narrow down where the golfer is searching for clubs and get to know where they lie in terms of irons much better.
-
+“Retail prices for Game-Improvement irons typically range from $799-$1,299 per set, while Players Distance options generally fall between $999-$1,499, with premium offerings occasionally exceeding that range.”
+  - **Could my questionnaire tell which category suits someone?**
+I  believe this will be essential, and it will be important to frame the questions right so a category gets filled and then be able to become more specific, but because these categories are blending more and more, I will need to be able to somehow explain this or create my own separation. There is a lot to take into account, and it will be super interesting.
+[Johnson, E. Michael. "'Easy-To-Hit' Clubs Might Not Be the Fix for Your Iron Game." Golf Digest, vol. 77, no. 5, 2026, p. 44.](https://research.ebsco.com/plink/45b0e117-2908-3533-b48a-1c2b00b8b405)
+*How found: EBSCO (school library), 27 September 2026. Search: ("golf club\*" OR "golf iron\*") AND ("moment of inertia" OR forgiveness OR "off-center").*
+  - Why might easy-to-hit irons not be enough on their own?
+This article suggests that forgiving features (undercuts, special alloys, longer shafts) only help if the irons actually suit you as an individual. Fitters also often say that badly fitted clubs make you “fight” your equipment and build swing flaws to make up for it, which to a degree shows us the importance of the right clubs. Scott Felix’s point is that weaker players need fitting the most: “they’re not good enough not to get fit.”
+For my tool, I want to include that recommending the “easiest” iron isn’t enough. It has to match the golfer and then point them to a fitting or a demo or a club whilst mentioning what type of fitting could help or something along those lines because I don't want it to always go to a fitting i want it to be kind of an alternative whilst not fully replacing fittings..
+  - What should my tool tell golfers who shoot around 90?
+The article mentioned that golfers who shoot 90s approximately hit only 3–4 greens a round, so they need help with mishits and consistency, as this could genuinely help them improve immensely. Testers who struggled with irons mostly chose game-improvement irons over super game-improvement ones. GI irons help mishits, while SGI irons mainly help launch, which is the difference. So my tool shouldn’t automatically send weaker players to the most forgiving category; I should try to figure out as much as possible and come to the best conclusion. My tool should ask about their usual miss if possible (low shots, slices, chunks), to choose between GI and SGI. It should tell them they’re “good enough” to get fitted, and suggest testing their current irons against new ones before paying. This made me think about how we could maybe incorporate a new little thing that could give future tips, not only like a couple of clubs to have in mind. But to be clear i want the focus and main goal to be to help at least narrow down where the golfer is searching for clubs and get to know where they lie in terms of irons much better.
 ## **Low-range, budget, and used irons**
-
-[Ferguson, Joe. "Best Budget Irons 2026." Golf Monthly, 2026\.](https://www.golfmonthly.com/best-golf-deals/best-budget-irons-213550)
-
-*How found: Google search for "best budget irons 2026 Golf Monthly", 27 September 2026\.*
-
-* What do budget irons give up, if anything?
-
+[Ferguson, Joe. "Best Budget Irons 2026." Golf Monthly, 2026.](https://www.golfmonthly.com/best-golf-deals/best-budget-irons-213550)
+*How found: Google search for "best budget irons 2026 Golf Monthly", 27 September 2026.*
+  - What do budget irons give up, if anything?
 From what I've seen, it's less than you’d expect, which helps me understand a lot. The specific tester says the Takomo 101 matches major brands for ball speed and distance, and the only main difference in this case is the logo, which tells us a lot. I want to try to be completely unbiased unless the buyer cares about the super small gains that could be present, or even the logo and looks; all of these will be taken into account. What you can lose is feel (the MacGregor), durability of the finish (the Ram), and the chance to be fitted or try before buying (the Takomos), which is something I had to take the risk on as I bought my Takomos online, but they work great, which also makes me wonder if that, with the right research and information given, sometimes a fitting is not necessary. So the bigger loss is often the fitting and testing, not the actual performance. Also, I feel that with a good brand that you got fitted for, you often feel more confident, which can mean a lot.
-
-* Should my tool recommend budget options, and when?
-
+  - Should my tool recommend budget options, and when?
 I believe yes, especially for beginners, occasional golfers, and anyone with a tight budget. I also want to note that in many cases, if your goal is maybe not just improving your score but becoming a better golfer, starting with some harder clubs if you're up for it could be a very good idea for several reasons, but I wanted to include it. These clubs also suit golfers who already know their specs, because Takomo is described as great value “for the golfer who knows their specs”. My tool should warn that online-only brands can’t be tried first, and suggest checking lie and length elsewhere could benefit you, but it's not always necessary.
-
-[Johnson, E. Michael, and Mike Stachura. "Golf Equipment Truths: How Often Should You Replace Your Irons?" Golf Digest, 2019\.](https://www.golfdigest.com/story/golf-equipment-truths-how-often-should-you-replace-your-irons)
-
-*How found: Google search for "how often should you replace your irons Golf Digest", 27 September 2026\.*
-
-* How old is too old for a set of irons, according to them?
-
-* Should my tool include second-hand or older models?
-
+[Johnson, E. Michael, and Mike Stachura. "Golf Equipment Truths: How Often Should You Replace Your Irons?" Golf Digest, 2019.](https://www.golfdigest.com/story/golf-equipment-truths-how-often-should-you-replace-your-irons)
+*How found: Google search for "how often should you replace your irons Golf Digest", 27 September 2026.*
+  - How old is too old for a set of irons, according to them?
+According to them, changing irons is never a “necessity,” which it clearly is not, even from my own experience having played with clubs from the 90s or even 80s until this year, being able to play significantly well. According to them, golfers should rotate every 5 years for it not to affect performance. At 10 years, they state you lose a stroke every 9 holes, and the significance of this depends on the golfer but should be taken into account. 
+  - Should my tool include second-hand or older models?
+Yes but not complete models because that will be too much of a wide range. It should include that in a specific scenario: if a second-hand model fits according to budget, etc and it's a good option, the tool should state that this is a very good option and recommend opting for that.
 ## **How irons work**
-
-[Summitt, Jeff. "Blades vs Cavity Back Irons: A Clubmaker's Engineering Guide." Hireko Golf, 2026\.](https://www.hirekogolf.com/blog/post/blades-vs-cavity-back-irons-a-clubmakers-engineering-guide)
-
-*How found: Google search for "blades vs cavity back irons engineering guide", 27 September 2026\.*
-
-* What are MOI, centre of gravity, sole width and offset, and how do they change a shot?  
-* Which of these specs should I record for each iron in my tool?
-
-[McCormack, Kris. "The New Iron Age." Golf Magazine, vol. 67, no. 7, 2025, p. 39\.](https://research.ebsco.com/plink/6e6f26ad-fe99-3e77-925e-c771af87671b)
-
-*How found: EBSCO (school library), 27 September 2026\. Search: ("golf club\*" OR "golf iron\*") AND ("moment of inertia" OR forgiveness OR "off-center").*
-
-* What new materials and manufacturing methods are used in irons now?  
-* Do these changes matter enough to affect which irons my tool recommends?
-
-[Takomo Golf. "Best Game-Improvement Irons: What to Look For." Takomo Golf.](https://takomogolf.com/blogs/articles/best-game-improvement-irons)
-
-*How found: Google search for "Takomo game improvement irons what to look for", 27 September 2026\.*
-
-* What does Takomo say to look for, and why might a company that sells irons say it?  
-* Does it agree with the Hireko guide?
-
-[Ellwood, Jeremy. "How Does Lie Angle Affect Golf Shots?" Golf Monthly, 2022, updated 2024\.](https://www.golfmonthly.com/features/the-game/how-does-lie-angle-affect-golf-shots-66452)
-
-*How found: Google search for "how does lie angle affect golf shots", 27 September 2026\.*
-
-* What does lie angle do to the direction of the ball?  
-* Can a golfer know their lie angle without a fitting?
-
+[Summitt, Jeff. "Blades vs Cavity Back Irons: A Clubmaker's Engineering Guide." Hireko Golf, 2026.](https://www.hirekogolf.com/blog/post/blades-vs-cavity-back-irons-a-clubmakers-engineering-guide)
+*How found: Google search for "blades vs cavity back irons engineering guide", 27 September 2026.*
+  - What are MOI, centre of gravity, sole width and offset, and how do they change a shot?
+MOI (moment of inertia) is how much the clubhead resists twisting on off-centre hits, which usually happens more in the lower handicaps. A higher MOI, like a cavity back's 3,000–4,500+ against a blade's 2,200–2,800, keeps mishits straighter and longer but can sometimes provide less feel and overall control in more skilled golfers. The centre of gravity is the clubhead's balance point. Moving it low and back helps launch the ball higher, while the more central centre of gravity in a blade gives a lower, more controlled flight. Sole width is how wide the bottom of the club is. A wide sole glides through the turf and forgives fat shots, while a narrow one cuts through cleanly for good strikers but often punishes mistakes. Offset is how far the face sits behind the shaft. More offset gives you slightly longer to square the face, which helps reduce a slice- again, something insanely common in the higher handicaps. Game-improvement irons combine high MOI, a low centre of gravity, a wide sole, and more offset to be forgiving, while blades do the opposite to give skilled players more overall control of the shot.
+Here is a table the source provided that helps understand the specifics they provide a lot easier
+\[image\]
+  - Which of these specs should I record for each iron in my tool?
+I don't believe they all need to be recorded because I don't believe users will know what specific MOI they want, but maybe when the clubs are recommended there can be a little section mentioning these stats and what the club possesses and what this will mean to their game.
 ## **How a fitting works**
-
-[Wunder, Johnny. "Fully Fit: 2026." Golf Magazine, vol. 68, no. 2, 2026, p. 66\.](https://research.ebsco.com/plink/413849c4-3429-317d-9171-17e110ded943)
-
-*How found: EBSCO (school library), 27 September 2026\. Search: ("golf club\*" OR "golf iron\*") AND ("club fitting" OR "custom fit\*").*
-
-* What does a personalised fitting involve that a normal club test doesn't?  
-* Which parts of it could my questionnaire copy?
-
-[Stachura, Mike. "Your Next Custom Fitting Might Not Require a Single Swing." Golf Digest, vol. 77, no. 4, 2026, p. 88\.](https://research.ebsco.com/plink/590a409f-f8bc-34b8-8b87-a0eac5ae7f98)
-
-*How found: EBSCO (school library), 27 September 2026\. Search: ("golf club\*" OR "golf iron\*") AND ("club fitting" OR "custom fit\*").*
-
-* What can AI and software fitting tools do, and what can't they do yet?  
-* Since my tool works in a similar way, which of those limits should it admit?
-
+[Wunder, Johnny. "Fully Fit: 2026." Golf Magazine, vol. 68, no. 2, 2026, p. 66.](https://research.ebsco.com/plink/413849c4-3429-317d-9171-17e110ded943)
+*How found: EBSCO (school library), 27 September 2026. Search: ("golf club\*" OR "golf iron\*") AND ("club fitting" OR "custom fit\*").*
+  - What does a personalised fitting involve that a normal club test doesn't?
+A normal club test, like the robot-and-range-ball tests magazines used to do, gives every club one general rating, as if one result applies to everyone which is not the case. A personalised fitting starts importantly with the individual golfer, their swing, what they want from the club and what ultimately feels right to them. Golf Magazine dropped its usual test and had six staff members get bespoke fittings instead, because the best club for one person isn't the best for another. The golfer also plays an active part: they say what they prefer and try different options, rather than just accepting a score.
+  - Which parts of it could my questionnaire copy?
+My questionnaire can copy the "start with the golfer" idea that is the foundation of an actual fitting. It can ask about their priorities (distance, forgiveness, feel, looks, price), their usual miss and their level, then weight the results to match, instead of just showing a top-rated list which is not very personalised and not what i want my tool to be. It can also copy the active role by letting users say what matters most to them. What it can't copy is the hands-on part which i believe is also and important part of the fitting in regards to hitting balls on a launch monitor, and adjusting lie and shaft from real swings. So my results should tell users to test their shortlist in person if possible and that this would help even further
+[Stachura, Mike. "Your Next Custom Fitting Might Not Require a Single Swing." Golf Digest, vol. 77, no. 4, 2026, p. 88.](https://research.ebsco.com/plink/590a409f-f8bc-34b8-8b87-a0eac5ae7f98)
+*How found: EBSCO (school library), 27 September 2026. Search: ("golf club\*" OR "golf iron\*") AND ("club fitting" OR "custom fit\*").*
+  - What can AI and software fitting tools do, and what can't they do yet?
+AI has changed fitting from to a guess and check system into something driven by data in many placed. Club Champion's AI system, Co-Pilot, analyses a huge number of combinations of heads, shafts and other parts to find something that works really good. It gets better with every fitting across its 160 stores, so it can suggest precise setups quickly and efficiently. Newer tools like Eldrick software and AI chatbots make basic fitting advice easy for anyone to get. What they can't do well yet is handle personal preferences like feel and sound, which still need a human fitter something i will also struggle with. Online tools and chatbots are also limited by the data they have, and can repeat common myths.
+  - Since my tool works in a similar way, which of those limits should it admit?
+My tool is closer to Eldrick or a chatbot than to Co-Pilot and what I will try and focus on is it being not biased as this doesnt exist much and if in some case this would be published etc this would be my focal point in regards to marketing. It doesn't measure real swings, so it can't fit lie, length or shaft precisely according to the golfer's specific swing. It also can't judge feel or sound, which only the golfer can decide by hitting the clubs. And it's only as good as my research, so every fact should be sourced so it doesn't repeat myths. My results page should say this clearly and tell users to test their shortlist in person or get fitted. That links straight to my success criteria: explaining limitations, and accurate, sourced information.
 [PING. "Fitting Color Code Chart." PING.](https://ping.com/en-us/fitting/color-code-chart)
-
-*How found: Google search for "PING color code chart", 27 September 2026\.*
-
-* Which body measurements does it use, and is the result final or only a starting point?  
-* Could I use these measurements in my questionnaire?
-
+*How found: Google search for "PING color code chart", 27 September 2026.*
+  - Which body measurements does it use, and is the result final or only a starting point?
+The PING colour code chart uses two main body measurements to provide an output being your height, and your wrist-to-floor distance, measured standing straight with your arms hanging down. From these it suggests a lie angle, shown as a colour code, and a club length. The result isn't final, though. GlobalGolf's explainer of the chart says it's only a starting point. A fitter then does a dynamic test: you hit balls off a hard board with tape on the sole, and they change the lie until the mark is in the centre with some averages. That's because two people of the same height can set up and swing very differently. For example i have a pretty strange upright lie in regards to my length etc but it works great because i am usually very upright and have a pretty distinct swing
+  - Could I use these measurements in my questionnaire?
+Yes, but only as an optional question with a clear warning maybe not optional but again it should say suggested. Most golfers know their height, and wrist-to-floor is easy to measure with someone's help, so my tool could use them to suggest whether standard, upright or flat lie and length might suit them. I shouldn't use them to rule clubs in or out, though, because the chart itself is only a starting point, and lie should be checked by hitting balls but it could be very helpful in the creation of some recommendation. Most iron models can be adjusted for lie and length anyway, so the result should say something like "you may need a more upright lie. Ask for a lie check when you buy."
 ## **How much clubs actually matter**
-
-[Saternus, Matt. "How Much Does Lie Angle Matter? \- Golf Myths Unplugged." Plugged In Golf, 2018\.](https://pluggedingolf.com/much-lie-angle-matter-golf-myths-unplugged/)
-
-*How found: Google search for "how much does lie angle matter golf myths unplugged", 27 September 2026\.*
-
-* How big was the difference, and how many golfers were tested?  
-* Is lie angle worth including in my recommendations?
-
-[Saternus, Matt. "Are Distance Irons Longer Than Blades?" Club Champion, 2022\.](https://clubchampion.com/content/blog/are-distance-irons-longer-than-blades)
-
+[Saternus, Matt. "How Much Does Lie Angle Matter? - Golf Myths Unplugged." Plugged In Golf, 2018.](https://pluggedingolf.com/much-lie-angle-matter-golf-myths-unplugged/)
+*How found: Google search for "how much does lie angle matter golf myths unplugged", 27 September 2026.*
+  - How big was the difference, and how many golfers were tested?
+Seven golfers each hit 7 shots with a 6-iron at three lie angles: 57.5° (flat), 61.5° (standard) and 65.5° (upright). The shots were measured on a TrackMan at Club Champion. With the lie that should have suited each golfer, their shots landed about 5.5 yards closer together on average, between 5 and 10 yards depending on the player. They also finished about 3 yards closer to the centre line. That's a real difference, but only 7 golfers were tested, so it's a small test and not a proper scientific study, but it's a great indication.
+Is lie angle worth including in my recommendations?
+Yes, but again as advice, not as something that decides which irons are recommended. Lie angle clearly affects accuracy, and the test shows a few yards of difference, and the tool should also weigh how much these small changes truly matter. Almost any iron model can be bent to the right lie, though, so it shouldn't change which model my tool recommends. It fits best in the results as a tip, something like: "Ask for a lie check when you buy. The wrong lie can cost you about 5 yards of accuracy." This links to the PING source with the measurements give a starting point, and a lie check confirms it, but I also dont want all of my answers to end with “go get a fitting,” as this beats the aim of my tool.
+[Saternus, Matt. "Are Distance Irons Longer Than Blades?" Club Champion, 30 Sept. 2019.](https://clubchampion.com/content/blog/are-distance-irons-longer-than-blades)
 *How found: suggested by Claude (AI), 27 September 2026, in reply to the prompt "i maybe want some sources regarding some high end clubs mid range and then some low range and then how irons works how a fitting works some articles on how much clus actually matter try and find genuine reliable sources and double check their viability please". Claude found it with a web search for "old vs new irons test launch monitor distance forgiveness results".*
-
-* Why did some irons go further when the lofts were the same?  
-* Does this match what I felt with Sonam's P790 at the range?
-
+  - Why did some irons go further when the lofts were the same?
+The test set every iron to the same loft (27°), so loft couldn't explain the difference. Five golfers (handicaps 0 to 9) each hit 7 shots with two distance irons (TaylorMade P790, Callaway Epic Forged) and two blades (Callaway Apex MB, TaylorMade P730), measured on TrackMan for accurate results. The distance irons carried about 5.4 yards further on average (186.3 vs 180.9 yards). There were two reasons. First, ball speed was higher: each golfer's fastest average ball speed came with a distance iron, 1 to 4.5 mph faster than the other. Second, spin was lower at about 4,755 rpm compared with 5,246 rpm for the blades, roughly 10% less, which can be significant. Less spin means the ball doesn't climb and stall as much, so it carries further. There was a trade-off, though: the blades were more accurate for 4 of the 5 golfers, which is a very large majority. So distance irons go further, but they aren't automatically better. Something I have noticed is that we often look for distance, but accuracy is often better rewarded, since you can almost always go up or down a club to change distance, while that is much harder to do with accuracy.
+  - Does this match what I felt with Sonam's P790 at the range?
+Whilst using Sonam's clubs, even though I was not completely used to them, I noticed that they went noticeably further and kinda felt stronger off the face, if that makes sense. It felt, in a sense, springy, almost like it had a boost, which I didn't really enjoy, but I had not felt it before. The trade-off I felt directly it was much harder to hit exact yardages because it kinda just jumped of the face, and I felt I lost some feel.
 [MacKenzie, Sasho James, and Eric J. Sprigings. "Understanding the Role of Shaft Stiffness in the Golf Swing." Sports Engineering, vol. 12, 2009, pp. 13-19.](https://link.springer.com/article/10.1007/s12283-009-0028-1)
-
 *How found: suggested by Claude (AI), 27 September 2026, in reply to the prompt "i maybe want some sources regarding some high end clubs mid range and then some low range and then how irons works how a fitting works some articles on how much clus actually matter try and find genuine reliable sources and double check their viability please". Claude found it with a web search for "golf shaft flex effect on ball launch distance study".*
-
-* Does matching shaft flex to a golfer add clubhead speed?  
-* What does this mean for any shaft advice in my tool?
-
-[Shapcott, Susan. "Which Golfers Gain the Most from a Club Fitting?" National Club Golfer, 2022\.](https://www.nationalclubgolfer.com/reviews/reviews/which-golfers-gain-the-most-from-a-club-fitting/)
-
+  - Does matching shaft flex to a golfer add clubhead speed?
+No, not necessarily. MacKenzie and Sprigings used a computer model of golfers with different swing strengths and tested four shafts: flexible, regular, stiff, and fully rigid. Changing the stiffness hardly changed clubhead speed. What it did change was how the clubhead was angled at impact which is something i experienced for a long time so how much loft it had (dynamic loft) and how closed the face was. So a flexible shaft can make the ball launch higher, and possibly start a bit left for a right-handed golfer, but it won't make anyone swing faster. That goes against marketing that says the "right flex" adds distance through speed. The main limit is that it's a simulation, not real golfers hitting real balls.
+  - What does this mean for any shaft advice in my tool?
+Shaft choice shouldn't be a main factor in which irons my tool recommends but should be important because a person with a slow swing speed might benefit from the springier flexeri shafts. It also shouldn't promise distance gains from flex. Shaft flex mostly affects launch height and direction, and it can usually be swapped on any iron model, so it fits better as a short tip in the results. For example: "Your swing speed suggests a regular flex. Flex mainly changes how high and straight the ball launches, not your speed but speed is also sometimes a factor. Try a couple of options when you buy." This also keeps my tool honest, which links to my success criterion about explaining reasons and limits.
+[Shapcott, Susan. "Which Golfers Gain the Most from a Club Fitting?" National Club Golfer, 2022.](https://www.nationalclubgolfer.com/reviews/reviews/which-golfers-gain-the-most-from-a-club-fitting/)
 *How found: suggested by Claude (AI), 27 September 2026, in reply to the prompt "i maybe want some sources regarding some high end clubs mid range and then some low range and then how irons works how a fitting works some articles on how much clus actually matter try and find genuine reliable sources and double check their viability please". Claude found it with a web search for "peer-reviewed study golf club fitting improves performance amateur golfers journal".*
-
-* Who gained the most from being fitted?  
-* Who ran the study, and does that change how much I trust it?
-
-[Practical Golf. "Modern vs Classic Golf Equipment Tested: What Has Changed?" Practical Golf.](https://practical-golf.com/modern-vs-classic-golf-equipment-tested-what-has-changed)
-
-*How found: Google search for "modern vs classic golf equipment tested", 27 September 2026\.*
-
-* What changed between the old and the modern 7-iron?  
-* How does it compare with my range session with three 7-irons?
-
+  - Who gained the most from being fitted?
+Everyone in the study gained something, but higher-handicap golfers gained the most in percentage terms because they are usually not as informed or experienced as lower-handicap golfers. More than 250 women golfers were measured on TrackMan, first with their own driver and 6-iron, then with fitted clubs. Every handicap level improved significantly in carry, total distance, and smash factor, which shows how well the ball is struck. Age, clubhead speed, and experience didn't change how much people benefited. The study also found that older clubs cost about 0.31 yards a year on the 6-iron, so old equipment slowly loses distance. This matters for my tool because my main users are recreational, mid-to-high handicap golfers, and they're the ones with the most to gain from clubs that suit them. This also shows the importance of my tool, as it's shown to help an extremely wide variety of people.
+  - Who ran the study, and does that change how much I trust it?
+The study was run by Club Champion, a company that sells club fittings, together with Sports Query and a researcher, Kari Haug. That's a conflict of interest, because Club Champion benefits if people believe fittings work. It also tested only women and compared fitted clubs with players' own, often older, clubs, so part of the gain could just come from newer equipment rather than the fitting itself. I still find it useful because the sample is large and TrackMan gives measured data, but I'll treat the exact numbers carefully and back them up with other sources, like Johnson and Stachura on replacing irons.
 ## **Understanding the algorithm**
-
 *AI-added by Claude on 20 October 2026 at my request: sources and guiding questions only. The research and the answers are mine.*
-
-[Felfernig, Alexander, Gerhard Friedrich, Dietmar Jannach, and Markus Zanker. "Constraint-Based Recommender Systems." Recommender Systems Handbook, 2nd ed., Springer, 2015\.](https://web-ainf.aau.at/pub/jannach/files/BookChapter_Constraint-BasedRS_2015.pdf)
-
+[Felfernig, Alexander, Gerhard Friedrich, Dietmar Jannach, and Markus Zanker. "Constraint-Based Recommender Systems." Recommender Systems Handbook, 2nd ed., Springer, 2015.](https://web-ainf.aau.at/pub/jannach/files/BookChapter_Constraint-BasedRS_2015.pdf)
 *How found: suggested by Claude (AI), 20 October 2026, after I asked for a section on understanding the algorithm. Claude found it with a web search for "Felfernig Burke constraint-based recommender systems".*
-
-* What is the difference between filtering out items and ranking the ones that are left?  
-* How do these systems explain why an item was recommended, and could my results page do the same?  
-* What should a tool do when no item meets all the requirements?
-
+  - What is the difference between filtering out items and ranking the ones that are left?
+Filtering is a hard yes/no rule: any item that breaks one of the user's requirements is removed completely, which is pretty interesting. Ranking then puts the remaining items in order, from best fit to worst, often by giving each one a score. For my tool, filtering could remove irons that are over the user's budget or not made left-handed, because those are deal-breakers. Ranking could then order what's left by how well each iron matches things like the user's handicap, how much forgiveness they need, and whether they care more about distance or control, and I believe the ranking is necessary because it will always be a little subjective. Filtering should only be used for true must-haves. Otherwise, good options get thrown out too early.
+  - How do these systems explain why an item was recommended, and could my results page do the same?
+Because the system works with clear rules set out from the start, it can show which rules an item passed and why it scored well, which is essential. That makes the recommendation easier to trust, because the user can see the reasoning instead of just a result, so they will also gain some knowledge about themselves and what to proceed with. My results page can do the same. Each iron could have two or three short reasons linked to the user's answers, such as "Wide sole and high forgiveness, because you said you often hit it fat", plus one trade-off, such as "Less shot-shaping control than a players' iron". This links directly to my success criterion about reasons, trade-offs, and limits.
+  - What should a tool do when no item meets all the requirements?
+It shouldn't just output no results and have a blank page. The chapter suggests relaxing as few requirements as possible and telling the user which ones were relaxed. For my tool, if someone wants a forged player's iron under CHF 300 for left-handers and nothing matches in the system, it could say something like: "No irons matched all your answers. Here are the closest matches if you raise your budget to CHF 450, or look at used irons, and I always want to output some specific information and a way forward for all golfers. That keeps the user moving and stays honest about the compromise.
 [ASQ (American Society for Quality). "What Is a Decision Matrix?" ASQ.](https://asq.org/quality-resources/decision-matrix)
-
-*How found: suggested by Claude (AI), 20 October 2026\. Claude found it with a web search for "ASQ decision matrix weighted criteria explained".*
-
-* How are criteria given weights, and how would I decide how much each answer counts?  
-* Why does ASQ say the highest score should not automatically be the final choice?
-
+*How found: suggested by Claude (AI), 20 October 2026. Claude found it with a web search for "ASQ decision matrix weighted criteria explained".*
+  - How are criteria given weights, and how would I decide how much each answer counts?
+In a decision matrix, you first have to choose the criteria that matter because of the wide variety. Then you give each one a weight of importance in a sense, for example by sharing 10 points between them so the most important criteria get the most points which helps with selection. Each option is rated on each criterion, for example from 1 to 5. The rating is multiplied by the weight, and the results are added up to give a total score. For my tool, the options are irons, and the **user's answers importantly decide the weights**. For example, if someone says they often mishit, forgiveness gets a high weight and becomes more important than other selected criteria. If they say they care about control, workability gets more. I'd base the starting weights on my research, such as the sources saying forgiveness matters most for higher handicaps, and then test whether the results make sense with my testers but it will also very lots. \[image\]
+  - Why does ASQ say the highest score should not automatically be the final choice?
+Because the score is only as good as the weights and ratings behind it, and those involve judgment. Two irons might score almost the same, or the top one might have a weakness the numbers hide, like being much more expensive or hard to find in Switzerland or any other specific country. ASQ says the scores should start a discussion, not end it. That's why my tool should show a shortlist of three irons rather than one "winner", with reasons and trade-offs for each, so the user can make the final decision and be involved and understand the process. This serves as a win-win because my tool doesn't make promises but helps the user understand the situation and see a way forward without bias.
 [Google for Developers. "Content-Based Filtering." Machine Learning: Recommendation Systems course.](https://developers.google.com/machine-learning/recommendation/content-based/basics)
-
-*How found: suggested by Claude (AI), 20 October 2026\. Claude found it with a web search for "Google developers recommendation systems content-based filtering".*
-
-* How does matching a golfer's features with an iron's features produce a score?  
-* My tool has no data on past users. Which parts of this method still apply, and which do not?
-
+*How found: suggested by Claude (AI), 20 October 2026. Claude found it with a web search for "Google developers recommendation systems content-based filtering".*
+  - How does matching a golfer's features with an iron's features produce a score?
+The golfer and the irons are described with the same features, such as forgiveness, distance, control, and price, with these being the main metrics being looked at for all golfers. Each iron gets a rating for each feature according to the golfer's answers. Each golfer gets a "need" value for each feature, based on their answers, so some become more important than others, and answers narrow down the playing field, for example, by placing a ceiling of 1000CHF. 
+**Score = need × rating for each feature, all added up. This is called a dot product.**
+The higher the score, the better the match, and the top scores get recommended with explanations. An example of this consists of a high-handicapper with a high need for forgiveness, matched with a game-improvement iron rated high on forgiveness, giving a high score, and these scores vary with all the criteria in the tool.
+  - My tool has no data on past users. Which parts of this method still apply, and which do not?
+What still will apply is matching user features to item features, which is done throught research and pattern recognition. It needs no other users, and my questionnaire and research give me both sides. It doesn't really apply in the sense of showing people like you liked this, which is called collaborative filtering and needs lots of user data and isn't really achievable to a strong extent. The advantage is that my tool works from the first user, but on the other hand, results are only as good as my features and iron ratings, so the ratings need sources and testing.
 **Questions for my own algorithm**
-
-* Which of my questions should be hard filters (yes/no) and which should add points?  
-* Should some questions only appear depending on earlier answers (branching)?  
-* How will I check that the results make sense for my test profiles?
-
+  - Which of my questions should be hard filters (yes/no) and which should add points?
+Hard filters should only apply to true deal-breakers because it could remove a possible choice that the user might find super appealing. Regarding handedness, a left-handed golfer can't use a right-handed iron, so this should be one of the first couple of questions. Maximum budget, with an option to include used irons, could help a lot, but maybe not as a listing option because it's hard to keep constantly updated. Maybe availability in Switzerland but i want it to be a global website as well.
+Add points for everything else:
+Handicap or experience
+Where they usually miss or mishit (thin, fat, toe, heel)
+Priority: distance, forgiveness, control, or feel
+Height of ball flight
+How often they play or practise
+The reason for this is that Felfernig says filtering too much leaves no results, so anything that's "better or worse" rather than "possible or impossible" should be scored; if the filters leave nothing, relax the budget first and say so, as Felfernig suggests.
+  - Should some questions only appear depending on earlier answers (branching)?
+Yes, but only a little, to keep the tool simple to build and test; it could be very helpful as some questions apply to all golfers and some only to a specific type. 
+Some useful branches: if someone doesn't know their handicap, they could be asked about their usual score or experience instead. If their budget is low, they could be asked whether they're open to used irons. Beginners could skip advanced questions about shot shape and feel, while better players could be asked about workability. The height and wrist-to-floor questions from the PING source could be optional. 
+Branching makes the questionnaire shorter, easier, and more specific, which helps my usability criterion. The trade-off is that every branch creates another path that needs testing, but this could be very useful.
+  - How will I check that the results make sense for my test profiles?
+I'll make 4 or 5 test profiles: a beginner with a low budget, a mid-handicapper who wants distance, a low-handicapper who wants control, a left-hander on a tight budget, and one impossible case to check the "no match" message and this could potentially be simulated with ai but best with actual people and feedback. Before running each one, I'll write down which irons I expect, based on my research into iron categories. Then I'll compare the tool's results with my expectations. If they don't match, I'll work out whether a weight or an iron rating is wrong, fix it, and record the change in my journal. To make the check stronger, I could ask a fitter or my golf coach to look at 2 or 3 results. After that, my 5 testers (real or AI) will try it on a phone and a laptop for usability.
+  - If I have an AI tester, I will give it instructions to act as a first-time viewer with specific golf characteristics and give precise feedback, but real people will also be necessary, as its for humans obviously.
+## **Extra research for the questionnaire**
+*AI-added by Claude on 15 November 2026 at my request: sources and guiding questions only. The research and the answers are mine. These fill gaps found while planning the questions.*
+**1. Swiss prices (for the budget question)**
+[Galaxus. "Titleist T100 Eisen Set." Galaxus.ch.](https://www.galaxus.ch/en/s3/product/titleist-t100-eisen-set-golf-clubs-68296501)
+[Galaxus. "TaylorMade Qi Max Eisenset." Galaxus.ch.](https://www.galaxus.ch/en/s3/product/taylor-made-qi-max-eisenset-golf-clubs-68092303)
+[Decathlon Switzerland. "Inesis 900 Combo Iron Set." Decathlon.ch.](https://decathlon.ch/en/p/serie-de-fers-golf-gaucher-graphite-taille-2-vitesse-rapide-inesis-900-combo/_/R-p-343745)
+*How found: suggested by Claude (AI), 15 November 2026. Claude found them with a web search for "Eisensatz Golf kaufen Schweiz CHF Shop". Prices change, so write down the date I checked.*
+  - What does each set cost in CHF (premium, game-improvement, budget)?
+Firstly, I think it's good to have CHF as a baseline, but I want to have a conversion system, potentially, if it sounds reasonable, where there is a system that can convert the CHF to several different currencies automatically.
+I checked Swiss prices for three sets in November 2026. The Titleist T100, a forged players' iron, is the premium option. On golfimport.ch, it costs around CHF 208 per club on special offer and normally around 260CHF 260, so a 6-club set from 5-iron to pitching wedge comes to about CHF 1,248, or CHF 1,560 at full price but this also varies but good starting point to understand prices. It also had to be ordered because it wasn't in stock. The TaylorMade Qi Max is a high-forgiveness game-improvement iron, and Swiss dealers sell it for about CHF 1,020–1,300 depending on the set and shaft, according to golfhome.ch in January 2026. The Decathlon Inesis 900 Combo is the cheaper option, at CHF 719.90 for 5-iron to pitching wedge (left-handed listing).
+  - Do Swiss prices match the US dollar ranges in Covey ($799–1,299 GI, $999–1,499 PD)?
+Using an exchange rate of about 1 USD = 0.84 CHF (OFX, 18 November 2026), Covey's game-improvement range works out to about CHF 670–1,090, and players' distance to about CHF 840–1,260. The Swiss prices I found were higher, which makes sense to an extent. The Qi Max costs about CHF 1,020–1,300 in Switzerland, which is near or above the top of Covey's converted game-improvement range. This is probably because of import costs, Swiss VAT, and higher retail prices in Switzerland. It means I can't reuse US price ranges for my budget question, and need to base it on Swiss prices but I will try and somehow make it a global tool.
+**For this and the previous question, I received help from AI to retrieve useful information online; I don't really need to memorise and stuff.**
+  - What budget brackets would make sense for my first question?
+Based on what I found with AI, I'd use four brackets: under CHF 500 (used sets or entry-level brands), CHF 500–1,000 (budget brands like Decathlon Inesis, or older and used models of big brands), CHF 1,000–1,400 (most new game-improvement and players' distance sets), and over CHF 1,400 (premium forged sets like the Titleist T100 at full price). I'd also add a "no limit" option and ask whether they're open to used irons, because Johnson and Stachura show that irons only a few years old lose very little performance.
+**2. Used and older irons (for the new/used question)**
+*Already in my notes: Johnson and Stachura, "How Often Should You Replace Your Irons?" (Golf Digest, 2019).*
+**3. Do harder clubs help you improve? (for the "main goal" question)**
+[Bishop, Phillip. "Which Is Better: A Blade or Game-Improvement Iron?" MyGolfSpy Labs.](https://mygolfspy.com/labs/which-is-better-a-blade-or-game-improvement-iron/)
+[Saternus, Matt. "Are Game Improvement Irons Easier to Hit? - Golf Myths Unplugged." Plugged In Golf.](https://pluggedingolf.com/?p=37497)
+*How found: suggested by Claude (AI), 15 November 2026. Claude found them with a web search for "should high handicappers use blades or cavity back irons study ball striking improve".*
+  - Who were the testers (handicaps), and how were the clubs made comparable (same loft, shaft)?
+The MyGolfSpy Labs test used ten golfers with handicaps from 0 to 12, so pretty comfortable players. They compared a blade (TaylorMade P7MB) with a game-improvement iron (TaylorMade Stealth) twice one being first off the rack, then with both set to an identical 27° loft, with the same shaft, length and grip. Saternus used seven skilled golfers who each hit 10 shots with a blade, a cavity back (Srixon Z 765) and a super game-improvement iron. All three clubs had the same shaft, loft, lie, and length to make it a fair test, and shots were measured on TrackMan at Club Champion for accurate results. Both tests matched the clubs so that only the head design was different, which again made the comparison fair. Both, however, used fairly good golfers, not beginners or high handicappers so it's not able to give us the full picture.
+  - Did the blade or the game-improvement iron do better, and on what (distance, dispersion, consistency)?
+The game-improvement irons did better in most areas on paper. In MyGolfSpy's test, the GI iron carried much further off the rack (177.4 vs 159.7 yards), partly because of its stronger loft. Even at the same loft, it still carried further (170.3 vs 163.2 yards), with more ball speed. The blade only had a slightly smaller shot area. In Saternus's test, carry distance was within 1 yard. The super game-improvement iron was a lot straighter, finishing about six feet closer to the target on average, and gave more good shots, even though players struck it worse on the face. The idea that blades perform better on pure strikes was busted in this scenario, which is very significant and maybe even shows us how blades should be strictly reserved for the high plus handicappers and maybe not even then.
+  - Does either source support my idea that starting with harder clubs can help you improve, or argue against it?
+Neither source supports it. Both show that even good players score better with more forgiving irons, so a beginner would probably struggle even more with a blade. However, neither test measured improvement over time, which is what I was referring to. MyGolfSpy clearly says it doesn't test whether blades make you improve, so the idea isn't proven wrong either, as mentioned. Without evidence, my tool shouldn't recommend harder clubs to help people improve. If a user says their main goal is to develop their ball striking, the tool could mention a player's cavity or combo set as an option, but it should explain the trade-off: less forgiveness now, and no proof that it speeds up improvement. I believe most golfers will want direct improvement and to become the best according to their ability, which I believe should still be the focus.
+**4. Which iron type for which handicap (for the handicap question)**
+[Weston, Michael. "The Perfect Golf Bag Set-Up For A 10, 20 And 30 Handicapper." Golf Monthly, 31 Oct. 2025.](https://www.golfmonthly.com/features/the-perfect-golf-bag-set-up-for-a-10-20-and-30-handicapper)
+[Today's Golfer. "Game Improvement, Players' Distance, Cavity or Blades – What Type of Golf Irons Should You Play?" Today's Golfer.](https://www.todays-golfer.com/news-and-events/equipment-news/golf-iron-categories-comparison-2026/)
+*How found: suggested by Claude (AI), 15 November 2026. Claude found them with a web search for "what irons should I play based on handicap game improvement players distance blades guide".*
+  - Which iron type does Golf Monthly suggest for a 10, 20 and 30 handicapper?
+Weston specifically suggests a different iron type for each level. For a 10 handicapper, he suggests compact better-player irons like the TaylorMade P7CB or Titleist T100, with a hybrid instead of the 4-iron. For a 20 handicapper, he suggests compact mid-handicap irons that still have forgiveness, such as the P790, Mizuno JPX925 Forged, Srixon ZXi5, or Ping i530, but not blades and not chunky game-improvement irons. For a 30 handicapper, he suggests game-improvement irons with bigger heads, perimeter weighting, and offset, like the Callaway Elyte X, Ping G440 or Titleist T350, plus hybrids instead of long irons. The pattern is clear being that the higher the handicap, the bigger and more forgiving the iron something we have seen throughout but here we are getting pretty good specifics we can include in my tool.
+  - Does that match Covey (5–15 handicaps moving to players distance)?
+From what I see, mostly yes. Covey says golfers around a 5–15 handicap often move from game-improvement irons to players' distance irons. Weston puts players' distance irons like the P790 at a 20 handicap, and better-player irons at around 10; I will need to find a balance and give lots of reasoning in the tools output. Both agree that mid-handicappers can handle a more compact iron as long as it's still forgiving. The main difference is where they draw the line, with Weston suggesting compact irons for slightly higher handicaps than Covey does. That shows handicap is only a rough guide and should not be the single driver for what club a player should be getting in which. Today's Golfer also says: no single category is best for everyone, and it sorts golfers by player type rather than handicap. So my tool again shouldn't use handicap alone. It should combine handicap with other answers whilst using the systems we explored above, like how consistently they strike the ball and what they care about most.
+  - What would I recommend for complete beginners, and for golfers under 5?
+For complete beginners, I'd go further than Weston's 30-handicap advice: super game-improvement or game-improvement irons, hybrids instead of long irons, and possibly a cheaper or used set, because beginners may not know yet how much they'll play, which could be very significant and important to include in the discussion. Today's Golfer shows GI irons give the most carry, which helps beginners even though dispersion is wider. For golfers under 5, I'd suggest players' cavity backs, combo sets, or blades, because Today's Golfer found blades the most consistent with the tightest dispersion, and good players can make use of that control whilst higher handicappers often can't and won't benefit from something they can't obtain. Feel and personal preference matter more at that level alongside looks, but that is obviously subjective. The MyGolfSpy and Saternus tests also showed that even good players can benefit from forgiveness, so I'd still show one forgiving option to golfers under 5.
+## **Source evaluation (C.R.A.P.)**
+*AI-added by Claude on 22 November 2026 at my request: template and prompts only. The evaluations are mine. Fill this in for these 3 sources, then screenshot one for the source-evaluation snapshot in my report.*
+**MacKenzie and Sprigings (2009), Sports Engineering**
+*Hint: peer reviewed, but a computer simulation.*
+Currency: When was it published or updated? Is it still up to date for irons in 2026?
+Relevance: Which question, rule or iron in my tool does it help with?
+Authority: Who wrote it, and what makes them qualified (journal, test pro, fitter)?
+Purpose: Why was it written (to inform, sell or entertain)? Could that make it biased?
+Verdict: How much do I trust it, and how will I use it in my tool?
+**Shapcott (2022), National Club Golfer**
+*Hint: a big study, but run with a company that sells fittings.*
+Currency: When was it published or updated? Is it still up to date for irons in 2026?
+Relevance: Which question, rule or iron in my tool does it help with?
+Authority: Who wrote it, and what makes them qualified (journal, test pro, fitter)?
+Purpose: Why was it written (to inform, sell or entertain)? Could that make it biased?
+Verdict: How much do I trust it, and how will I use it in my tool?
+**Today's Golfer (2026), iron categories test**
+*Hint: 81 irons tested by a pro, but a commercial magazine with no author shown.*
+Currency: When was it published or updated? Is it still up to date for irons in 2026?
+Relevance: Which question, rule or iron in my tool does it help with?
+Authority: Who wrote it, and what makes them qualified (journal, test pro, fitter)?
+Purpose: Why was it written (to inform, sell or entertain)? Could that make it biased?
+Verdict: How much do I trust it, and how will I use it in my tool?
