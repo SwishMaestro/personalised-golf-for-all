@@ -326,6 +326,9 @@ function showScreen(name) {
   Object.keys(screens).forEach(function (key) {
     screens[key].hidden = (key !== name);
   });
+  // Question screens fit the window like an app: the page itself doesn't scroll, only the
+  // question column does (Leon, 25 Nov). The CSS uses this class on <html> (style.css section 4).
+  document.documentElement.classList.toggle("is-app-screen", name === "questions");
   window.scrollTo({ top: 0, behavior: "instant" });   // jump to the top (no smooth scroll between screens)
 }
 
@@ -483,6 +486,9 @@ function showQuestion(index, arriving) {
     void qCard.offsetWidth;   // makes the browser notice the class before it is removed
     qCard.classList.remove("is-arriving");
   }
+
+  // The question column scrolls back to the top: smoothly, or instantly with reduced motion
+  document.getElementById("main").scrollTo({ top: 0, behavior: reducedMotion() ? "instant" : "smooth" });
 
   // Accessibility: move focus to the question and announce "Question X of 10"
   document.getElementById("q-title").focus({ preventScroll: true });
@@ -759,11 +765,7 @@ document.addEventListener("keydown", function (event) {
 function playShotThenContinue() {
   const shotIndex = current;
   qCard.classList.add("is-leaving");   // the card eases towards the hole as the ball takes off
-
-  // Phone: make sure the hole band is visible before the shot starts
-  if (!isLaptop() && window.scrollY > 0) {
-    window.scrollTo({ top: 0, behavior: reducedMotion() ? "auto" : "smooth" });
-  }
+  // (No need to scroll up to see the hole: on question screens it is always in view.)
 
   playShot(shotIndex, function () {
     if (shotIndex < QUESTIONS.length - 1) {

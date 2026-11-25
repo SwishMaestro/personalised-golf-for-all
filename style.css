@@ -171,6 +171,29 @@ a { color: inherit; }
 .app[data-screen="home"] .content { padding: 0; }   /* the home page sections run edge to edge */
 .screen { width: 100%; }
 
+/* QUESTION SCREENS fit the window like an app (Leon, 25 Nov).
+   The page itself never scrolls; only the question column (.content) does, inside its own area.
+   script.js puts the class "is-app-screen" on <html> while the questions are showing. */
+html.is-app-screen,
+html.is-app-screen body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;            /* no "rubber band" bounce into empty space */
+}
+.app[data-screen="questions"] {
+  height: 100vh; height: 100dvh;        /* exactly the window (dvh follows the phone's address bar) */
+  min-height: 0;
+  grid-template-rows: auto auto minmax(0, 1fr);   /* header, hole band, question area gets the rest */
+}
+.app[data-screen="questions"] .content {
+  min-height: 0;
+  position: relative;                   /* keeps the hidden screen-reader text inside this column */
+  overflow-y: auto;                     /* only this column scrolls when a question is long */
+  overscroll-behavior: none;
+  display: flex; flex-direction: column;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));   /* small gap under Next, none wasted */
+}
+
 /* =========================================================
    5. THE HOLE PANEL (question screens only)
    ========================================================= */
@@ -564,7 +587,8 @@ legend { padding: 0; margin-bottom: 10px; }
 
 /* =========================================================
    9. LAPTOP LAYOUT (1024px and wider)
-   On question screens the hole fills a sticky panel on the left (45%).
+   On question screens the hole fills the left 45%, full height; the question column on the
+   right is centred and scrolls on its own if a question is taller than the window.
    ========================================================= */
 @media (min-width: 1024px) {
   .site-header { padding: 20px clamp(40px, 5vw, 88px); }
@@ -573,16 +597,17 @@ legend { padding: 0; margin-bottom: 10px; }
 
   .app[data-screen="questions"] {
     grid-template-columns: 45% minmax(0, 1fr);
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
     grid-template-areas: "hole header" "hole main";
   }
   .app[data-screen="questions"] .hole-panel {
     grid-row: 1 / span 2;
-    align-self: start;
-    position: sticky; top: 0;
-    height: 100vh; height: 100svh;
+    height: auto;                       /* stretches to the full window height */
   }
-  .app[data-screen="questions"] .content { display: flex; align-items: center; }
+  .app[data-screen="questions"] .content { padding-bottom: 40px; }
+  /* Vertically centred. Auto margins (not align-items: center) so a tall question
+     can still be scrolled to its very top. */
+  .app[data-screen="questions"] .questions { margin-block: auto; }
   .q-card { --leave-x: -28px; --leave-y: 0px; padding: 30px 32px 24px; }   /* the hole is on the left */
   .hole-caption { display: block; padding: 12px 32px 22px; max-width: 46em; }
 }

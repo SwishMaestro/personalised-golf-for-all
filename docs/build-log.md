@@ -2,6 +2,16 @@
 
 Newest entries at the top. Format and rules: see CLAUDE.md, section 3.
 
+## 2026-11-25 — Bug fix: question screens fit the window like an app
+- What changed:
+  - style.css (section 4): on question screens the page itself no longer scrolls and has no "rubber band" bounce (overscroll-behavior: none). The screen is exactly the window height; only the question column scrolls, inside its own area, with a small gap under Next and no empty space below. Section 9 (laptop): the hole panel fills the left side at full height (no longer "sticky" inside a scrolling page); the question card is vertically centred in the right column.
+  - script.js: <html> gets the class "is-app-screen" on question screens only, so the home page and results keep normal scrolling. Each new question scrolls its column back to the top (smoothly; instantly with reduced motion). Removed the old "scroll the page up on phones before a shot" code, which is no longer needed because the hole is always in view.
+- Tested at 1440 × 900, 1024 × 768 and 375 × 667 (also with reduced motion), including question 8 with the caddie's note open and mouse-wheel scrolling over the hole and the question: the page never scrolls, the hole never moves, Next is always reachable, no sideways scrolling, no console errors. Home page still scrolls normally.
+- Why: "I can scroll the whole page down past the question into a big empty area, and the hole panel scrolls away with it, so it looks broken." (Leon)
+- Decided by: Leon
+- Source: none, bug fix
+- Criterion: U3, design
+
 ## 2026-11-25 — Success criteria renamed R1, R2, R3
 - What changed: CLAUDE.md (success criteria list, suggestion rule and build-log template) and this build log now say R1, R2, R3 instead of R-i, R-ii, R-iii. U1–U3 unchanged.
 - Why: to match the final success criteria in Leon's report (Leon)
