@@ -71,3 +71,12 @@ Weights start at 1. Level: beginner/25+ → forgiveness +3, launch +2; 15–24 �
 ## 8. Home page text (Leon's choice, 24 Nov)
 - Headline: **Irons, explained. For your game.**
 - Line under it: "A free, honest starting point before you buy or book a fitting."
+
+## 9. Usability testing checklist (Phase 5, 5 testers)
+Success criteria (from CLAUDE.md section 4):
+- [ ] **U1** At least 4 of 5 complete the questionnaire and reach results without help.
+- [ ] **U2** At least 4 of 5 can explain a recommendation reason and a limitation in their own words.
+- [ ] **U3** The full process works on phone and laptop: readable text, labelled inputs, keyboard-operable controls, no clipped content.
+
+Things to watch for:
+- [ ] Did testers pick more than one on Q8 without being told? (added 25 Nov)

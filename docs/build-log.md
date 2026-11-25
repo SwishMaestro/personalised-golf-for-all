@@ -2,6 +2,24 @@
 
 Newest entries at the top. Format and rules: see CLAUDE.md, section 3.
 
+## 2026-11-25 — Success criteria renamed R1, R2, R3
+- What changed: CLAUDE.md (success criteria list, suggestion rule and build-log template) and this build log now say R1, R2, R3 instead of R-i, R-ii, R-iii. U1–U3 unchanged.
+- Why: to match the final success criteria in Leon's report (Leon)
+- Decided by: Leon
+- Source: none, naming
+- Criterion: setup
+
+## 2026-11-25 — "Not sure" on its own row on question 6; testing checklist started
+- What changed:
+  - script.js: on phones, "Not sure" gets its own full-width row whenever it would otherwise sit alone in the last row (an odd number of options). Today that is question 6 (and question 8, which already had it). Questions 2 and 4 have an even number of options, so they don't change.
+  - style.css: the full-width rule now uses one shared class ("own-row") for questions 6 and 8.
+  - docs/product-plan.md: new section 9, a usability testing checklist: U1–U3 as written in the success criteria, plus "Did testers pick more than one on Q8 without being told?"
+- Tested at 375 × 740 and 1440 × 900: no sideways scrolling, no console errors; laptop layout unchanged (one option per row).
+- Why: Leon to add
+- Decided by: suggested by Claude, chosen by Leon
+- Source: none, design choice
+- Criterion: U1, U3, design
+
 ## 2026-11-25 — Question 8: "Up to 3" label, squarer boxes, "Not sure" on its own row
 - What changed:
   - index.html + script.js: a small "Up to 3" label next to "Question 8 of 10" (only on question 8).
@@ -18,10 +36,10 @@ Newest entries at the top. Format and rules: see CLAUDE.md, section 3.
   - style.css: the circle fills green and shows the rank number; unpicked options look unavailable (dashed border, muted text) when 3 are picked; numbered list in the scorecard.
   - docs/product-plan.md: question 8 row (help text, ranked choice, stored format, effect) and the scoring line in section 4: 1st choice +3, 2nd +2, 3rd +1.
 - Accessibility (U3): real checkboxes inside labels, Space to pick, Enter for Next. Screen readers hear e.g. "Forgiveness, choice 1 of 3, checkbox, checked", and every change is announced (e.g. "Forgiveness removed. Feel is now choice 1."). Tested at 375 × 740 and 1440 × 900 incl. reduced motion and real key presses: no sideways scrolling, no console errors.
-- Why: Leon to add
+- Why: "Golfers often want more than one thing, like forgiveness and control, but my research shows these are trade-offs (Today's Golfer 2026), so ranking the top 3 lets the tool weigh what matters most to each golfer and explain the compromise in the results (R2, R3)." (Leon)
 - Decided by: Leon (ranked choice, up to 3, "Not sure" exclusive, help text, stored list, +3/+2/+1); status line and refusal message suggested by Claude
 - Source: question sources unchanged (Today's Golfer 2026; Saternus 2019; coach interview); +3/+2/+1 weights: Leon's design choice, based on ASQ decision matrix (updated 25 Nov)
-- Criterion: R-ii, U3
+- Criterion: R2, U3
 
 ## 2026-11-24 — Home page: option 1 "D, refined" is now the real home page (experiments branch)
 - What changed:
@@ -32,7 +50,7 @@ Newest entries at the top. Format and rules: see CLAUDE.md, section 3.
 - Why: Leon chose option 1 (reason: Leon to add)
 - Decided by: Leon
 - Source: home page facts as listed in the footer (docs/research-notes.md)
-- Criterion: design, R-i, U3
+- Criterion: design, R1, U3
 - Still open: caddie's notes stay "Draft" until Leon sends his wording; About text by Leon.
 
 ## 2026-11-24 — Questionnaire upgrades: one connected experience (Part 4, experiments branch)
@@ -44,14 +62,14 @@ Newest entries at the top. Format and rules: see CLAUDE.md, section 3.
 - Why: make the hole and the questions feel like one experience, more connected and entertaining but never overpowering; the questions and information come first (Leon). No "no tracking" claim because the site loads Google Fonts (Leon).
 - Decided by: Leon (all six upgrades, iron icon, label in the card only, marker names, no caddie's note on Q1); details suggested by Claude, approved by Leon. Caddie's note wording: Leon to approve.
 - Source: caddie's notes from docs/research-notes.md, sources as in product-plan.md section 3
-- Criterion: U1, U2, U3, R-i, design
+- Criterion: U1, U2, U3, R1, design
 
 ## 2026-11-24 — Three home page options (Part 2, experiments branch)
 - What changed: added design/home-1.html ("D, refined": design D taken further, editorial numbered sections), design/home-2.html ("Product story": huge type, one idea per screen, scroll reveals, sources as footnotes; inspired by product pages like Apple's) and design/home-3.html ("Modern product": dark hero with a preview of the questionnaire, crisp cards with pointer highlights; inspired by sites like Linear and Stripe), and listed them in design/index.html. Each has a nav, hero with Leon's headline and line, Start, How it works in 3 steps, a result card preview ("Example Iron A", marked as a placeholder), Why you can trust it (every fact sourced; "Free, no sign-up, no ads"), About this project (draft text, Åberg/Crans-sur-Sierre teaser with the hole drawing) and a footer with sources. index.html not changed.
 - Why: the home page should look like a real, professional website, not be built around the hole (Leon)
 - Decided by: Leon (sections, three directions, wording changes); designs by Claude, for Leon to choose
 - Source: facts from docs/research-notes.md (Covey 2025, Summitt 2026, Today's Golfer 2026, Stachura 2026, Wunder 2026, Saternus 2018, Ferguson 2026, ASQ, Felfernig et al. 2015, PGA Tour 2023, Leon's Swiss price check)
-- Criterion: design, R-i
+- Criterion: design, R1
 
 ## 2026-11-24 — Questionnaire works: playing the hole shot by shot (Part 1)
 - What changed:

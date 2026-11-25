@@ -501,7 +501,7 @@ legend { padding: 0; margin-bottom: 10px; }
 .options.ranked .option input { border-radius: 7px; }   /* slightly squarer than the round "pick one" circles (Leon, 25 Nov) */
 @media (max-width: 419px) {
   .options.ranked .option input { border-radius: 6px; }
-  .options.compact .option.is-exclusive { grid-column: 1 / -1; }   /* "Not sure" gets its own full-width row */
+  .options.compact .option.own-row { grid-column: 1 / -1; }   /* "Not sure" gets its own full-width row (questions 6 and 8) */
 }
 .pick > * { grid-area: 1 / 1; }            /* the number sits on top of the circle */
 .rank {

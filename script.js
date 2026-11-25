@@ -520,6 +520,9 @@ function buildOptions(q) {
   q.options.forEach(function (opt) {
     const label = document.createElement("label");
     label.className = "option";
+    // "Not sure" gets its own full-width row on phones when it would otherwise sit alone
+    // in the last row (odd number of options, e.g. question 6) (Leon, 25 Nov)
+    if (opt.value === "not-sure" && q.options.length % 2 === 1) label.classList.add("own-row");
     const text = document.createElement("span");
     text.textContent = opt.label;
     const input = document.createElement("input");
@@ -551,7 +554,7 @@ function buildRankedOptions(q) {
   q.options.forEach(function (opt) {
     const label = document.createElement("label");
     label.className = "option";
-    if (opt.value === q.exclusive) label.classList.add("is-exclusive");   // "Not sure": own full-width row on phones
+    if (opt.value === q.exclusive) label.classList.add("own-row");   // "Not sure": own full-width row on phones
     label.dataset.value = opt.value;
     const text = document.createElement("span");
     text.textContent = opt.label;

@@ -52,7 +52,7 @@ job is to help golfers narrow down where they sit among iron types and models.
   width before saying it's done.
 - **Be proactive with ideas.** After each task, suggest **up to 3 improvements** that would
   genuinely make the website better (design, usability, accuracy or performance). For each:
-  what it is, why it helps, and which criterion it serves (R-i, R-ii, R-iii, U1-U3, or design).
+  what it is, why it helps, and which criterion it serves (R1, R2, R3, U1-U3, or design).
 - **Always check with me first.** Never build a suggestion until I say yes.
 - **Be honest.** If something I ask for would make the website worse, harder to use, or less
   accurate, tell me plainly and explain why, then let me decide.
@@ -73,7 +73,7 @@ After each change I accept, add an entry at the TOP of `docs/build-log.md`:
 - Why: (the reason I gave, or "Leon to add")
 - Decided by: Leon / suggested by Claude, chosen by Leon
 - Source: (research source, or "none, design choice")
-- Criterion: (R-i, R-ii, R-iii, U1, U2, U3, or design)
+- Criterion: (R1, R2, R3, U1, U2, U3, or design)
 ```
 
 Keep it factual. Do not write my reasons for me. If I didn't give one, write "Leon to add".
@@ -84,11 +84,11 @@ This log is how my other Claude chat and my process journal keep track of the bu
 ## 4. Success criteria (from my report — the product is judged on these)
 
 **Recommendation quality (R)**
-- **R-i** Accurate, sourced information. Every spec and factual claim is traceable to a
+- **R1** Accurate, sourced information. Every spec and factual claim is traceable to a
   source or manufacturer claim. The tool's own interpretation is clearly marked as such.
-- **R-ii** Recommendations justified by the golfer's answers and constraints. Unusual or
+- **R2** Recommendations justified by the golfer's answers and constraints. Unusual or
   incomplete profiles get a sensible result or a clear explanation of why not.
-- **R-iii** Every recommendation has at least two reasons linked to the answers, a
+- **R3** Every recommendation has at least two reasons linked to the answers, a
   trade-off, and a limitation or next step, with no unsupported promises.
 
 **Usability (U)**, tested with 5 testers
