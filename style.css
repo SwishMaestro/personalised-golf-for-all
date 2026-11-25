@@ -490,6 +490,21 @@ legend { padding: 0; margin-bottom: 10px; }
   .options.compact .option input { width: 18px; height: 18px; }
 }
 
+/* Question 8: ranked choice (Leon, 25 Nov). The circle fills green and shows the rank (1, 2, 3). */
+.pick { display: grid; }
+.pick > * { grid-area: 1 / 1; }            /* the number sits on top of the circle */
+.rank {
+  place-self: center; pointer-events: none;
+  font: 600 0.72rem/1 var(--mono); font-variant-numeric: lining-nums; color: var(--paper);
+}
+.option.is-ranked input { background: var(--deep); border-color: var(--deep); }
+.option.is-ranked .rank { animation: rank-in 0.3s var(--slow) both; }
+@keyframes rank-in { from { transform: scale(0.4); opacity: 0; } }
+/* When 3 are picked, the others look unavailable (dashed, muted text that still passes contrast) */
+.option.is-unavailable { border-style: dashed; color: var(--muted); }
+.option.is-unavailable:hover { border-color: var(--line-strong); }
+.rank-status { margin: 12px 0 0; min-height: 1.4em; font-size: 0.88rem; color: var(--muted); }
+
 /* Question 10: optional number fields */
 .fields { display: grid; gap: 18px; }
 .field label { display: block; margin-bottom: 6px; font-weight: 500; }
@@ -530,6 +545,11 @@ legend { padding: 0; margin-bottom: 10px; }
 .card-table td:first-child { width: 3.2rem; font: 500 0.8rem var(--mono); color: var(--brass-ink); border-right: 1px solid var(--line); text-align: center; }
 .card-table td:nth-child(2) { color: var(--muted); }
 .card-table td:last-child { font-weight: 500; }
+/* Question 8's ranked choices: "1 Forgiveness / 2 Control and accuracy / 3 Feel" */
+.ranked-list { margin: 0; padding: 0; list-style: none; counter-reset: rank; }
+.ranked-list li { counter-increment: rank; display: grid; grid-template-columns: 1.4em 1fr; align-items: baseline; }   /* long names wrap under the name, not the number */
+.ranked-list li + li { margin-top: 4px; }
+.ranked-list li::before { content: counter(rank); font: 500 0.8rem var(--mono); color: var(--brass-ink); }
 
 /* =========================================================
    9. LAPTOP LAYOUT (1024px and wider)
@@ -562,6 +582,6 @@ legend { padding: 0; margin-bottom: 10px; }
 @media (prefers-reduced-motion: reduce) {
   .q-card, .button, .button .arrow, .option, .option input, .marker-tip { transition: none; }
   .q-card.is-leaving { transform: none; opacity: 1; }
-  #flag-cloth, .clouds span, .marker.is-new, .results.is-rising .scorecard { animation: none; }
+  #flag-cloth, .clouds span, .marker.is-new, .results.is-rising .scorecard, .option.is-ranked .rank { animation: none; }
   .clouds { display: none; }
 }

@@ -126,8 +126,12 @@ const QUESTIONS = [
   },
   {
     id: "priority", short: "Priority",
+    // Ranked choice (Leon, 25 Nov): pick up to 3 in order; "Not sure" clears the others.
+    // Stored as an ordered list, e.g. ["forgiveness", "accuracy"].
+    // Scoring later (Leon): 1st choice +3, 2nd +2, 3rd +1 to that feature's weight.
+    type: "ranked", max: 3, exclusive: "not-sure",
     text: "What matters most to you?",
-    help: "Every iron is a trade-off. Pick the one thing you'd least like to give up.",
+    help: "Pick up to 3, most important first. Every iron is a trade-off.",
     options: [
       { value: "distance", label: "Distance" },
       { value: "forgiveness", label: "Forgiveness" },
@@ -175,6 +179,8 @@ const QUESTIONS = [
    2. THE ANSWERS OBJECT
    Every answer is stored here, e.g. answers.level = "15-24".
    answers.measurements is either { heightCm, wristToFloorCm, driverSpeedMph } or "skipped".
+   answers.priority is an ordered list, most important first, e.g. ["forgiveness", "accuracy"]
+   (or ["not-sure"]). An empty list is stored as null, so Next stays disabled.
    No scoring yet: the algorithm will read this object later.
    ========================================================= */
 let answers = {};
@@ -372,6 +378,19 @@ function showResults(rise) {
       cell.textContent = text;
       row.append(cell);
     });
+    // Ranked answers (question 8) show as a numbered list in the last cell instead
+    const ranked = rankedLabels(q);
+    if (ranked) {
+      const list = document.createElement("ol");
+      list.className = "ranked-list";
+      ranked.forEach(function (label) {
+        const item = document.createElement("li");
+        item.textContent = label;
+        list.append(item);
+      });
+      row.lastChild.textContent = "";
+      row.lastChild.append(list);
+    }
     body.append(row);
   });
   showScreen("results");
@@ -388,8 +407,24 @@ function describeAnswer(q) {
       return f.label + ": " + (value[f.id] === null ? "–" : value[f.id]);
     }).join(", ");
   }
+  const ranked = rankedLabels(q);
+  if (ranked) {
+    return ranked.map(function (label, i) { return (i + 1) + " " + label; }).join(", ");   // "1 Forgiveness, 2 Feel"
+  }
   const option = q.options.find(function (o) { return o.value === value; });
   return option ? option.label : "–";
+}
+
+// Ranked question with at least one real choice: its labels in order, e.g. ["Forgiveness", "Feel"].
+// Returns null otherwise ("Not sure" or no answer are shown as normal text).
+function rankedLabels(q) {
+  const value = answers[q.id];
+  if (q.type !== "ranked" || !Array.isArray(value) || value[0] === q.exclusive) return null;
+  return value.map(function (v) { return optionLabel(q, v); });
+}
+
+function optionLabel(q, value) {
+  return q.options.find(function (o) { return o.value === value; }).label;
 }
 
 
@@ -427,6 +462,8 @@ function showQuestion(index, arriving) {
 
   if (q.type === "numbers") {
     fieldset.append(buildNumberFields(q));
+  } else if (q.type === "ranked") {
+    fieldset.append(buildRankedOptions(q));
   } else {
     fieldset.append(buildOptions(q));
   }
@@ -494,6 +531,114 @@ function buildOptions(q) {
     box.append(label);
   });
   return box;
+}
+
+// Question 8: ranked choice (Leon, 25 Nov). Real checkboxes inside labels.
+// Each tap adds the option with its rank (1, 2, 3); tapping it again removes it and the others move up.
+// "Not sure" is exclusive: picking it clears the others (and picking a feature clears "Not sure").
+function buildRankedOptions(q) {
+  const wrap = document.createElement("div");
+  const box = document.createElement("div");
+  box.className = "options ranked";
+  if (q.options.length >= 5) box.classList.add("compact");   // 2 columns on small phones
+
+  let order = Array.isArray(answers[q.id]) ? answers[q.id].slice() : [];   // keeps the earlier answer after Back
+
+  q.options.forEach(function (opt) {
+    const label = document.createElement("label");
+    label.className = "option";
+    label.dataset.value = opt.value;
+    const text = document.createElement("span");
+    text.textContent = opt.label;
+    // Hidden text read by screen readers as part of the name: "Forgiveness, choice 1 of 3"
+    const rankText = document.createElement("span");
+    rankText.className = "sr-only rank-text";
+    text.append(rankText);
+    // The circle: a checkbox with the rank number drawn on top of it
+    const pick = document.createElement("span");
+    pick.className = "pick";
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.name = q.id;
+    input.value = opt.value;
+    const badge = document.createElement("span");
+    badge.className = "rank";
+    badge.setAttribute("aria-hidden", "true");
+    pick.append(input, badge);
+
+    input.addEventListener("change", function () {
+      let message;
+      if (input.checked) {
+        if (opt.value === q.exclusive) {
+          message = order.length ? opt.label + ". Your other choices were cleared." : opt.label;
+          order = [opt.value];
+        } else if (order.length >= q.max && order[0] !== q.exclusive) {
+          input.checked = false;   // already 3 picked: refuse the 4th
+          message = "You've already picked " + q.max + ". Remove one first.";
+          showRankStatus(wrap, message);
+          announce(message);
+          return;
+        } else {
+          order = order.filter(function (v) { return v !== q.exclusive; });
+          order.push(opt.value);
+          message = opt.label + ", choice " + order.length + " of " + q.max;
+        }
+      } else {
+        const removedAt = order.indexOf(opt.value);
+        order = order.filter(function (v) { return v !== opt.value; });
+        message = opt.label + " removed.";
+        // Say which choices moved up, e.g. "Feel is now choice 1."
+        order.slice(removedAt).forEach(function (v, i) {
+          message += " " + optionLabel(q, v) + " is now choice " + (removedAt + i + 1) + ".";
+        });
+      }
+      answers[q.id] = order.length ? order.slice() : null;
+      updateRanks(wrap, q, order);
+      updateNextButton();
+      announce(message);
+    });
+
+    label.append(text, pick);
+    box.append(label);
+  });
+
+  // A small line under the options: how many are picked, or why a 4th tap did nothing
+  const status = document.createElement("p");
+  status.className = "rank-status";
+  wrap.append(box, status);
+  updateRanks(wrap, q, order);
+  return wrap;
+}
+
+// Shows each picked option's rank (visible number + hidden text) and dims the rest when 3 are picked
+function updateRanks(wrap, q, order) {
+  const full = order.length >= q.max;
+  wrap.querySelectorAll(".option").forEach(function (label) {
+    const value = label.dataset.value;
+    const rank = order.indexOf(value) + 1;   // 0 = not picked
+    const isExclusive = (value === q.exclusive);
+    label.querySelector("input").checked = rank > 0;
+    label.querySelector(".rank").textContent = (rank && !isExclusive) ? rank : "";
+    label.querySelector(".rank-text").textContent = (rank && !isExclusive) ? ", choice " + rank + " of " + q.max : "";
+    label.classList.toggle("is-ranked", rank > 0 && !isExclusive);   // filled circle with a number
+    label.classList.toggle("is-unavailable", full && rank === 0 && !isExclusive);
+  });
+  let text = "Nothing picked yet";
+  if (order[0] === q.exclusive) text = "Not sure picked";
+  else if (full) text = q.max + " of " + q.max + " picked. Tap one to remove it.";
+  else if (order.length) text = order.length + " of " + q.max + " picked";
+  showRankStatus(wrap, text);
+}
+
+function showRankStatus(wrap, text) {
+  wrap.querySelector(".rank-status").textContent = text;
+}
+
+// Reads a short message aloud for screen readers (the same live region as "Question X of 10")
+function announce(text) {
+  const announcer = document.getElementById("announcer");
+  announcer.textContent = "";
+  setTimeout(function () { announcer.textContent = text; }, 60);
 }
 
 // Question 10: three optional number boxes
