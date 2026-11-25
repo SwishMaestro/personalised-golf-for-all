@@ -2,6 +2,16 @@
 
 Newest entries at the top. Format and rules: see CLAUDE.md, section 3.
 
+## 2026-11-25 — Question 8: "Up to 3" label, squarer boxes, "Not sure" on its own row
+- What changed:
+  - index.html + script.js: a small "Up to 3" label next to "Question 8 of 10" (only on question 8).
+  - style.css: the pick boxes on question 8 have slightly squarer corners than the round "pick one" circles; on phones under 420px, "Not sure" fills its own full-width row.
+  - docs/product-plan.md: section 4 now records Leon's scoring decisions for question 8 ("How it looks" boosts feel, both add up if Feel is also ranked; "Price" boosts value; +3/+2/+1 source). Section 5 notes for the algorithm phase: use the ranking in the reasons, e.g. "You put forgiveness first, so it counted most."
+- Why: Leon to add
+- Decided by: suggested by Claude, chosen by Leon
+- Source: none, design choice. Scoring notes: Leon's design choice, based on ASQ decision matrix; Covey 2025 (players distance irons look like players irons)
+- Criterion: U1, U3, design
+
 ## 2026-11-25 — Question 8 is now a ranked choice (pick up to 3, in order)
 - What changed:
   - script.js: question 8 ("What matters most to you?") uses checkboxes instead of radio buttons. Each tap adds the option with its rank (1, 2, 3); tapping it again removes it and the others move up; "Not sure" clears the others (and picking a feature clears "Not sure"). A 4th pick is refused with the message "You've already picked 3. Remove one first." A line under the options shows how many are picked. Next works once at least one is picked. The answer is stored as an ordered list, e.g. ["forgiveness","accuracy"], and kept after Back. New help text: "Pick up to 3, most important first. Every iron is a trade-off." The answer marker and the scorecard show the ranked choices ("1 Forgiveness, 2 Control and accuracy, 3 Feel").
@@ -10,7 +20,7 @@ Newest entries at the top. Format and rules: see CLAUDE.md, section 3.
 - Accessibility (U3): real checkboxes inside labels, Space to pick, Enter for Next. Screen readers hear e.g. "Forgiveness, choice 1 of 3, checkbox, checked", and every change is announced (e.g. "Forgiveness removed. Feel is now choice 1."). Tested at 375 × 740 and 1440 × 900 incl. reduced motion and real key presses: no sideways scrolling, no console errors.
 - Why: Leon to add
 - Decided by: Leon (ranked choice, up to 3, "Not sure" exclusive, help text, stored list, +3/+2/+1); status line and refusal message suggested by Claude
-- Source: question sources unchanged (Today's Golfer 2026; Saternus 2019; coach interview); +3/+2/+1 weights: Leon's design choice (no source yet)
+- Source: question sources unchanged (Today's Golfer 2026; Saternus 2019; coach interview); +3/+2/+1 weights: Leon's design choice, based on ASQ decision matrix (updated 25 Nov)
 - Criterion: R-ii, U3
 
 ## 2026-11-24 — Home page: option 1 "D, refined" is now the real home page (experiments branch)

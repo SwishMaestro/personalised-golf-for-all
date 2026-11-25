@@ -445,6 +445,10 @@ function showQuestion(index, arriving) {
 
   // Card header: "Question X of 10" (always shown as text) and the shot with its club icon
   document.getElementById("q-number").textContent = index + 1;
+  // "Up to 3" label next to the question number, only on the ranked question (Leon, 25 Nov)
+  const qPick = document.getElementById("q-pick");
+  qPick.hidden = (q.type !== "ranked");
+  if (q.type === "ranked") qPick.textContent = "Up to " + q.max;
   document.getElementById("shot-head").innerHTML =
     '<svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">' + CLUBS[shot.club] + "</svg>" +
     '<span><span class="num">Shot ' + (index + 1) + "</span> · " + shot.label + "</span>";
@@ -547,6 +551,7 @@ function buildRankedOptions(q) {
   q.options.forEach(function (opt) {
     const label = document.createElement("label");
     label.className = "option";
+    if (opt.value === q.exclusive) label.classList.add("is-exclusive");   // "Not sure": own full-width row on phones
     label.dataset.value = opt.value;
     const text = document.createElement("span");
     text.textContent = opt.label;

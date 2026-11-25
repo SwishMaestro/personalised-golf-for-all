@@ -422,6 +422,12 @@ a { color: inherit; }
 .q-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; margin-bottom: 16px; }
 .q-progress { margin: 0; color: var(--muted); }
 .q-progress .num { color: var(--ink); font-size: 0.85rem; }
+/* "Up to 3" label next to the question number (question 8 only, Leon 25 Nov) */
+.q-pick {
+  display: inline-block; margin-left: 8px; padding: 3px 9px 2px;
+  border: 1px solid var(--brass-ink); border-radius: 999px;
+  font-size: 0.66rem; color: var(--brass-ink); vertical-align: 1px;
+}
 .shot-head {
   display: inline-flex; align-items: center; gap: 8px; margin: 0;
   padding: 5px 12px 5px 8px; border-radius: 999px; background: var(--stone);
@@ -492,6 +498,11 @@ legend { padding: 0; margin-bottom: 10px; }
 
 /* Question 8: ranked choice (Leon, 25 Nov). The circle fills green and shows the rank (1, 2, 3). */
 .pick { display: grid; }
+.options.ranked .option input { border-radius: 7px; }   /* slightly squarer than the round "pick one" circles (Leon, 25 Nov) */
+@media (max-width: 419px) {
+  .options.ranked .option input { border-radius: 6px; }
+  .options.compact .option.is-exclusive { grid-column: 1 / -1; }   /* "Not sure" gets its own full-width row */
+}
 .pick > * { grid-area: 1 / 1; }            /* the number sits on top of the circle */
 .rank {
   place-self: center; pointer-events: none;

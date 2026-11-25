@@ -48,11 +48,12 @@ Category starting ratings (Today's Golfer 2026 category averages: carry GI 185.6
 | Blade | 1 | 2 | 5 | 2 | 5 |
 
 Value: 5 = under CHF 500, 4 = 500–1,000, 3 = 1,000–1,400, 2 = 1,400–1,800, 1 = above.
-Weights start at 1. Level: beginner/25+ → forgiveness +3, launch +2; 15–24 → forgiveness +2, distance +1; 6–14 → accuracy +1, distance +1, forgiveness +1; 0–5 → accuracy +2, feel +2. Fat/thin/off-centre → forgiveness +2. Too low → launch +2. "What matters most" (ranked, Leon 25 Nov) → 1st choice +3, 2nd +2, 3rd +1 to that feature's weight ("How it looks" → feel +2 for now; still to decide: how "How it looks" and "Price" work with ranks). Casual → value +3. Long-term goal → accuracy +1.
+Weights start at 1. Level: beginner/25+ → forgiveness +3, launch +2; 15–24 → forgiveness +2, distance +1; 6–14 → accuracy +1, distance +1, forgiveness +1; 0–5 → accuracy +2, feel +2. Fat/thin/off-centre → forgiveness +2. Too low → launch +2. "What matters most" (ranked, Leon 25 Nov) → 1st choice +3, 2nd +2, 3rd +1 to that feature's weight (source: Leon's design choice, based on the ASQ decision matrix: more important criteria get bigger weights). "How it looks" boosts **feel** (compact, players-style look; Covey 2025: players distance irons began as "a distance iron that looks (somewhat) like a players iron"). If both Feel and How it looks are ranked, both weights add to feel (they clearly care a lot about it). "Price" boosts **value**. Casual → value +3. Long-term goal → accuracy +1.
 
 ## 5. Results page (Leon will design this in detail; he must be closely involved)
 - Top 3 irons with match score, brand photo (credit under it, e.g. "Image: TaylorMade", link to the brand page).
 - 2–3 reasons linked to the answers, 1 trade-off, 1 limitation/next step, source next to every fact.
+- **For the algorithm phase (Leon, 25 Nov):** use the question 8 ranking in the reasons, e.g. "You put forgiveness first, so it counted most."
 - Tips when relevant: lie check (PING; Saternus), shaft flex (MacKenzie & Sprigings), used irons + coaching (coach; Johnson & Stachura), "also look into: …" similar models.
 - Note when irons outside Europe exist (e.g. US-only brands).
 - "How it works" page: sources and limits.
