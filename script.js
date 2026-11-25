@@ -332,6 +332,19 @@ function showScreen(name) {
   window.scrollTo({ top: 0, behavior: "instant" });   // jump to the top (no smooth scroll between screens)
 }
 
+// SOFT FADES on the question column (Leon, 25 Nov): tells the CSS whether there is more to scroll
+// above or below, so the edge only fades where something is hidden (style.css, section 4).
+const column = document.getElementById("main");
+function updateScrollFades() {
+  const hidden = column.scrollHeight - column.clientHeight;   // how far the column can scroll
+  column.toggleAttribute("data-more-above", column.scrollTop > 2);
+  column.toggleAttribute("data-more-below", column.scrollTop < hidden - 2);
+}
+column.addEventListener("scroll", updateScrollFades, { passive: true });
+window.addEventListener("resize", updateScrollFades);
+// Also when the card changes height (new question, caddie's note opened, a line added under the options)
+new ResizeObserver(updateScrollFades).observe(document.getElementById("q-card"));
+
 // HOME PAGE: sections fade in as they scroll into view (adds "is-visible"; the CSS does nothing with reduced motion)
 const revealItems = document.querySelectorAll("[data-reveal]");
 if ("IntersectionObserver" in window) {
@@ -488,7 +501,7 @@ function showQuestion(index, arriving) {
   }
 
   // The question column scrolls back to the top: smoothly, or instantly with reduced motion
-  document.getElementById("main").scrollTo({ top: 0, behavior: reducedMotion() ? "instant" : "smooth" });
+  column.scrollTo({ top: 0, behavior: reducedMotion() ? "instant" : "smooth" });
 
   // Accessibility: move focus to the question and announce "Question X of 10"
   document.getElementById("q-title").focus({ preventScroll: true });

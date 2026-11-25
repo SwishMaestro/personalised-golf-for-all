@@ -2,6 +2,17 @@
 
 Newest entries at the top. Format and rules: see CLAUDE.md, section 3.
 
+## 2026-11-25 — Phone Next bar, soft scroll fades, tighter spacing on short laptops
+- What changed:
+  - style.css (section 7): on screens under 1024px, Back (Skip) and Next sit in a slim bar that sticks to the bottom of the question area, so they are always visible; a soft fade above the bar shows when more of the question is underneath. When you scroll to the end, the bar settles back as the card's footer. Next is a little slimmer there (48px high, still easy to tap).
+  - style.css (section 4) + script.js: the question column fades softly at its top and bottom edges, but only on an edge where there is more to scroll (script.js marks this with data-more-above / data-more-below). Keyboard focus always stops clear of the fades and the bar.
+  - style.css (section 9): on laptop screens 820px high or less, slightly tighter spacing inside the question card (card padding, gaps between options, space around the help text and caddie's note). Fonts, colours and sizes unchanged.
+- Tested at 375 × 667, 1024 × 768 and 1440 × 900 (also with reduced motion): on phone, Back and Next are on screen on all 10 questions without scrolling; Tab reaches every option on question 8 (note open) and none ends up under the bar; at 1024 × 768 question 8 with the note open needs 231px of scrolling instead of 358px, question 10 16px instead of 89px; page never scrolls; no console errors.
+- Why: "I didn't like how the question screen scrolled under the whole page, testers shouldn't have to hunt for the Next button on a phone." (Leon)
+- Decided by: suggested by Claude, chosen by Leon (spacing: "only small spacing changes, don't change the look")
+- Source: none, design choice
+- Criterion: U1, U3, design
+
 ## 2026-11-25 — Bug fix: question screens fit the window like an app
 - What changed:
   - style.css (section 4): on question screens the page itself no longer scrolls and has no "rubber band" bounce (overscroll-behavior: none). The screen is exactly the window height; only the question column scrolls, inside its own area, with a small gap under Next and no empty space below. Section 9 (laptop): the hole panel fills the left side at full height (no longer "sticky" inside a scrolling page); the question card is vertically centred in the right column.
